@@ -1,0 +1,40 @@
+$(document).ready(function() {
+   // on ready
+});
+
+async function iniciarSesion() {
+  let datos = {
+    email: document.getElementById('txtEmail').value,
+    password: document.getElementById('txtPassword').value
+  };
+
+  try {
+    const request = await fetch('http://localhost:8080/auth/login', {
+      method: 'POST',
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(datos)
+    });
+
+    const respuesta = await request.json();
+
+    if (request.ok && respuesta.token) {
+      const tokenData = jwt_decode(respuesta.token);
+
+      localStorage.setItem('token', respuesta.token);
+      localStorage.setItem('email', tokenData.sub);
+      localStorage.setItem('nombre', tokenData.name);
+
+      window.location.href = 'events.html';
+    } else {
+      alert(respuesta.error || "Error de autenticación.");
+    }
+
+  } catch (error) {
+    console.error("Error en la solicitud:", error);
+    alert("No se pudo conectar con el servidor.");
+  }
+}
+

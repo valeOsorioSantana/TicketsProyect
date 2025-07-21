@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Editar Evento</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="./css/editEvents.css" />
+</head>
+
+<body>
+  <div class="evento-container">
+    <h2>Editar Evento</h2>
+
+    <div id="errorMensaje" class="error"></div>
+
+    <div class="campo" style="display: none;"><label>ID:</label> <input type="text" id="idEvento" readonly /></div>
+    <div class="campo"><label>Nombre:</label> <input type="text" id="nombreEvento" /></div>
+    <div class="campo"><label>Descripción:</label> <textarea id="descripcionEvento" rows="3"></textarea></div>
+    <div class="campo"><label>Categoría:</label>
+      <select id="categoriaEvento">
+        <option value="Música">Música</option>
+        <option value="Deporte">Deporte</option>
+        <option value="Educación">Educación</option>
+        <option value="Tecnología">Tecnología</option>
+      </select>
+    </div>
+    <div class="campo"><label>Dirección:</label> <input type="text" id="direccionEvento" /></div>
+    <div class="campo"><label>Fecha de Inicio:</label> <input type="date" id="fechaInicioEvento" /></div>
+    <div class="campo"><label>Fecha de Fin:</label> <input type="date" id="fechaFinEvento" /></div>
+    <div class="campo"><label>Estado:</label>
+      <select id="estadoEvento">
+        <option value="PUBLICADO">Publicado</option>
+        <option value="BORRADOR">Borrador</option>
+        <option value="CANCELADO">Cancelado</option>
+        <option value="FINALIZADO">Finalizado</option>
+      </select>
+    </div>
+    <div class="campo"><label>Latitud:</label> <input type="text" id="latitudEvento" /></div>
+    <div class="campo"><label>Longitud:</label> <input type="text" id="longitudEvento" /></div>
+
+    <div id="map"></div>
+
+    <div class="campo">
+      <label>Imagen actual:</label>
+      <div><img id="imagenEvento" src="" alt="Imagen del evento"></div>
+    </div>
+
+    <div class="campo">
+      <label for="imagenFile">Cambiar imagen del evento:</label>
+      <input type="file" id="imagenFile" accept="image/*" />
+    </div>
+
+    <div class="campo text-center">
+      <button id="btnGuardarCambios" class="main-btn primary-btn btn-hover">Guardar Cambios</button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="./js/editEvents.js"></script>
+</body>
+
+</html>

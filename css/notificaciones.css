@@ -1,0 +1,32 @@
+.btn-marcar-todo {
+  padding: 3px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.acciones-noti {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.noti-btn {
+  padding: 2px 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.notificacion.leida {
+  background-color: #e6ffe6;
+  opacity: 0.95;
+}
+
+.icon-circle {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+  font-size: 18px;
+}
+

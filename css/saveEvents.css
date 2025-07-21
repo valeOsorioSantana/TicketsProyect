@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+
+/* =========================
+   General
+========================= */
+body {
+  font-family: 'Quicksand', sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #e4f0fc, #f8fbff);
+  color: #34495e;
+}
+
+.container {
+  max-width: 720px;
+  margin: auto;
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.8rem 2rem;
+  box-shadow: 0 6px 20px rgba(0, 90, 160, 0.12);
+  animation: fadeIn 0.4s ease-in-out;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* =========================
+   Inputs, Textareas y Selects
+========================= */
+.input-style-1,
+.select-style-1 {
+  margin-bottom: 1.6rem;
+}
+
+.input-style-1 label,
+.select-style-1 label {
+  font-weight: 600;
+  color: #2a4d69;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.input-style-1 input,
+.input-style-1 textarea,
+.select-style-1 select,
+#otraCategoriaCampo input {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid #cbddef;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #f4faff;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  box-sizing: border-box;
+  margin-top: 0.3rem;
+}
+
+.input-style-1 input:focus,
+.input-style-1 textarea:focus,
+.select-style-1 select:focus,
+#otraCategoriaCampo input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 6px rgba(74, 144, 226, 0.5);
+  outline: none;
+}
+
+/* =========================
+   Mensajes de error
+========================= */
+.mensaje-error {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+/* =========================
+   Mapa
+========================= */
+#map {
+  height: 280px;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #a7c1e8;
+  margin-top: 0.8rem;
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.12);
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 1rem;
+  }
+
+  #map {
+    height: 200px;
+  }
+
+  .input-style-1 input,
+  .input-style-1 textarea,
+  .select-style-1 select {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .col-md-6 {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .col-12.text-center.mt-4 {
+    margin-top: 1rem;
+  }
+}
+
+/* =========================
+   Vista previa del evento
+========================= */
+#vistaPrevia {
+  background: #f5fbff;
+  border: 1px solid #bbe1ff;
+  border-radius: 12px;
+  padding: 1.8rem 2rem;
+  margin-top: 2rem;
+  box-shadow: 0 6px 18px rgba(0, 70, 140, 0.07);
+  animation: fadeInUp 0.4s ease-in-out;
+}
+
+#vistaPrevia h3 {
+  text-align: center;
+  margin-bottom: 1.4rem;
+  color: #21618c;
+  font-size: 1.5rem;
+}
+
+#vistaPrevia p {
+  margin-bottom: 0.8rem;
+  font-size: 1.05rem;
+  color: #3d566e;
+}
+
+#vistaPrevia strong {
+  color: #1b3551;
+}
+
+#vistaPrevia img {
+  display: block;
+  margin: 1.2rem auto;
+  border-radius: 10px;
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.07);
+}
+
+/* =========================
+   Botones vista previa
+========================= */
+#vistaPrevia button {
+  margin: 8px;
+  padding: 10px 22px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  box-shadow: 0 3px 10px rgba(40, 110, 190, 0.15);
+}
+
+#btnVolver {
+  background: linear-gradient(135deg, #7baaf7, #5a8bd6);
+  color: #fff;
+}
+
+#btnVolver:hover {
+  background: linear-gradient(135deg, #5a8bd6, #3d6bb3);
+}
+
+#btnConfirm {
+  background: linear-gradient(135deg, #43b581, #2e9a6f);
+  color: #fff;
+}
+
+#btnConfirm:hover {
+  background: linear-gradient(135deg, #2e9a6f, #24654f);
+}
+
+/* =========================
+   Campo "Otra categoría"
+========================= */
+#otraCategoriaCampo {
+  margin-top: 1rem;
+}
+
+#otraCategoriaCampo label {
+  font-weight: 600;
+  color: #2a4d69;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* =========================
+   Animaciones
+========================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
