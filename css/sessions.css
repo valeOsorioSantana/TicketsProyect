@@ -1,0 +1,61 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+.titulo-estadisticas {
+  font-size: 36px;
+  color: #2980b9;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.icono-titulo {
+  font-size: 40px;
+  margin-right: 10px;
+}
+
+form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form input, form textarea {
+  margin-bottom: 10px;
+}
+
+.btn-custom {
+  background-color: #3498db;
+  color: white;
+  border-radius: 30px;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.btn-custom:hover {
+  background-color: #2980b9;
+}
+
+.session-card {
+  background-color: #fff;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.session-card h4 {
+  margin-bottom: 10px;
+}
+
+.session-card p {
+  font-size: 14px;
+}
+
+.session-card button {
+  margin-top: 10px;
+}

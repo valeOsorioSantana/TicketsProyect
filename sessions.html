@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crear Sesiones del Evento</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/sessions.css" rel="stylesheet" />
+</head>
+
+<body class="p-4">
+
+  <div class="container">
+    <!-- Título de la página -->
+    <h2 class="titulo-estadisticas">
+      <span class="icono-titulo">🎤</span> Crear Sesiones del Evento
+    </h2>
+
+    <!-- Formulario para agregar una sesión -->
+    <div id="form-container" class="mb-4">
+      <h3>Formulario de Nueva Sesión</h3>
+      <form id="sessionForm" onsubmit="event.preventDefault(); crearSesion();">
+        <div class="form-group">
+          <label for="sessionTitle">Título de la Sesión</label>
+          <input type="text" class="form-control" id="sessionTitle" placeholder="Título de la sesión" required />
+        </div>
+        <div class="form-group">
+          <label for="sessionDescription">Descripción</label>
+          <textarea class="form-control" id="sessionDescription" rows="4" placeholder="Descripción de la sesión" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="sessionStartTime">Fecha de Inicio</label>
+          <input type="date" class="form-control" id="sessionStartTime" required />
+        </div>
+        <div class="form-group">
+          <label for="sessionEndTime">Fecha de Fin</label>
+          <input type="date" class="form-control" id="sessionEndTime" required />
+        </div>
+        <div class="form-group">
+          <label for="speakerName">Nombre del Orador</label>
+          <input type="text" class="form-control" id="speakerName" placeholder="Nombre del orador" required />
+        </div>
+        <div class="form-group">
+          <label for="speakerBio">Biografía del Orador</label>
+          <textarea class="form-control" id="speakerBio" rows="4" placeholder="Biografía del orador" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-custom">Crear Sesión</button>
+      </form>
+    </div>
+
+    <!-- Lista de sesiones -->
+    <h3>Sesiones del Evento</h3>
+    <div id="sessionsList" class="mt-4">
+      <!-- Las sesiones se mostrarán aquí -->
+    </div>
+  </div>
+
+  <script src="js/sessions.js"></script>
+</body>
+
+</html>

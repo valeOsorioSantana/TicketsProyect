@@ -6,10 +6,16 @@
   <title>Editar Evento</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="./css/editEvents.css" />
+  <link rel="shortcut icon" href="./img/entradas.png" type="image/x-icon" />
 </head>
 
 <body>
   <div class="evento-container">
+    <!-- Botón de regreso -->
+    <div class="volver-wrapper">
+      <button id="btnVolverInicio" class="main-btn secondary-btn">← Volver al inicio</button>
+    </div>
+
     <h2>Editar Evento</h2>
 
     <div id="errorMensaje" class="error"></div>
@@ -18,12 +24,16 @@
     <div class="campo"><label>Nombre:</label> <input type="text" id="nombreEvento" /></div>
     <div class="campo"><label>Descripción:</label> <textarea id="descripcionEvento" rows="3"></textarea></div>
     <div class="campo"><label>Categoría:</label>
-      <select id="categoriaEvento">
+      <select id="categoriaEvento" class="form-control">
         <option value="Música">Música</option>
         <option value="Deporte">Deporte</option>
-        <option value="Educación">Educación</option>
-        <option value="Tecnología">Tecnología</option>
+        <option value="Conferencia">Conferencia</option>
+        <option value="Otros">Otros</option>
       </select>
+
+      <div id="otraCategoriaCampo" style="display: none; margin-top: 5px;">
+        <input type="text" id="otraCategoria" class="form-control" placeholder="Especifica la categoría" />
+      </div>
     </div>
     <div class="campo"><label>Dirección:</label> <input type="text" id="direccionEvento" /></div>
     <div class="campo"><label>Fecha de Inicio:</label> <input type="date" id="fechaInicioEvento" /></div>

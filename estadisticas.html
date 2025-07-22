@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estadísticas del Evento</title>
+  <!-- Bootstrap CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <!-- Enlace a los estilos CSS externos -->
+  <link href="css/estadisticas.css" rel="stylesheet" />
+  <link rel="shortcut icon" href="./img/entradas.png" type="image/x-icon" />
+</head>
+
+<body class="p-4">
+
+  <div class="container">
+    <button class="btn btn-custom2" onclick="volverAlInicio()">
+      <span class="icono-boton"><i class="fas fa-home"></i></span> Volver al Inicio
+    </button>
+
+    <h2 class="titulo-estadisticas">
+      <span class="icono-titulo"><i class="fas fa-chart-line"></i></span> Estadísticas del Evento
+    </h2>
+
+
+    <div class="mb-3 pos-top-right">
+      <input type="number" class="evento-id-input form-control w-25 d-inline-block" placeholder="ID del evento" />
+      <button onclick="actualizarEstadisticas()" class="btn btn-custom">Actualizar Estadísticas</button>
+    </div>
+
+
+    <div id="errorMensaje" class="text-danger mb-2"></div>
+
+    <div id="estadisticasContainer" class="estadisticas-container" style="display:none;">
+      <div id="estadisticasGrid" class="estadisticas-grid"></div>
+
+      <div class="grafica-container">
+        <canvas id="graficaEstadisticas"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="./js/estadisticas.js"></script>
+
+  <script>
+    // Función para volver al inicio
+    function volverAlInicio() {
+      window.location.href = "events.html";  // Redirige al inicio (ajusta la URL según tu necesidad)
+    }
+  </script>
+</body>
+
+</html>

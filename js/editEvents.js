@@ -9,8 +9,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const apiUrl = `http://localhost:8080/api/public/events/${eventId}`;
   const latInput = document.getElementById("latitudEvento");
   const lonInput = document.getElementById("longitudEvento");
+  const categoriaSelect = document.getElementById("categoriaEvento");
+  const otraCategoriaCampo = document.getElementById("otraCategoriaCampo");
+  const otraCategoriaInput = document.getElementById("otraCategoria");
+
   let marker, map;
 
+  // Mostrar campo de texto si se selecciona "Otros"
+  categoriaSelect.addEventListener("change", () => {
+    if (categoriaSelect.value === "Otros") {
+      otraCategoriaCampo.style.display = "block";
+    } else {
+      otraCategoriaCampo.style.display = "none";
+      otraCategoriaInput.value = "";
+    }
+  });
+
+  // Obtener datos del evento
   fetch(apiUrl)
     .then(response => {
       if (!response.ok) throw new Error("Error al obtener evento");
@@ -20,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("idEvento").value = event.id;
       document.getElementById("nombreEvento").value = event.name;
       document.getElementById("descripcionEvento").value = event.description;
-      document.getElementById("categoriaEvento").value = event.category;
       document.getElementById("direccionEvento").value = event.address;
       document.getElementById("fechaInicioEvento").value = event.startDate.split("T")[0];
       document.getElementById("fechaFinEvento").value = event.endDate.split("T")[0];
@@ -28,6 +42,17 @@ document.addEventListener("DOMContentLoaded", () => {
       latInput.value = event.latitude;
       lonInput.value = event.longitude;
       document.getElementById("imagenEvento").src = event.imagen?.url || "";
+
+      // Establecer categoría
+      const opciones = [...categoriaSelect.options].map(o => o.value);
+      if (opciones.includes(event.category)) {
+        categoriaSelect.value = event.category;
+        otraCategoriaCampo.style.display = "none";
+      } else {
+        categoriaSelect.value = "Otros";
+        otraCategoriaCampo.style.display = "block";
+        otraCategoriaInput.value = event.category;
+      }
 
       const pos = [event.latitude, event.longitude];
       map = L.map("map").setView(pos, 13);
@@ -51,13 +76,23 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("errorMensaje").textContent = error.message;
     });
 
+  // Guardar cambios
   document.getElementById("btnGuardarCambios").addEventListener("click", async () => {
+    let categoriaFinal = categoriaSelect.value;
+    if (categoriaFinal === "Otros") {
+      categoriaFinal = otraCategoriaInput.value.trim();
+      if (!categoriaFinal) {
+        alert("Por favor especifica la categoría.");
+        return;
+      }
+    }
+
     const datosEvento = {
       name: document.getElementById("nombreEvento").value,
       description: document.getElementById("descripcionEvento").value,
       startDate: document.getElementById("fechaInicioEvento").value + "T00:00:00",
       endDate: document.getElementById("fechaFinEvento").value + "T00:00:00",
-      category: document.getElementById("categoriaEvento").value,
+      category: categoriaFinal,
       address: document.getElementById("direccionEvento").value,
       latitude: parseFloat(latInput.value),
       longitude: parseFloat(lonInput.value),
@@ -68,10 +103,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const formData = new FormData();
     const file = fileInput?.files?.[0];
     if (file) {
-      formData.append("file", file); // Solo si se seleccionó una imagen
+      formData.append("file", file);
     }
     formData.append("event", JSON.stringify(datosEvento));
-    formData.append("file", file);
 
     try {
       const response = await fetch(apiUrl, {
@@ -86,11 +120,23 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       alert("¡Evento actualizado con éxito!");
-
       window.location.href = "events.html";
     } catch (err) {
       alert("Error: " + err.message);
       console.error(err);
     }
   });
+  // Botón de regreso al inicio con confirmación creativa
+  document.getElementById("btnVolverInicio").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const confirmado = confirm(
+      "⚠️ ¿Estás segur@ de que quieres volver al inicio?\n\n📝 Los cambios que no hayas guardado se perderán."
+    );
+
+    if (confirmado) {
+      window.location.href = "events.html"; // Cambia esta URL si es diferente
+    } 
+  });
+
 });

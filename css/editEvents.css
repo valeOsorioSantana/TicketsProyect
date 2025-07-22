@@ -118,3 +118,20 @@ img {
     transform: translateY(0);
   }
 }
+
+/* Estilo para botón de regreso */
+.volver-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1.2rem;
+}
+
+.secondary-btn {
+  background: linear-gradient(135deg, #f0f4f8, #d0dce8);
+  color: #2c3e50;
+  border: 1px solid #aac6e3;
+}
+
+.secondary-btn:hover {
+  background: linear-gradient(135deg, #d0dce8, #aac6e3);
+}

@@ -54,6 +54,12 @@ async function cargarUsuarios() {
         <i class="fas fa-pen"></i>
       </button>`;
 
+    const botonEstadisticas = `
+      <button class="btn btn-outline-info btn-sm" title="Ver estadísticas" onclick="verEstadisticas(${evento.id})">
+        <i class="fas fa-chart-bar"></i>
+      </button>`;
+
+
     const eventoHtml = `
       <tr data-id="${evento.id}" data-lat="${evento.latitude}" data-lng="${evento.longitude}">
         <td><img src="${evento.imagen.url}" alt="Portada" width="100" height="60" style="object-fit:cover; border-radius:4px;"></td>
@@ -64,7 +70,7 @@ async function cargarUsuarios() {
         <td>${evento.startDate}</td>
         <td>${evento.endDate}</td>
         <td><span class="badge bg-success">${evento.status}</span></td>
-        <td>${botonEditar} ${botonEliminar}</td>
+        <td>${botonEditar} ${botonEliminar} ${botonEstadisticas}</td>
       </tr>`;
 
     listadoHtml += eventoHtml;
@@ -87,4 +93,34 @@ function getHeaders() {
     'Content-Type': 'application/json',
     'Authorization': localStorage.token
   };
+}
+
+async function eliminarEvento(id) {
+  if (!confirm('¿Está seguro de que desea eliminar este evento?')) {
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:8080/api/public/events/${id}`, {
+      method: 'DELETE',
+      headers: getHeaders()
+    });
+
+    if (response.ok) {
+      // Eliminar visualmente la fila de la tabla
+      const fila = document.querySelector(`tr[data-id="${id}"]`);
+      if (fila) fila.remove();
+      alert('✅ Evento eliminado correctamente.');
+    } else {
+      const error = await response.text();
+      alert('❌ Error al eliminar el evento: ' + error);
+    }
+  } catch (err) {
+    console.error('Error de red:', err);
+    alert('❌ Error de red al intentar eliminar el evento.');
+  }
+}
+
+function verEstadisticas(id) {
+  window.location.href = `estadisticas.html?id=${id}`;
 }

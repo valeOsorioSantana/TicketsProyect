@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap');
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #d1e2fd;
+  color: #bbddff;
+  margin: 0;
+  padding: 3rem;
+}
+
+.titulo-estadisticas {
+  font-family: 'Poppins', sans-serif;
+  font-size: 35px;
+  color: #34495e;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.icono-titulo {
+  font-size: 45px; /* Tamaño más grande para un icono llamativo */
+  margin-right: 20px; /* Separación entre el icono y el texto */
+  color: #3498db; /* Azul brillante para el icono */
+  transition: transform 0.3s ease; /* Transición suave al hacer hover */
+}
+
+.titulo-estadisticas:hover {
+  color: #2980b9;
+  text-decoration: none;
+  transform: translateY(-5px);
+}
+
+.titulo-estadisticas:hover .icono-titulo {
+  transform: scale(1.1);
+}
+
+#busquedaContainer {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+#inputEventoId {
+  padding: 12px 16px;
+  border: 1px solid #160303;
+  border-radius: 10px;
+  font-size: 16px;
+  width: 280px;
+  transition: all 0.3s ease;
+}
+
+#inputEventoId:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 5px rgba(12, 124, 199, 0.3);
+}
+
+button {
+  padding: 12px 18px;
+  background-color: #3b9ee0;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+.pos-top-right {
+  position: absolute;
+  top: 20px; /* Distancia desde la parte superior */
+  right: 120px; /* Distancia desde el lado derecho */
+  z-index: 1000; /* Asegura que se quede encima de otros elementos */
+}
+
+#errorMensaje {
+  text-align: center;
+  color: #e74c3c;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+#estadisticasContainer {
+  margin-top: 2rem;
+  display: none;
+}
+
+#estadisticasGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.estadistica-card {
+  background-color: #7fb9fc;
+  border-radius: 18px;
+  box-shadow: 0 8px 16px rgba(11, 34, 95, 0.13);
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.estadistica-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.estadistica-card h4 {
+  font-size: 32px;
+  margin-bottom: 0.8rem;
+  color: #e8f3ff;
+}
+
+.estadistica-card p {
+  font-size: 16px;
+  color: #e6fafc;
+}
+
+.grafica-container {
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 900px;
+  height: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  background-color: #e9f2fc;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+#graficaEstadisticas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  border-radius: 10px;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn-custom {
+  background-color: #7fb9fc; 
+  border-color: #78b2f5; 
+  color: #ffffff; 
+  font-size: 16px; 
+  padding: 12px 24px; 
+  border-radius: 50px; 
+  font-weight: 600; 
+  text-transform: uppercase; 
+  transition: all 0.3s ease; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  outline: none; 
+}
+
+.btn-custom:hover {
+  background-color: #499aeb; 
+  border-color: #518dee; 
+  color: #ffffff; 
+  transform: translateY(-3px); 
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
+}
+
+.btn-custom:focus {
+  outline: none; 
+}
+
+.evento-id-input {
+  background-color: #f1f7ff; /* Color de fondo suave y claro */
+  border: 2px solid #90c6fc; /* Borde sutil y claro */
+  border-radius: 30px; /* Bordes redondeados para un look más moderno */
+  padding: 22px 1px; /* Espaciado cómodo dentro del input */
+  font-size: 21px; /* Tamaño de fuente cómodo */
+  color: #0e4d8b; /* Color de texto oscuro para contraste */
+  width: 50%; /* Hacerlo un poco más grande que antes */
+  transition: all 0.3s ease; /* Transición suave para los cambios */
+  text-align: right;
+  width: 9%!important
+}
+
+.evento-id-input::placeholder {
+  color: #518dee; /* Color del texto del placeholder */
+  font-size: 14px; /* Un poco más pequeño para el placeholder */
+}
+
+.evento-id-input:focus {
+  outline: none; /* Sin borde de enfoque predeterminado */
+  border-color: #4e73df; /* Color de borde cuando está en enfoque (azul vibrante) */
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2); /* Sombra suave y azulada al hacer focus */
+}
+
+.evento-id-input:hover {
+  border-color: #518dee; /* Color más oscuro del borde cuando el mouse pasa sobre el campo */
+}
+
+.btn-custom2 {
+  background-color: #7fb9fc; /* Color azul vibrante */
+  border-color: #78b2f5; /* Borde de color más oscuro */
+  color: #fff; /* Color del texto blanco */
+  padding: 12px 20px; /* Espaciado dentro del botón */
+  font-size: 16px; /* Tamaño de la fuente */
+  font-weight: 600; /* Peso de la fuente */
+  border-radius: 30px; /* Bordes redondeados */
+  display: flex;
+  align-items: center; /* Alinea el texto y el ícono */
+  justify-content: center; /* Centra el contenido */
+  transition: all 0.3s ease; /* Transición suave */
+  cursor: pointer; /* Asegura que se vea como un botón */
+}
+
+.btn-custom2:hover {
+  background-color: #499aeb; /* Cambio de color al pasar el mouse */
+  border-color: #518dee; /* Color del borde cuando pasa el mouse */
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
+
+.icono-boton2 {
+  margin-right: 10px; /* Separación entre el ícono y el texto */
+  font-size: 18px; /* Tamaño adecuado para el ícono */
+}
+
+.icono-boton2 i {
+  transition: transform 0.3s ease; /* Animación de escala */
+}
+
+.btn-custom2:hover .icono-boton i {
+  transform: scale(1.1); /* Hace que el ícono crezca ligeramente al pasar el mouse */
+}

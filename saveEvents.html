@@ -2,61 +2,61 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>Crear Evento</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Crear Eventos</title>
+
+    <!-- Estilos -->
+    <link rel="shortcut icon" href="./img/entradas.png" type="image/x-icon" />
     <link rel="stylesheet" href="./css/saveEvents.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="css/notificaciones.css" rel="stylesheet" />
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet" />
 </head>
 
-<body>
-
-    <!-- Page Wrapper -->
+<body id="page-top">
     <div id="wrapper">
-
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="events.html">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <i class="fas fa-ticket-alt"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Eventos</div>
+                <div class="sidebar-brand-text mx-3">TicketLite</div>
             </a>
 
             <li class="nav-item active">
-                <a class="nav-link" href="register.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Registro</span></a>
+                <a class="nav-link" href="events.html"><i class="fas fa-fw fa-table"></i><span>Eventos</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="saveEvents.html"><i class="fas fa-fw fa-plus-circle"></i><span>Crear
+                        evento</span></a>
             </li>
 
             <li class="nav-item active">
-                <a class="nav-link" href="saveEvents.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Crear evento</span></a>
+                <a class="nav-link" href="estadisticas.html">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Estadísticas</span>
+                </a>
             </li>
 
-            <hr class="sidebar-divider d-none d-md-block">
-
+            <hr class="sidebar-divider d-none d-md-block" />
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
         </ul>
-        <!-- End of Sidebar -->
+        <!-- Fin Sidebar -->
 
-        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
             <div id="content">
-
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
                     <form class="form-inline">
                         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                             <i class="fa fa-bars"></i>
@@ -64,41 +64,90 @@
                     </form>
 
                     <ul class="navbar-nav ml-auto">
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                        <!-- Notificaciones -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="txt-name-usuario">...</span>&nbsp;&nbsp;&nbsp;
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <span class="badge badge-danger badge-counter">2</span>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">Notificaciones</h6>
+                                <div class="text-right px-3 py-1">
+                                    <button class="btn btn-sm btn-success btn-marcar-todo">✓ Leer todo</button>
+                                </div>
+                                <!-- Notificación 1 -->
+                                <a class="dropdown-item d-flex align-items-center notificacion" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary text-white">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">Hace 10 min</div>
+                                        <span><strong>Valeria</strong> le dio like al evento.</span>
+                                        <div class="acciones-noti mt-1">
+                                            <button class="btn btn-sm btn-outline-success noti-btn leido">✓
+                                                Leído</button>
+                                            <button
+                                                class="btn btn-sm btn-outline-primary noti-btn responder">💬</button>
+                                            <button class="btn btn-sm btn-outline-danger noti-btn eliminar">🗑️</button>
+                                        </div>
+                                    </div>
                                 </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a onclick="logout()" class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                <!-- Notificación 2 -->
+                                <a class="dropdown-item d-flex align-items-center notificacion" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-info text-white">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">Hace 15 min</div>
+                                        <span><strong>Santiago</strong> le dio like al evento.</span>
+                                        <div class="acciones-noti mt-1">
+                                            <button class="btn btn-sm btn-outline-success noti-btn leido">✓
+                                                Leído</button>
+                                            <button
+                                                class="btn btn-sm btn-outline-primary noti-btn responder">💬</button>
+                                            <button class="btn btn-sm btn-outline-danger noti-btn eliminar">🗑️</button>
+                                        </div>
+                                    </div>
                                 </a>
                             </div>
                         </li>
+                        <!-- Fin Notificaciones -->
 
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Usuario -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"
+                                    id="txt-name-usuario">...</span>
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg" />
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#"><i
+                                        class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Perfil</a>
+                                <a class="dropdown-item" href="#"><i
+                                        class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>Configuración</a>
+                                <a class="dropdown-item" href="#"><i
+                                        class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Actividad</a>
+                                <div class="dropdown-divider"></div>
+                                <a onclick="logout()" class="dropdown-item" href="#" data-toggle="modal"
+                                    data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Cerrar sesión
+                                </a>
+                            </div>
+                        </li>
                     </ul>
-
                 </nav>
-                <!-- End of Topbar -->
 
+                <!-- Contenido principal -->
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
@@ -144,9 +193,11 @@
                                 <div class="col-md-6">
                                     <div class="input-style-1">
                                         <label for="eventLocation">Ubicación del Evento: Latitude : Longitude</label>
-                                        <input id="eventLocation" type="text" placeholder="Ej: -12.0464, -77.0428" readonly />
+                                        <input id="eventLocation" type="text" placeholder="Ej: -12.0464, -77.0428"
+                                            readonly />
                                         <div class="mensaje-error" id="errorEventLocation"></div>
-                                        <button type="button" id="btnGetEventLocation">📍 Usar mi ubicación actual</button>
+                                        <button type="button" id="btnGetEventLocation">📍 Usar mi ubicación
+                                            actual</button>
                                     </div>
                                 </div>
 
@@ -175,7 +226,8 @@
                                         </div>
                                         <div class="campo" id="otraCategoriaCampo" style="display: none;">
                                             <label for="otraCategoria">Otra Categoría:</label>
-                                            <input type="text" id="otraCategoria" placeholder="Escribe la nueva categoría" />
+                                            <input type="text" id="otraCategoria"
+                                                placeholder="Escribe la nueva categoría" />
                                         </div>
                                         <div class="mensaje-error" id="errorCategory"></div>
                                     </div>
@@ -214,7 +266,8 @@
                         </form>
 
                         <!-- Vista previa del evento -->
-                        <div id="vistaPrevia" style="display: none; padding: 20px; border: 1px solid #ccc; margin-top: 30px;">
+                        <div id="vistaPrevia"
+                            style="display: none; padding: 20px; border: 1px solid #ccc; margin-top: 30px;">
                             <h3>Vista previa del evento</h3>
 
                             <p><strong>Nombre del evento:</strong> <span id="previewName"></span></p>
@@ -232,40 +285,59 @@
 
                             <br /><br />
                             <button id="btnVolver" type="button" class="main-btn warning-btn btn-hover">Volver</button>
-                            <button id="btnConfirm" type="button" class="main-btn primary-btn btn-hover">Confirmar Evento</button>
+                            <button id="btnConfirm" type="button" class="main-btn primary-btn btn-hover">Confirmar
+                                Evento</button>
                         </div>
 
                     </div>
                 </div>
                 <!-- /.container-fluid -->
 
+
             </div>
-            <!-- End of Main Content -->
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Gestor de usuarios. Autor: Jhonnatan H. Henao M. 😎</span>
+                        <span>© 2025 TicketLite · Todos los derechos reservados</span>
                     </div>
                 </div>
             </footer>
             <!-- End of Footer -->
-
         </div>
-        <!-- End of Content Wrapper -->
-
     </div>
-    <!-- End of Page Wrapper -->
 
+    <!-- Scroll to Top -->
+    <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
+
+    <!-- Logout Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">¿Deseas salir?</h5>
+                    <button class="close" type="button" data-dismiss="modal"><span>×</span></button>
+                </div>
+                <div class="modal-body">Selecciona "Logout" si deseas cerrar sesión.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="js/events.js"></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="./js/saveEvent.js"></script>
+    <script src="js/saveEvent.js"></script>
+    <script src="js/events.js"></script>
+    <script src="js/notificaciones.js"></script>
 </body>
 
 </html>
