@@ -18,7 +18,7 @@ async function registrarUsuario() {
     return;
   }
 
-  const request = await fetch('api/usuarios', {
+  const request = await fetch('/api/users/{user}', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

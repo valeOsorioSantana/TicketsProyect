@@ -2,33 +2,25 @@
 <html lang="es">
 
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="description" content="" />
-  <meta name="author" content="" />
-  <title>Sesiones del Evento | TicketLite</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crear Sesión | TicketLite</title>
 
-  <!-- Fonts -->
+  <!-- Fonts & Icons -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet" />
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
-  <!-- Estilos personalizados -->
+
+  <!-- Styles -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet" />
-  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
-  <link href="css/notificaciones.css" rel="stylesheet" />
+  <link href="css/saveSession.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/notificaciones.css">
   <link rel="shortcut icon" href="./img/entradas.png" type="image/x-icon" />
-  <link rel="stylesheet" href="css/sessions.css" />
-  <script src="https://kit.fontawesome.com/a2d9a66a57.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="bg-light">
-  <!-- Page Wrapper -->
+<body id="page-top">
   <div id="wrapper">
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-      <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="events.html">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-ticket-alt"></i> <!-- Ícono cambiado -->
@@ -36,12 +28,9 @@
         <div class="sidebar-brand-text mx-3">TicketLite</div>
       </a>
 
-      </a>
-
       <li class="nav-item active">
         <a class="nav-link" href="events.html"><i class="fas fa-fw fa-table"></i><span>Eventos</span></a>
       </li>
-
       <li class="nav-item active">
         <a class="nav-link" href="saveEvents.html"><i class="fas fa-fw fa-plus-circle"></i><span>Crear
             evento</span></a>
@@ -62,27 +51,31 @@
       </li>
 
       <hr class="sidebar-divider d-none d-md-block" />
-
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div>
     </ul>
+    <!-- Fin Sidebar -->
 
-    <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-          <!-- Sidebar Toggle -->
-          <form class="form-inline">
-            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+          <form class="form-inline w-100 d-flex align-items-center justify-content-between">
+            <span class="navbar-brand text-primary font-weight-bold">🎤 Crear Sesión</span>
+            <div class="d-flex align-items-center ml-auto">
+              <a href="sessions.html"
+                class="btn btn-sm btn-outline-primary shadow-sm rounded-pill px-3 font-weight-bold mr-2">
+                <i class="fas fa-chalkboard-teacher mr-1"></i> Ver Sesiones
+              </a>
+            </div>
+            <!-- Botón sidebar para móviles -->
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle ml-2">
               <i class="fa fa-bars"></i>
             </button>
           </form>
 
-          <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
-
             <!-- Notificaciones -->
             <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
@@ -96,7 +89,6 @@
                 <div class="text-right px-3 py-1">
                   <button class="btn btn-sm btn-success btn-marcar-todo">✓ Leer todo</button>
                 </div>
-
                 <!-- Notificación 1 -->
                 <a class="dropdown-item d-flex align-items-center notificacion" href="#">
                   <div class="mr-3">
@@ -115,7 +107,6 @@
                     </div>
                   </div>
                 </a>
-
                 <!-- Notificación 2 -->
                 <a class="dropdown-item d-flex align-items-center notificacion" href="#">
                   <div class="mr-3">
@@ -161,46 +152,65 @@
             </li>
           </ul>
         </nav>
-        <div class="container py-5">
-          <!-- Título -->
-          <div class="text-center mb-4">
-            <h2 class="text-primary font-weight-bold">🎫 Sesiones del Evento</h2>
-            <p class="text-muted">Consulta fácilmente las sesiones de un evento ingresando su nombre exacto.</p>
-          </div>
 
-          <!-- Tarjeta de búsqueda -->
-          <div class="card shadow-lg border-0 p-4 animate__animated animate__fadeIn">
-            <div class="form-group">
-              <label for="eventNameInput" class="font-weight-bold text-secondary mb-1">
-                <i class="fas fa-calendar-alt mr-1 text-primary"></i> Nombre del Evento
-              </label>
-              <div class="d-flex flex-column flex-md-row">
-                <input type="text" id="eventNameInput" class="form-control mb-2 mb-md-0 mr-md-2"
-                  placeholder="Ej: FeriaDelLibroBogotá" />
-                <button id="buscarBtn" class="btn btn-primary font-weight-bold shadow-sm">
-                  <i class="fas fa-search mr-1"></i> Buscar
-                </button>
+        <!-- Main Content -->
+        <div class="container-fluid">
+          <h1 class="h3 mb-4 text-gray-800 "> Crear Sesión</h1>
+          <div class="card custom-card">
+            <form id="sessionForm">
+              <!-- Nombre del evento -->
+              <div class="form-group">
+                <label for="eventName">Nombre del Evento</label>
+                <input type="text" class="form-control" id="eventName" placeholder="Ej: Feria Del Libro Bogotá 2025"
+                  required />
+                <small class="form-text text-muted">
+                  Debe coincidir <strong>exactamente</strong> con el nombre registrado.
+                  <a href="events.html" target="_blank" class="link-consultar">Consultar eventos</a>
+                </small>
               </div>
-            </div>
 
-            <!-- Acción secundaria -->
-            <div class="text-right mt-3">
-              <a href="saveSession.html" class="btn btn-outline-success rounded-pill font-weight-bold shadow-sm">
-                <i class="fas fa-plus-circle mr-1"></i> Crear Nueva Sesión
-              </a>
-            </div>
-          </div>
+              <!-- Título de la sesión -->
+              <div class="form-group">
+                <label for="sessionTitle">Título de la Sesión</label>
+                <input type="text" class="form-control" id="sessionTitle"
+                  placeholder="Ej: Perspectivas de la Literatura Infantil" required />
+              </div>
 
-          <!-- Mensaje cuando no hay resultados -->
-          <div id="noSessionsMessage" class="text-center text-muted mt-5" style="display: none;">
-            <img src="img/empty-state.svg" alt="Sin sesiones" width="160" class="mb-3 opacity-75">
-            <p class="mb-1">No se encontraron sesiones para este evento.</p>
-            <small class="text-secondary">¿Estás segura de haber escrito el nombre correctamente?</small>
-          </div>
+              <!-- Descripción -->
+              <div class="form-group">
+                <label for="sessionDescription">Descripción</label>
+                <textarea class="form-control" id="sessionDescription" rows="3" placeholder="Resumen de la sesión"
+                  required></textarea>
+              </div>
 
-          <!-- Contenedor de sesiones -->
-          <div id="sessionsList" class="mt-4">
-            <!-- Sesiones se insertarán aquí -->
+              <!-- Fechas -->
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="sessionStartTime">Fecha de Inicio</label>
+                  <input type="date" class="form-control" id="sessionStartTime" required />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="sessionEndTime">Fecha de Fin</label>
+                  <input type="date" class="form-control" id="sessionEndTime" required />
+                </div>
+              </div>
+
+              <!-- Orador -->
+              <div class="form-group">
+                <label for="speakerName">Nombre del Orador</label>
+                <input type="text" class="form-control" id="speakerName" placeholder="Ej: Ana María Machado" required />
+              </div>
+
+              <!-- Biografía -->
+              <div class="form-group">
+                <label for="speakerBio">Biografía del Orador</label>
+                <textarea class="form-control" id="speakerBio" rows="3" placeholder="Breve biografía"
+                  required></textarea>
+              </div>
+
+              <!-- Botón -->
+              <button type="submit" class="btn btn-primary btn-block">Crear Sesión</button>
+            </form>
           </div>
         </div>
 
@@ -212,39 +222,40 @@
             </div>
           </div>
         </footer>
+        <!-- End of Footer -->
       </div>
     </div>
-  </div>
 
-  <!-- Scroll Button -->
-  <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    <!-- Scroll to Top -->
+    <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
 
-  <!-- Logout Modal -->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">¿Deseas salir?</h5>
-          <button class="close" type="button" data-dismiss="modal"><span>×</span></button>
-        </div>
-        <div class="modal-body">Selecciona "Logout" si deseas cerrar sesión.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+    <!-- Logout Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">¿Deseas salir?</h5>
+            <button class="close" type="button" data-dismiss="modal"><span>×</span></button>
+          </div>
+          <div class="modal-body">Selecciona "Logout" si deseas cerrar sesión.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Scripts -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-  <script src="js/events.js"></script>
-  <script src="js/notificaciones.js"></script>
-  <script src="js/sessions.js"></script>
+    <!-- Scripts -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="js/saveSession.js"></script>
+    <script src="js/events.js"></script>
+    <script src="js/notificaciones.js"></script>
 </body>
 
 </html>

@@ -7,9 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Crear Eventos</title>
+    <title>Crear Eventos | TicketLite</title>
 
     <!-- Estilos -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="./img/entradas.png" type="image/x-icon" />
     <link rel="stylesheet" href="./css/saveEvents.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -26,7 +28,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="events.html">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-ticket-alt"></i>
+                    <i class="fas fa-ticket-alt"></i> <!-- Ícono cambiado -->
                 </div>
                 <div class="sidebar-brand-text mx-3">TicketLite</div>
             </a>
@@ -40,9 +42,16 @@
             </li>
 
             <li class="nav-item active">
-                <a class="nav-link" href="estadisticas.html">
-                    <i class="fas fa-chart-bar"></i>
-                    <span>Estadísticas</span>
+                <a class="nav-link" href="saveSession.html">
+                    <i class="fas fa-calendar-plus"></i>
+                    <span>Crear una sesión</span>
+                </a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="sessions.html">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Sesiones</span>
                 </a>
             </li>
 
@@ -57,11 +66,20 @@
             <div id="content">
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <form class="form-inline">
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <form class="form-inline w-100 d-flex align-items-center justify-content-between">
+                        <span class="navbar-brand text-primary font-weight-bold">🎫 Crear Evento</span>
+                        <div class="d-flex align-items-center ml-auto">
+                            <a href="events.html"
+                                class="btn btn-sm btn-outline-primary shadow-sm rounded-pill px-3 font-weight-bold mr-2">
+                                <i class="fas fa-calendar-alt mr-1"></i> Ver Eventos
+                            </a>
+                        </div>
+                        <!-- Botón sidebar móvil -->
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle ml-3">
                             <i class="fa fa-bars"></i>
                         </button>
                     </form>
+
 
                     <ul class="navbar-nav ml-auto">
                         <!-- Notificaciones -->
@@ -153,7 +171,7 @@
 
                     <h1 class="h3 mb-2 text-gray-800">Crear Evento</h1>
 
-                    <div id="contenedorFormulario" class="container">
+                    <div id="contenedorFormulario" class="custom-card">
                         <form id="formEvento" method="POST" action="#">
                             <div class="row">
 
@@ -196,8 +214,10 @@
                                         <input id="eventLocation" type="text" placeholder="Ej: -12.0464, -77.0428"
                                             readonly />
                                         <div class="mensaje-error" id="errorEventLocation"></div>
-                                        <button type="button" id="btnGetEventLocation">📍 Usar mi ubicación
-                                            actual</button>
+                                        <button type="button" id="btnGetEventLocation" class="main-btn location-btn">
+                                            <span class="btn-icon"><i class="fas fa-location-arrow"></i></span>
+                                            <span class="btn-text">Usar mi ubicación actual</span>
+                                        </button>
                                     </div>
                                 </div>
 
@@ -242,7 +262,6 @@
                                                 <option value="PUBLICADO">Publicado</option>
                                                 <option value="BORRADOR">Borrador</option>
                                                 <option value="CANCELADO">Cancelado</option>
-                                                <option value="FINALIZADO">Finalizado</option>
                                             </select>
                                         </div>
                                         <div class="mensaje-error" id="errorStatus"></div>
@@ -258,8 +277,9 @@
                                 </div>
 
                                 <div class="col-12 text-center mt-4">
-                                    <button id="btnCrearEvento" type="button" class="main-btn primary-btn btn-hover">
-                                        Vista Previa
+                                    <button id="btnCrearEvento" type="button" class="main-btn vista-previa-btn">
+                                        <span class="btn-icon"><i class="fas fa-eye"></i></span>
+                                        <span class="btn-text">Vista Previa</span>
                                     </button>
                                 </div>
                             </div>
@@ -284,60 +304,59 @@
                                 style="max-width: 600px; display: none;" />
 
                             <br /><br />
-                            <button id="btnVolver" type="button" class="main-btn warning-btn btn-hover">Volver</button>
-                            <button id="btnConfirm" type="button" class="main-btn primary-btn btn-hover">Confirmar
-                                Evento</button>
+                            <button id="btnVolver" type="button" class="main-btn volver-btn">
+                                <i class="fas fa-arrow-left mr-2"></i> Volver
+                            </button>
+                            <button id="btnConfirm" type="button" class="main-btn confirm-btn">
+                                <i class="fas fa-check-circle mr-2"></i> Confirmar
+                            </button>
                         </div>
-
                     </div>
+                    <!-- /.container-fluid -->
                 </div>
-                <!-- /.container-fluid -->
 
-
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>© 2025 TicketLite · Todos los derechos reservados</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
             </div>
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>© 2025 TicketLite · Todos los derechos reservados</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
         </div>
-    </div>
 
-    <!-- Scroll to Top -->
-    <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        <!-- Scroll to Top -->
+        <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
 
-    <!-- Logout Modal -->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">¿Deseas salir?</h5>
-                    <button class="close" type="button" data-dismiss="modal"><span>×</span></button>
-                </div>
-                <div class="modal-body">Selecciona "Logout" si deseas cerrar sesión.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+        <!-- Logout Modal -->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">¿Deseas salir?</h5>
+                        <button class="close" type="button" data-dismiss="modal"><span>×</span></button>
+                    </div>
+                    <div class="modal-body">Selecciona "Logout" si deseas cerrar sesión.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-primary" href="login.html">Logout</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Scripts -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="js/saveEvent.js"></script>
-    <script src="js/events.js"></script>
-    <script src="js/notificaciones.js"></script>
+        <!-- Scripts -->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+        <script src="js/saveEvent.js"></script>
+        <script src="js/events.js"></script>
+        <script src="js/notificaciones.js"></script>
 </body>
 
 </html>

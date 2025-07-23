@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+
+/* =========================
+   General
+========================= */
+body {
+  font-family: 'Quicksand', sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #e4f0fc, #f8fbff);
+  color: #34495e;
+}
+
+.container {
+  margin: auto;
+  background: #fff;
+  padding: 1.8rem 2rem;
+  animation: fadeIn 0.4s ease-in-out;
+  box-sizing: border-box;
+}
+
+.custom-card {
+  max-width: 1140px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 1.5%;
+  background-color: #fff;
+  padding: 1.8rem 2rem;
+  animation: fadeIn 0.4s ease-in-out;
+  box-sizing: border-box;
+}
+
+/* =========================
+   Título
+========================= */
+h2 {
+  font-size: 2.2rem;
+  color: #2c3e50;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1.8rem;
+}
+
+/* =========================
+   Formulario
+========================= */
+form {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+form label {
+  font-weight: 800;
+  color: #34495e;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 1.4rem;
+}
+
+.form-control {
+  background-color: #f4faff;
+  border: 1px solid #cbddef;
+  border-radius: 13px;
+  padding: 0.95rem 1.2rem;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+  background-color: #ffffff;
+  outline: none;
+}
+
+/* =========================
+   Texto informativo
+========================= */
+.form-text.text-muted {
+  display: block;
+  font-size: 0.9rem;
+  color: #295785;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* =========================
+   Enlace especial
+========================= */
+.link-consultar {
+  color: #0077ff;
+  font-weight: 700;
+  margin-left: 8px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.link-consultar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #00c6ff, #0077ff);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+  opacity: 0.9;
+}
+
+.link-consultar:hover,
+.link-consultar:focus {
+  color: #005bb5;
+  text-shadow: 0 1px 2px rgba(0, 119, 255, 0.2);
+  outline: none;
+}
+
+.link-consultar:hover::after,
+.link-consultar:focus::after {
+  transform: scaleX(1);
+}
+
+/* =========================
+   Botón Enviar
+========================= */
+button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #4096ea, #2979d2);
+  color: #ffffff;
+  border: none;
+  border-radius: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(52, 152, 219, 0.25);
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background: linear-gradient(135deg, #2980b9, #2471a3);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(52, 152, 219, 0.35);
+}
+
+button[type="submit"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
+/* =========================
+   Animaciones
+========================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 768px) {
+  .col-md-6 {
+    width: 100%;
+    display: block;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .form-control {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  button[type="submit"] {
+    font-size: 1rem;
+    padding: 0.85rem;
+  }
+
+  .col-12.text-center.mt-4 {
+    margin-top: 1rem;
+  }
+}
+

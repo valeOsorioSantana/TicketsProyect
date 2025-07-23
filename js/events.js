@@ -69,7 +69,7 @@ async function cargarUsuarios() {
         <td>${evento.address}</td>
         <td>${evento.startDate}</td>
         <td>${evento.endDate}</td>
-        <td><span class="badge bg-success">${evento.status}</span></td>
+        <td><span class="badge bg-success text-white">${evento.status}</span></td>
         <td>${botonEditar} ${botonEliminar} ${botonEstadisticas}</td>
       </tr>`;
 
