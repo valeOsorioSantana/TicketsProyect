@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+
+body {
+  font-family: 'Quicksand', 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #eaf2fc, #ffffff);
+  color: #2c3e50;
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+  padding: 2rem;
+}
+
+h5#profileName {
+  font-size: 1.3rem;
+  color: #2c3e50;
+}
+
+.editable-text {
+  font-size: 1rem;
+  color: #34495e;
+  margin-bottom: 4px;
+}
+
+button.btn-link {
+  font-size: 0.9rem;
+  color: #007bff;
+  font-weight: 500;
+  text-decoration: none;
+  padding-left: 0;
+}
+
+button.btn-link:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+/* Ícono de perfil */
+#profileIcon {
+  width: 120px;
+  height: 120px;
+  font-size: 52px;
+  border-radius: 50%;
+  box-shadow: 0 6px 16px rgba(64, 150, 234, 0.25);
+  transition: all 0.3s ease;
+}
+
+#profileIcon:hover {
+  transform: scale(1.05);
+}
+
+/* Botón Guardar */
+.btn-success {
+  background: linear-gradient(135deg, #4096ea, #2979d2);
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #2979d2, #216ab9);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(52, 152, 219, 0.3);
+}
+
+/* Responsive ajustes */
+@media (max-width: 768px) {
+  .card {
+    padding: 1.5rem;
+  }
+
+  #profileIcon {
+    width: 100px;
+    height: 100px;
+    font-size: 42px;
+  }
+
+  h5#profileName {
+    font-size: 1.1rem;
+  }
+
+  .btn-success {
+    width: 100%;
+    text-align: center;
+  }
+}

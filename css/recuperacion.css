@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;900&display=swap');
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  color: #2c3e50;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.card-title {
+  font-weight: 700;
+  color: #1e3a8a;
+}
+
+.form-control {
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background-color: #f8fafc;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+}
+
+.btn {
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 0.6rem 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #facc15, #eab308);
+  border: none;
+  color: #111827;
+}
+
+.btn-warning:hover {
+  background: linear-gradient(135deg, #eab308, #ca8a04);
+  box-shadow: 0 6px 16px rgba(234, 179, 8, 0.3);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #10b981, #059669);
+  border: none;
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
+}
+
+a {
+  color: #3b82f6;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+#message {
+  font-size: 0.95rem;
+  color: #dc2626;
+  font-weight: 500;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body {
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  animation: backgroundFade 1.2s ease-in-out;
+}
+
+@keyframes backgroundFade {
+  from { opacity: 0; transform: scale(1.02); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.recovery-card {
+  border: none;                /* Quitar borde */
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Panel de la imagen */
+.left-panel {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.left-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Eliminar cualquier borde residual */
+.card,
+.card-body,
+img {
+  border: none !important;
+  outline: none;
+}
+/* Botón con gradiente tipo TicketLite */
+.btn-gradient {
+  background: linear-gradient(135deg, #4096ea, #2979d2);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(135deg, #2979d2, #216ab9);
+  box-shadow: 0 6px 16px rgba(64, 150, 234, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Estilo input redondeado */
+.form-control-lg {
+  height: calc(2.875rem + 2px);
+  font-size: 1rem;
+}
+
+input.form-control {
+  border-radius: 50px;
+  border: 1px solid #cbddef;
+  background-color: #f4faff;
+}
+
+input.form-control:focus {
+  border-color: #4096ea;
+  box-shadow: 0 0 6px rgba(52, 152, 219, 0.2);
+}
+
+/* Gradiente TicketLite style */
+.btn-gradient {
+  background: linear-gradient(135deg, #40a0ff, #1e66d5);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(135deg, #2979d2, #216ab9);
+  box-shadow: 0 6px 16px rgba(64, 150, 234, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Estilo de los campos de texto */
+input.form-control {
+  border-radius: 50px;
+  background-color: #f4faff;
+  border: 1px solid #cbddef;
+  transition: all 0.3s ease;
+}
+
+input.form-control:focus {
+  border-color: #4096ea;
+  box-shadow: 0 0 6px rgba(64, 150, 234, 0.2);
+}
+
+/* Títulos */
+.font-weight-semibold {
+  font-weight: 600;
+}

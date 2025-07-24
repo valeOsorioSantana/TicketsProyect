@@ -1,91 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Login - TicketLite</title>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <!-- Fonts & Icons -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+    <link rel="shortcut icon" href="./img/entradas.png" type="image/x-icon" />
 
-    <title>Login</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-            rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+    <!-- SB Admin + Custom styles -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="css/login.css" rel="stylesheet" />
 </head>
 
-<body class="bg-gradient-primary">
+<body>
+    <div class="container min-vh-100 d-flex justify-content-center align-items-center">
+        <div class="card login-card shadow-lg w-100" style="max-width: 960px;">
+            <div class="row no-gutters">
+                <!-- Panel izquierdo con imagen ilustrativa -->
+                <div class="col-lg-6 left-panel d-none d-lg-flex">
+                    <img src="img/login-illustration.png" alt="Ilustración de acceso" class="img-fluid w-100 h-100"
+                        style="object-fit: contain;" />
+                </div>
 
-<div class="container">
-
-    <!-- Outer Row -->
-    <div class="row justify-content-center">
-
-        <div class="col-xl-10 col-lg-12 col-md-9">
-
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
-                    <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                        <div class="col-lg-6">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">¡Bienvenido!</h1>
-                                </div>
-                                <form class="user">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control form-control-user"
-                                               id="txtEmail" aria-describedby="emailHelp"
-                                               placeholder="Ingresa tu Email">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-user"
-                                               id="txtPassword" placeholder="Password">
-                                    </div>
-                                    <a onclick="iniciarSesion()" href="#" class="btn btn-primary btn-user btn-block">
-                                        Iniciar Sesión
-                                    </a>
-
-                                </form>
-                                <hr>
-                                <div class="text-center">
-                                    <a class="small" href="register.html">Crear Cuenta</a>
-                                </div>
-                            </div>
+                <!-- Panel derecho con formulario -->
+                <div class="col-lg-6 d-flex align-items-center">
+                    <div class="card-body w-100 px-5">
+                        <div class="text-center mb-4">
+                            <h1 class="h4 text-primary font-weight-bold">¡Bienvenido a TicketLite! 🎟️</h1>
+                            <p class="text-muted small">Accede para explorar conciertos, ferias y eventos exclusivos.
+                            </p>
                         </div>
+
+                        <form class="user">
+                            <div class="form-group">
+                                <input type="email" class="form-control form-control-user" id="txtEmail"
+                                    placeholder="Ingresa tu Email" />
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control form-control-user" id="txtPassword"
+                                    placeholder="Password" />
+                            </div>
+                            <a onclick="iniciarSesion()" href="#" class="btn btn-primary btn-user btn-block">
+                                Iniciar Sesión
+                            </a>
+                            <div class="text-center mt-3">
+                                <a href="recuperacion.html" class="small text-primary">¿Olvidaste tu contraseña?</a>
+                            </div>
+                        </form>
+
+                        <hr />
+                        <div class="text-center">
+                            <a class="small text-dark" href="register.html">Crear Cuenta</a>
+                        </div>
+                        <p class="text-center mt-4 text-muted small">© 2025 TicketLite. Todos los derechos reservados.
+                        </p>
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 
-</div>
-
-<!-- Bootstrap core JavaScript-->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Script para jwt-decode -->
-<script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-
-<script src="js/login.js"></script>
-
+    <!-- Scripts -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="js/login.js"></script>
 </body>
 
 </html>
