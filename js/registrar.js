@@ -1,33 +1,42 @@
-$(document).ready(function() {
-   // on ready
-});
-
-
 async function registrarUsuario() {
-  let datos = {};
-  datos.nombre = document.getElementById('txtNombre').value;
-  datos.apellido = document.getElementById('txtApellido').value;
-  datos.telefono = document.getElementById('txtTelefono').value;
-  datos.email = document.getElementById('txtEmail').value;
-  datos.password = document.getElementById('txtPassword').value;
+  const datos = {
+    name: document.getElementById('txtName').value,
+    lastName: document.getElementById('txtLastName').value,
+    phone: document.getElementById('txtPhone').value,
+    city: document.getElementById('txtCity').value,
+    bio: document.getElementById('txtBio').value,
+    email: document.getElementById('txtEmail').value,
+    password: document.getElementById('txtPassword').value,
+  };
 
-  let repetirPassword = document.getElementById('txtRepetirPassword').value;
-
-  if (repetirPassword != datos.password) {
+  const repetirPassword = document.getElementById('txtRepetirPassword').value;
+  if (repetirPassword !== datos.password) {
     alert('La contraseña que escribiste es diferente.');
     return;
   }
 
-  const request = await fetch('/api/users/{user}', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(datos)
-    // JSON.stringify convierte objetos de javaScript en formato JSON
-  });
-  alert("La cuenta fue creada con exito!");
-  window.location.href = 'login.html'
+  const rolSeleccionado = document.getElementById('selectRole').value; // "true" o "false"
+  const url = `http://localhost:8080/api/users/${rolSeleccionado}`;
 
+  try {
+    const request = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(datos)
+    });
+
+    if (request.ok) {
+      alert("La cuenta fue creada con éxito!");
+      window.location.href = 'login.html';
+    } else {
+      const errorData = await request.json();
+      alert(errorData.message || "Error al crear el usuario.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("No se pudo conectar con el servidor.");
+  }
 }

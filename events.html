@@ -82,57 +82,17 @@
 
                         <!-- Notificaciones -->
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="dropdown-item d-flex align-items-center notificacion" href="notificaciones.html" data-id="123">
                                 <i class="fas fa-bell fa-fw"></i>
-                                <span class="badge badge-danger badge-counter">2</span>
+                                <span class="badge badge-danger badge-counter" id="noti-count">0</span>
                             </a>
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
+                                aria-labelledby="alertsDropdown" id="noti-container">
                                 <h6 class="dropdown-header">Notificaciones</h6>
-                                <div class="text-right px-3 py-1">
+                                <div id="noti-list"></div>
+                                <div class="text-center mt-2">
                                     <button class="btn btn-sm btn-success btn-marcar-todo">✓ Leer todo</button>
                                 </div>
-
-                                <!-- Notificación 1 -->
-                                <a class="dropdown-item d-flex align-items-center notificacion" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary text-white">
-                                            <i class="fas fa-user"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">Hace 10 min</div>
-                                        <span><strong>Valeria</strong> le dio like al evento.</span>
-                                        <div class="acciones-noti mt-1">
-                                            <button class="btn btn-sm btn-outline-success noti-btn leido">✓
-                                                Leído</button>
-                                            <button
-                                                class="btn btn-sm btn-outline-primary noti-btn responder">💬</button>
-                                            <button class="btn btn-sm btn-outline-danger noti-btn eliminar">🗑️</button>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <!-- Notificación 2 -->
-                                <a class="dropdown-item d-flex align-items-center notificacion" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-info text-white">
-                                            <i class="fas fa-user"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">Hace 15 min</div>
-                                        <span><strong>Santiago</strong> le dio like al evento.</span>
-                                        <div class="acciones-noti mt-1">
-                                            <button class="btn btn-sm btn-outline-success noti-btn leido">✓
-                                                Leído</button>
-                                            <button
-                                                class="btn btn-sm btn-outline-primary noti-btn responder">💬</button>
-                                            <button class="btn btn-sm btn-outline-danger noti-btn eliminar">🗑️</button>
-                                        </div>
-                                    </div>
-                                </a>
                             </div>
                         </li>
                         <!-- Fin Notificaciones -->

@@ -1,5 +1,5 @@
-$(document).ready(function() {
-   // on ready
+$(document).ready(function () {
+  // on ready
 });
 
 async function iniciarSesion() {
@@ -26,6 +26,8 @@ async function iniciarSesion() {
       localStorage.setItem('token', respuesta.token);
       localStorage.setItem('email', tokenData.sub);
       localStorage.setItem('nombre', tokenData.name);
+      localStorage.setItem('rol', tokenData.Role || '');
+      localStorage.setItem('userId', tokenData.id);
 
       window.location.href = 'events.html';
     } else {

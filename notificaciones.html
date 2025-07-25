@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notificaciones</title>
+
+  <!-- Bootstrap y estilos -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="css/notificaciones.css" rel="stylesheet" />
+</head>
+<body class="bg-light">
+  <div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4>Notificaciones</h4>
+      <button class="btn btn-sm btn-success btn-marcar-todo">✓ Marcar todas como leídas</button>
+    </div>
+
+    <div class="list-group" id="notificaciones-list">
+      <!-- Notificaciones cargadas dinámicamente -->
+    </div>
+  </div>
+
+  <!-- JS -->
+   <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+  <script src="js/notificaciones.js"></script>
+</body>
+</html>
