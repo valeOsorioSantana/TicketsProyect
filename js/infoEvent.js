@@ -13,7 +13,10 @@ document.addEventListener("DOMContentLoaded", () => {
     method: 'GET',
     headers: { "Accept": "application/json" }
   })
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) throw new Error("Error al obtener el evento");
+      return res.json();
+    })
     .then(evento => {
       titleElement.textContent = evento.name;
 
@@ -26,16 +29,24 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>📅 Fecha de fin:</strong> ${evento.endDate}</p>
           <p><strong>📍 Dirección:</strong> ${evento.address}</p>
           <p><strong>📌 Categoría:</strong> ${evento.category}</p>
-          <p><strong>🗺️ Ubicación (lat, lng):</strong> ${evento.latitude}, ${evento.longitude}</p>
           <p><strong>📄 Descripción:</strong> ${evento.description}</p>
+          <p><strong>🗺️ Ubicación Geografica :</strong></p>
+
         </div>
+
+        <div id="map" style="height: 300px; margin-top: 20px;"></div>
 
         <div class="actions">
           <button onclick="comprarBoleta(${evento.id})" class="buy-btn">
-            Comprar Entrada
+            Registrarse al evento
           </button>
         </div>
       `;
+
+      // Mostrar el mapa con Leaflet
+      if (evento.latitude && evento.longitude) {
+        mostrarMapa(evento.latitude, evento.longitude);
+      }
     })
     .catch(error => {
       detailsContainer.innerHTML = "<p>⚠️ Error al cargar los detalles del evento.</p>";
@@ -43,7 +54,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+function mostrarMapa(lat, lng) {
+  const map = L.map("map").setView([lat, lng], 15);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors",
+  }).addTo(map);
+
+  L.marker([lat, lng])
+    .addTo(map)
+    .bindPopup("Ubicación del evento")
+    .openPopup();
+}
+
 function comprarBoleta(eventId) {
-  // Aquí puedes redirigir a un formulario de compra o abrir un modal
-  window.location.href = `comprar.html?id=${eventId}`;
+  window.location.href = `registroEvento.html?id=${eventId}`;
 }

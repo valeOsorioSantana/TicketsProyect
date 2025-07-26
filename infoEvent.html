@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Detalle del Evento</title>
   <link rel="stylesheet" href="css/infoEvent.css" />
   <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
+
 <body>
   <header class="event-header">
     <h1 id="eventTitle">Cargando evento...</h1>
@@ -16,6 +19,10 @@
     <p>Cargando detalles...</p>
   </main>
 
+  <div id="map" style="height: 300px; margin-top: 20px;"></div>
+  
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="js/infoEvent.js"></script>
 </body>
+
 </html>

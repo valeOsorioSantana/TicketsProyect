@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comprar Entrada | TicketLite</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/compra.css" />
+</head>
+<body>
+  <main class="compra-container">
+    <h1 id="eventTitle">Cargando evento...</h1>
+    <section id="eventDetails">Cargando detalles...</section>
+
+    <section id="compraForm" style="display:none;">
+      <h2>🎟️ Comprar Entradas</h2>
+      <form id="formCompra">
+        <label for="cantidad">Cantidad de entradas:</label>
+        <input type="number" id="cantidad" name="cantidad" min="1" value="1" required />
+
+        <label for="nombre">Tu nombre:</label>
+        <input type="text" id="nombre" name="nombre" required />
+
+        <label for="correo">Tu correo:</label>
+        <input type="email" id="correo" name="correo" required />
+
+        <button type="submit" class="btn-comprar">Confirmar Compra</button>
+      </form>
+
+      <div id="mensajeCompra" class="mensaje"></div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="js/comprar.js"></script>
+</body>
+</html>
