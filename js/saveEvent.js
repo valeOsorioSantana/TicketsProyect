@@ -119,6 +119,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const locationStr = inputLocation.value.trim();
     const address = document.getElementById("address").value.trim();
     let category = selectCategoria.value;
+    const ticketPriceStr = document.getElementById("ticketPrice")?.value.trim(); // Nuevo campo
+    const status = document.getElementById("status").value;
+    const imageInput = document.getElementById("imageFile");
+
     if (category === "Otros") {
       category = inputOtraCategoria.value.trim();
       if (!category) {
@@ -126,9 +130,8 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
     }
-    const status = document.getElementById("status").value;
-    const imageInput = document.getElementById("imageFile");
 
+    // Validaciones básicas
     if (!name || !description || !startDate || !endDate || !locationStr || !category || !status || !address || !imageInput.files[0]) {
       alert("Por favor completa todos los campos y selecciona una imagen.");
       return;
@@ -137,6 +140,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const [latitude, longitude] = locationStr.split(",").map(coord => parseFloat(coord.trim()));
     if (isNaN(latitude) || isNaN(longitude)) {
       alert("Ubicación inválida. Usa el botón 📍 o haz clic en el mapa.");
+      return;
+    }
+
+    // ✅ Validación del precio
+    const ticketPrice = parseFloat(ticketPriceStr);
+    if (isNaN(ticketPrice) || ticketPrice < 0) {
+      alert("Por favor ingresa un precio válido para la entrada.");
       return;
     }
 
@@ -152,7 +162,8 @@ document.addEventListener("DOMContentLoaded", function () {
       longitude,
       category,
       status,
-      address
+      address,
+      ticketPrice  // ✅ Incluido
     };
 
     // Mostrar vista previa
@@ -164,6 +175,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("previewCategory").innerText = category;
     document.getElementById("previewStatus").innerText = status;
     document.getElementById("previewAddress").innerText = address;
+    document.getElementById("previewTicketPrice").innerText = `$${ticketPrice.toFixed(2)}`; // ✅ Mostrar
 
     const previewImage = document.getElementById("previewImageFile");
     const reader = new FileReader();

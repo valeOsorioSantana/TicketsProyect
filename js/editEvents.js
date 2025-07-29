@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const categoriaSelect = document.getElementById("categoriaEvento");
   const otraCategoriaCampo = document.getElementById("otraCategoriaCampo");
   const otraCategoriaInput = document.getElementById("otraCategoria");
+  const precioInput = document.getElementById("precioEvento");
 
   let marker, map;
 
@@ -42,6 +43,11 @@ document.addEventListener("DOMContentLoaded", () => {
       latInput.value = event.latitude;
       lonInput.value = event.longitude;
       document.getElementById("imagenEvento").src = event.imagen?.url || "";
+
+      // Mostrar precio si existe
+      if (event.ticketPrice != null) {
+        precioInput.value = event.ticketPrice;
+      }
 
       // Establecer categoría
       const opciones = [...categoriaSelect.options].map(o => o.value);
@@ -87,16 +93,23 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    const precio = parseFloat(precioInput.value);
+    if (isNaN(precio) || precio < 0) {
+      alert("Por favor ingresa un precio válido.");
+      return;
+    }
+
     const datosEvento = {
       name: document.getElementById("nombreEvento").value,
       description: document.getElementById("descripcionEvento").value,
       startDate: document.getElementById("fechaInicioEvento").value + "T00:00:00",
       endDate: document.getElementById("fechaFinEvento").value + "T00:00:00",
       category: categoriaFinal,
+      ticketPrice: precio,
       address: document.getElementById("direccionEvento").value,
       latitude: parseFloat(latInput.value),
       longitude: parseFloat(lonInput.value),
-      status: document.getElementById("estadoEvento").value
+      status: document.getElementById("estadoEvento").value,
     };
 
     const fileInput = document.getElementById("imagenFile");
@@ -126,17 +139,13 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(err);
     }
   });
-  // Botón de regreso al inicio con confirmación creativa
+
   document.getElementById("btnVolverInicio").addEventListener("click", (e) => {
     e.preventDefault();
-
-    const confirmado = confirm(
-      "⚠️ ¿Estás segur@ de que quieres volver al inicio?\n\n📝 Los cambios que no hayas guardado se perderán."
-    );
-
+    const confirmado = confirm("⚠️ ¿Estás segur@ de que quieres volver al inicio?\n\n📝 Los cambios que no hayas guardado se perderán.");
     if (confirmado) {
-      window.location.href = "events.html"; // Cambia esta URL si es diferente
-    } 
+      window.location.href = "events.html";
+    }
   });
 
 });

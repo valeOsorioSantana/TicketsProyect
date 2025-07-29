@@ -44,6 +44,8 @@ async function cargarUsuarios() {
   let listadoHtml = "";
 
   for (let evento of eventos) {
+    if (evento.status === "FINALIZADO") continue;
+
     const botonEliminar = `
       <button class="btn btn-outline-danger btn-sm" title="Eliminar" onclick="eliminarEvento(${evento.id})">
         <i class="fas fa-trash"></i>
@@ -59,6 +61,9 @@ async function cargarUsuarios() {
         <i class="fas fa-chart-bar"></i>
       </button>`;
 
+    const precio = evento.ticketPrice !== undefined && evento.ticketPrice !== null
+      ? `$${parseFloat(evento.ticketPrice).toFixed(2)}`
+      : `<span class="text-muted">No asignado</span>`;
 
     const eventoHtml = `
       <tr data-id="${evento.id}" data-lat="${evento.latitude}" data-lng="${evento.longitude}">
@@ -66,6 +71,7 @@ async function cargarUsuarios() {
         <td>${evento.name}</td>
         <td>${evento.description}</td>
         <td>${evento.category}</td>
+        <td>${precio}</td>
         <td>${evento.address}</td>
         <td>${evento.startDate}</td>
         <td>${evento.endDate}</td>

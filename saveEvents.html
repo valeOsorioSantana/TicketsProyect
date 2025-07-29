@@ -254,6 +254,14 @@
                                 </div>
 
                                 <div class="col-md-6">
+                                    <div class="input-style-1">
+                                        <label for="ticketPrice">Precio de la entrada</label>
+                                        <input id="ticketPrice" type="number" step="0.01" placeholder="Ej: 50000" />
+                                        <div class="mensaje-error" id="errorTicketPrice"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
                                     <div class="select-style-1">
                                         <label for="status">Estado</label>
                                         <div class="select-position">
@@ -296,6 +304,7 @@
                             <p><strong>Fecha de fin:</strong> <span id="previewEndDate"></span></p>
                             <p><strong>Ubicación (lat, lng):</strong> <span id="previewLocation"></span></p>
                             <p><strong>Categoría:</strong> <span id="previewCategory"></span></p>
+                            <p><strong>Precio de entrada:</strong> <span id="previewTicketPrice"></span></p>
                             <p><strong>Estado del evento:</strong> <span id="previewStatus"></span></p>
                             <p><strong>Dirección textual del evento:</strong> <span id="previewAddress"></span></p>
 

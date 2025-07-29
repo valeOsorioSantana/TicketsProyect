@@ -25,8 +25,24 @@ document.addEventListener("DOMContentLoaded", () => {
              alt="Imagen del evento" class="event-banner" />
 
         <div class="info">
-          <p><strong>📅 Fecha de inicio:</strong> ${evento.startDate}</p>
-          <p><strong>📅 Fecha de fin:</strong> ${evento.endDate}</p>
+          <p><strong>📅 Fecha de inicio:</strong> 
+            ${new Date(evento.startDate).toLocaleString('es-CO', {
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit'
+            })}
+          </p>
+          <p><strong>📅 Fecha de fin:</strong> 
+            ${new Date(evento.endDate).toLocaleString('es-CO', {
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit'
+            })}
+          </p>
           <p><strong>📍 Dirección:</strong> ${evento.address}</p>
           <p><strong>📌 Categoría:</strong> ${evento.category}</p>
           <p><strong>📄 Descripción:</strong> ${evento.description}</p>

@@ -1,42 +1,54 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Registro a Evento</title>
-  <link rel="stylesheet" href="css/formulario.css" />
+  <link rel="stylesheet" href="css/registroEvento.css" />
 </head>
+
 <body>
-  <h2>Registro al Evento</h2>
-  <form id="registroForm">
-    <input type="hidden" id="eventId" />
-    <div>
-      <label for="ticketType">Tipo de entrada:</label>
-      <select id="ticketType" required>
-        <option value="">Seleccione una opción</option>
-        <option value="GENERAL">General</option>
-        <option value="VIP">VIP</option>
-        <option value="PLATINO">Platino</option>
-      </select>
-    </div>
+  <main>
+    <h2>Registro al Evento</h2>
 
-    <div>
-      <label for="price">Precio:</label>
-      <input type="number" id="price" placeholder="Ej: 100.00" required />
-    </div>
+    <form id="registroForm">
+      <!-- ID del evento -->
+      <input type="hidden" id="eventId" />
 
-    <div>
-      <label for="status">Estado del registro:</label>
-      <select id="status" required>
-        <option value="CONFIRMADO">Confirmado</option>
-        <option value="PENDIENTE">Pendiente</option>
-        <option value="CANCELADO">Cancelado</option>
-      </select>
-    </div>
+      <!-- Tipo de entrada -->
+      <div>
+        <label for="ticketType">Tipo de entrada:</label>
+        <select id="ticketType" required>
+          <option value="">Seleccione una opción</option>
+          <option value="GENERAL">General</option>
+          <option value="VIP">VIP</option>
+          <option value="PLATINO">Platino</option>
+        </select>
+      </div>
 
-    <button type="submit">Registrar</button>
-  </form>
+      <!-- Precio -->
+      <div>
+        <label for="price">Precio asignado:</label>
+        <input type="text" id="price" readonly placeholder="Se carga automáticamente" />
+      </div>
 
+      <!-- Estado oculto: pendiente inicialmente -->
+      <input type="hidden" id="status" value="Pendiente" />
+
+      <!-- Botones de acción -->
+      <div class="btn-group">
+        <button type="button" id="btnConfirmar">✅ Confirmar Registro</button>
+        <button type="button" id="btnCancelar">❌ Cancelar Registro</button>
+      </div>
+    </form>
+
+    <!-- Sección de mensajes opcional -->
+    <div id="mensaje" role="alert" style="margin-top: 1rem;"></div>
+  </main>
+
+  <!-- JS -->
   <script src="js/registroEvento.js"></script>
 </body>
+
 </html>
