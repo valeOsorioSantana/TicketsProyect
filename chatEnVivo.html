@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chat en vivo</title>
+    <link href="css/chatEnVivo.css" rel="stylesheet" />
+</head>
+<body>
+     <div class="chat-header">
+        <div class="header-content">
+            <div class="event-info">
+                <h2>Conferencia Tech 2024</h2>
+                <div class="event-details">Sala Principal • 15 de Agosto</div>
+            </div>
+            <div class="online-status">
+                <div class="status-dot"></div>
+                <span>24 personas en línea</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-container">
+        <div class="messages-area" id="messages-area">
+            <!-- Mensajes se cargarán aquí -->
+        </div>
+        
+        <div class="typing-indicator" id="typing-indicator">
+            <span>María está escribiendo</span>
+            <div class="typing-dots">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <div class="input-container">
+                <textarea 
+                    class="message-input" 
+                    id="message-input" 
+                    placeholder="Escribe tu mensaje..."
+                    rows="1"
+                ></textarea>
+                <button class="send-button" id="send-button">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+    <button class="contact-toggle" id="contact-toggle">👥</button>
+
+    <div class="contact-info" id="contact-info">
+        <h3>Información de Contacto</h3>
+        
+        <div class="contact-item">
+            <div class="contact-icon">🎯</div>
+            <div class="contact-details">
+                <div class="name">Carlos Rodríguez</div>
+                <div class="role">Organizador Principal</div>
+            </div>
+        </div>
+
+        <div class="contact-item">
+            <div class="contact-icon">📋</div>
+            <div class="contact-details">
+                <div class="name">Ana López</div>
+                <div class="role">Coordinadora</div>
+            </div>
+        </div>
+
+        <div class="contact-item">
+            <div class="contact-icon">🎤</div>
+            <div class="contact-details">
+                <div class="name">Dr. Miguel Torres</div>
+                <div class="role">Moderador</div>
+            </div>
+        </div>
+
+        <div class="contact-item">
+            <div class="contact-icon">💬</div>
+            <div class="contact-details">
+                <div class="name">Chat General</div>
+                <div class="role">Comunicación grupal</div>
+            </div>
+        </div>
+    </div>
+    <script src="js/chatEnVivo.js"></script>
+</body>
+</html>
