@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const compraSection = document.getElementById("compraForm");
   const mensajeCompra = document.getElementById("mensajeCompra");
 
+  const seatingMapContainer = document.getElementById("seatingMapContainer");
+  const seatingMapImage = document.getElementById("seatingMapImage");
+
   if (!eventId) {
     detailsContainer.innerHTML = "<p>❌ ID de evento no especificado.</p>";
     return;
@@ -21,16 +24,39 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(evento => {
       titleElement.textContent = evento.name;
 
+      // Fechas formateadas
+      const inicio = new Date(evento.startDate);
+      const fin = new Date(evento.endDate);
+      const ahora = new Date();
+
+      const opcionesFecha = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+      const opcionesHora = { hour: "2-digit", minute: "2-digit", hour12: true };
+
+      const fechaInicio = `${inicio.toLocaleDateString("es-ES", opcionesFecha)} a las ${inicio.toLocaleTimeString("es-ES", opcionesHora)}`;
+      const fechaFin = `${fin.toLocaleDateString("es-ES", opcionesFecha)} a las ${fin.toLocaleTimeString("es-ES", opcionesHora)}`;
+      const eventoFinalizado = fin < ahora;
+
+      // Mostrar imagen del evento o imagen por defecto
       detailsContainer.innerHTML = `
-        <img src="${evento.imagen?.url || 'https://source.unsplash.com/800x400/?ticket'}" 
+        <img src="${evento.imagen?.url || 'https://source.unsplash.com/800x400/?ticket'}"
              alt="Imagen del evento" class="event-img" />
-        <p><strong>📅 Fecha:</strong> ${evento.startDate} - ${evento.endDate}</p>
+        <p><strong>📅 Fecha de inicio:</strong> ${fechaInicio}</p>
+        <p><strong>🕓 Fecha de finalización:</strong> ${fechaFin}</p>
         <p><strong>📍 Lugar:</strong> ${evento.address}</p>
-        <p><strong>🗺️ Coordenadas:</strong> ${evento.latitude}, ${evento.longitude}</p>
         <p><strong>📄 Descripción:</strong> ${evento.description}</p>
+        ${eventoFinalizado ? '<p class="text-danger"><strong>⚠️ Este evento ya finalizó.</strong></p>' : ''}
       `;
 
-      compraSection.style.display = "block";
+      // Mostrar mapa del estadio si existe
+      if (evento.seatingMapImageUrl) {
+        seatingMapImage.src = evento.seatingMapImageUrl;
+        seatingMapContainer.style.display = "block";
+      } else {
+        seatingMapContainer.style.display = "none";
+      }
+
+      // Mostrar u ocultar formulario según si el evento ya terminó
+      compraSection.style.display = eventoFinalizado ? "none" : "block";
     })
     .catch(error => {
       console.error("Error al cargar el evento:", error);
@@ -49,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
       cantidad: parseInt(form.cantidad.value)
     };
 
-    // Aquí se puede hacer el fetch al backend real para registrar la compra
     try {
       // Simulación de compra exitosa
       mensajeCompra.textContent = `✅ ¡Gracias ${compra.nombre}! Se han comprado ${compra.cantidad} entradas para el evento.`;

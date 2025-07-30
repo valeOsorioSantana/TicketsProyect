@@ -1,19 +1,35 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const token = localStorage.getItem("token");
-  const tokenData = jwt_decode(token);
-  const userId = tokenData.id;
   const contenedor = document.getElementById("notificaciones-list");
+  const token = localStorage.getItem("token");
+  const rol = localStorage.getItem("rol");
 
-  if (!token || !userId) {
-    contenedor.innerHTML = `<div class="alert alert-danger">No autorizado.</div>`;
+  if (!token) {
+    contenedor.innerHTML = `<div class="alert alert-danger">No autorizado (token no encontrado).</div>`;
+    return;
+  }
+
+  let tokenData;
+  try {
+    tokenData = jwt_decode(token); // Asegúrate de que el script jwt-decode esté incluido en tu HTML
+  } catch (err) {
+    console.error("❌ Token inválido:", err);
+    contenedor.innerHTML = `<div class="alert alert-danger">Token inválido o dañado.</div>`;
+    return;
+  }
+
+  const userId = tokenData?.id;
+  if (!userId) {
+    contenedor.innerHTML = `<div class="alert alert-danger">No se pudo obtener el ID del usuario desde el token.</div>`;
     return;
   }
 
   // Obtener notificaciones desde el backend
   async function cargarNotificaciones() {
     try {
-      const res = await fetch(`/api/notifications/user/${userId}`, {
-        headers: { Authorization: `Bearer ${token}` }
+      const res = await fetch(`http://localhost:8080/api/notifications/user/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
 
       if (!res.ok) throw new Error("Error al cargar notificaciones");
@@ -50,10 +66,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Activar botones dinámicos
   function activarAcciones() {
     document.querySelectorAll(".noti-btn.leido").forEach(btn => {
-      btn.addEventListener("click", async (e) => {
+      btn.addEventListener("click", async () => {
         const noti = btn.closest(".notificacion");
         const id = noti?.dataset?.id;
         if (!id) return;
@@ -61,7 +76,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         try {
           await fetch(`http://localhost:8080/api/notifications/${id}/mark-as-read`, {
             method: 'PUT',
-            headers: { 'Authorization': tokenAuth }
+            headers: { Authorization: `Bearer ${token}` }
           });
           noti.classList.add("leida");
         } catch (err) {
@@ -71,7 +86,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     document.querySelectorAll(".noti-btn.eliminar").forEach(btn => {
-      btn.addEventListener("click", async (e) => {
+      btn.addEventListener("click", async () => {
         const noti = btn.closest(".notificacion");
         const id = noti?.dataset?.id;
         if (!id) return;
@@ -79,7 +94,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         try {
           await fetch(`http://localhost:8080/api/notifications/${id}`, {
             method: 'DELETE',
-            headers: { 'Authorization': tokenAuth }
+            headers: { Authorization: `Bearer ${token}` }
           });
           noti.remove();
         } catch (err) {
@@ -89,7 +104,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     document.querySelectorAll(".noti-btn.responder").forEach(btn => {
-      btn.addEventListener("click", (e) => {
+      btn.addEventListener("click", () => {
         const noti = btn.closest(".notificacion");
         const id = noti?.dataset?.id;
         if (!id || noti.querySelector(".respuesta-form")) return;
@@ -113,11 +128,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             await fetch(`http://localhost:8080/api/notifications/responder`, {
               method: 'POST',
               headers: {
-                'Authorization': tokenAuth,
+                Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify({ notificacionId: id, mensaje })
             });
+
             const p = document.createElement("p");
             p.className = "text-muted small mt-2 font-italic";
             p.textContent = `Tú: ${mensaje}`;
@@ -131,12 +147,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  // Marcar todas como leídas
   document.querySelector(".btn-marcar-todo")?.addEventListener("click", async () => {
     try {
       await fetch(`http://localhost:8080/api/notifications/${userId}/mark-all-as-read`, {
         method: 'PUT',
-        headers: { 'Authorization': tokenAuth }
+        headers: { Authorization: `Bearer ${token}` }
       });
 
       document.querySelectorAll(".notificacion").forEach(noti => noti.classList.add("leida"));

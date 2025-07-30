@@ -50,16 +50,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const inputOtraCategoria = document.getElementById("otraCategoria");
 
   selectCategoria.addEventListener("change", function () {
-    if (this.value === "Otros") {
-      campoOtraCategoria.style.display = "block";
-    } else {
-      campoOtraCategoria.style.display = "none";
-      inputOtraCategoria.value = "";
-    }
+    campoOtraCategoria.style.display = this.value === "Otros" ? "block" : "none";
+    if (this.value !== "Otros") inputOtraCategoria.value = "";
   });
 
   const map = L.map('map').setView([-12.0464, -77.0428], 13);
-
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors',
   }).addTo(map);
@@ -67,15 +62,10 @@ document.addEventListener("DOMContentLoaded", function () {
   map.on('click', function (e) {
     const lat = e.latlng.lat.toFixed(6);
     const lng = e.latlng.lng.toFixed(6);
-
     inputLocation.value = `${lat}, ${lng}`;
     errorLocation.textContent = "";
-
-    if (marker) {
-      marker.setLatLng(e.latlng);
-    } else {
-      marker = L.marker(e.latlng).addTo(map);
-    }
+    if (marker) marker.setLatLng(e.latlng);
+    else marker = L.marker(e.latlng).addTo(map);
   });
 
   btnGetLocation?.addEventListener("click", () => {
@@ -90,7 +80,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const lng = position.coords.longitude.toFixed(6);
         inputLocation.value = `${lat}, ${lng}`;
         errorLocation.textContent = "";
-
         const latlng = L.latLng(lat, lng);
         if (marker) marker.setLatLng(latlng);
         else marker = L.marker(latlng).addTo(map);
@@ -119,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const locationStr = inputLocation.value.trim();
     const address = document.getElementById("address").value.trim();
     let category = selectCategoria.value;
-    const ticketPriceStr = document.getElementById("ticketPrice")?.value.trim(); // Nuevo campo
+    const ticketPriceStr = document.getElementById("ticketPrice")?.value.trim();
     const status = document.getElementById("status").value;
     const imageInput = document.getElementById("imageFile");
 
@@ -131,7 +120,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    // Validaciones básicas
     if (!name || !description || !startDate || !endDate || !locationStr || !category || !status || !address || !imageInput.files[0]) {
       alert("Por favor completa todos los campos y selecciona una imagen.");
       return;
@@ -143,7 +131,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // ✅ Validación del precio
     const ticketPrice = parseFloat(ticketPriceStr);
     if (isNaN(ticketPrice) || ticketPrice < 0) {
       alert("Por favor ingresa un precio válido para la entrada.");
@@ -163,10 +150,9 @@ document.addEventListener("DOMContentLoaded", function () {
       category,
       status,
       address,
-      ticketPrice  // ✅ Incluido
+      ticketPrice
     };
 
-    // Mostrar vista previa
     document.getElementById("previewName").innerText = name;
     document.getElementById("previewDescription").innerText = description;
     document.getElementById("previewStartDate").innerText = startDate;
@@ -175,15 +161,30 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("previewCategory").innerText = category;
     document.getElementById("previewStatus").innerText = status;
     document.getElementById("previewAddress").innerText = address;
-    document.getElementById("previewTicketPrice").innerText = `$${ticketPrice.toFixed(2)}`; // ✅ Mostrar
+    document.getElementById("previewTicketPrice").innerText = `$${ticketPrice.toFixed(2)}`;
 
-    const previewImage = document.getElementById("previewImageFile");
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      previewImage.src = e.target.result;
-      previewImage.style.display = "block";
-    };
-    reader.readAsDataURL(imageInput.files[0]);
+    const coverPreview = document.getElementById("previewCoverImage");
+    const stadiumPreview = document.getElementById("previewStadiumImage");
+    const coverFile = document.getElementById("imageFile").files[0];
+    const stadiumFile = document.getElementById("stadiumImage").files[0];
+
+    if (coverFile) {
+      const reader1 = new FileReader();
+      reader1.onload = function (e) {
+        coverPreview.src = e.target.result;
+        coverPreview.style.display = "block";
+      };
+      reader1.readAsDataURL(coverFile);
+    }
+
+    if (stadiumFile) {
+      const reader2 = new FileReader();
+      reader2.onload = function (e) {
+        stadiumPreview.src = e.target.result;
+        stadiumPreview.style.display = "block";
+      };
+      reader2.readAsDataURL(stadiumFile);
+    }
 
     form.style.display = "none";
     vistaPrevia.style.display = "block";
@@ -197,7 +198,6 @@ document.addEventListener("DOMContentLoaded", function () {
   btnConfirm?.addEventListener("click", async function () {
     const imageInput = document.getElementById("imageFile");
     const file = imageInput.files[0];
-
     const formData = new FormData();
     formData.append("event", JSON.stringify(datosEvento));
     formData.append("file", file);
@@ -206,9 +206,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const response = await fetch("http://localhost:8080/api/public/events/", {
         method: "POST",
         body: formData,
-        headers: {
-          Accept: "application/json"
-        }
+        headers: { Accept: "application/json" }
       });
 
       if (!response.ok) {
@@ -225,7 +223,6 @@ document.addEventListener("DOMContentLoaded", function () {
         map.removeLayer(marker);
         marker = null;
       }
-
     } catch (error) {
       alert("Hubo un error: " + error.message);
       console.error(error);

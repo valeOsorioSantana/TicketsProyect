@@ -4,15 +4,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Comprar Entrada | TicketLite</title>
+
+  <!-- Estilos externos -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="css/compra.css" />
 </head>
+
 <body>
   <main class="compra-container">
+    <!-- Título del evento -->
     <h1 id="eventTitle">Cargando evento...</h1>
+
+    <!-- Detalles del evento -->
     <section id="eventDetails">Cargando detalles...</section>
 
-    <section id="compraForm" style="display:none;">
+    <!-- Imagen del mapa del estadio (opcional) -->
+    <section id="seatingMapContainer" style="display: none; margin-top: 20px;">
+      <h3>🗺️ Mapa del lugar</h3>
+      <img id="seatingMapImage" alt="Mapa del estadio o recinto" style="max-width: 100%; border-radius: 8px;" />
+    </section>
+
+    <!-- Mapa interactivo (Leaflet) -->
+    <div id="map" style="height: 300px; margin-top: 20px;"></div>
+
+    <!-- Formulario de compra -->
+    <section id="compraForm" style="display: none;">
       <h2>🎟️ Comprar Entradas</h2>
       <form id="formCompra">
         <label for="cantidad">Cantidad de entradas:</label>
@@ -31,6 +47,7 @@
     </section>
   </main>
 
+  <!-- Scripts -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="js/comprar.js"></script>
 </body>

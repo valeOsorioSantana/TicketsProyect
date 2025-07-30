@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Editar Evento</title>
+  <link rel="shortcut icon" href="./img/entradas.png" type="image/x-icon" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="./css/editEvents.css" />
-  <link rel="shortcut icon" href="./img/entradas.png" type="image/x-icon" />
 </head>
 
 <body>
@@ -17,29 +17,59 @@
     </div>
 
     <h2>Editar Evento</h2>
-
     <div id="errorMensaje" class="error"></div>
 
-    <div class="campo" style="display: none;"><label>ID:</label> <input type="text" id="idEvento" readonly /></div>
-    <div class="campo"><label>Nombre:</label> <input type="text" id="nombreEvento" /></div>
-    <div class="campo"><label>Descripción:</label> <textarea id="descripcionEvento" rows="3"></textarea></div>
-    <div class="campo"><label>Precio de Entrada:</label><input type="number" id="precioEvento" step="0.01" min="0" placeholder="Ej. 25.00" /></div>
-    <div class="campo"><label>Categoría:</label>
+    <!-- Formulario de edición -->
+    <div class="campo" style="display: none;">
+      <label for="idEvento">ID:</label>
+      <input type="text" id="idEvento" readonly />
+    </div>
+
+    <div class="campo">
+      <label for="nombreEvento">Nombre:</label>
+      <input type="text" id="nombreEvento" />
+    </div>
+
+    <div class="campo">
+      <label for="descripcionEvento">Descripción:</label>
+      <textarea id="descripcionEvento" rows="3"></textarea>
+    </div>
+
+    <div class="campo">
+      <label for="precioEvento">Precio de Entrada:</label>
+      <input type="number" id="precioEvento" step="0.01" min="0" placeholder="Ej. 25.00" />
+    </div>
+
+    <div class="campo">
+      <label for="categoriaEvento">Categoría:</label>
       <select id="categoriaEvento" class="form-control">
         <option value="Música">Música</option>
         <option value="Deporte">Deporte</option>
         <option value="Conferencia">Conferencia</option>
         <option value="Otros">Otros</option>
       </select>
-
       <div id="otraCategoriaCampo" style="display: none; margin-top: 5px;">
         <input type="text" id="otraCategoria" class="form-control" placeholder="Especifica la categoría" />
       </div>
     </div>
-    <div class="campo"><label>Dirección:</label> <input type="text" id="direccionEvento" /></div>
-    <div class="campo"><label>Fecha de Inicio:</label> <input type="date" id="fechaInicioEvento" /></div>
-    <div class="campo"><label>Fecha de Fin:</label> <input type="date" id="fechaFinEvento" /></div>
-    <div class="campo"><label>Estado:</label>
+
+    <div class="campo">
+      <label for="direccionEvento">Dirección:</label>
+      <input type="text" id="direccionEvento" />
+    </div>
+
+    <div class="campo">
+      <label for="fechaInicioEvento">Fecha de Inicio:</label>
+      <input type="date" id="fechaInicioEvento" />
+    </div>
+
+    <div class="campo">
+      <label for="fechaFinEvento">Fecha de Fin:</label>
+      <input type="date" id="fechaFinEvento" />
+    </div>
+
+    <div class="campo">
+      <label for="estadoEvento">Estado:</label>
       <select id="estadoEvento">
         <option value="PUBLICADO">Publicado</option>
         <option value="BORRADOR">Borrador</option>
@@ -47,28 +77,54 @@
         <option value="FINALIZADO">Finalizado</option>
       </select>
     </div>
-    <div class="campo"><label>Latitud:</label> <input type="text" id="latitudEvento" /></div>
-    <div class="campo"><label>Longitud:</label> <input type="text" id="longitudEvento" /></div>
-
-    <div id="map"></div>
 
     <div class="campo">
-      <label>Imagen actual:</label>
-      <div><img id="imagenEvento" src="" alt="Imagen del evento"></div>
+      <label for="latitudEvento">Latitud:</label>
+      <input type="text" id="latitudEvento" />
     </div>
 
+    <div class="campo">
+      <label for="longitudEvento">Longitud:</label>
+      <input type="text" id="longitudEvento" />
+    </div>
+
+    <!-- Mapa -->
+    <div id="map" style="height: 300px; margin-top: 20px;"></div>
+
+    <!-- Imagen actual del evento -->
+    <div class="campo">
+      <label>Imagen actual del evento:</label>
+      <img id="imagenEvento" src="" alt="Imagen del evento" style="max-width: 400px; margin-top: 10px; display: none;" />
+    </div>
+
+    <!-- Subir nueva imagen -->
     <div class="campo">
       <label for="imagenFile">Cambiar imagen del evento:</label>
       <input type="file" id="imagenFile" accept="image/*" />
     </div>
 
+    <!-- Imagen del mapa del estadio -->
+    <div class="campo">
+      <label>Mapa actual del estadio:</label>
+      <img id="imagenMapaActual" src="" alt="Mapa del estadio" style="display: none; max-width: 400px;" />
+    </div>
+
+    <!-- Subir imagen del mapa -->
+    <div class="campo">
+      <label for="imagenMapaFile">Subir imagen del mapa/estadio:</label>
+      <input type="file" id="imagenMapaFile" accept="image/*" />
+    </div>
+
+    <!-- Botón guardar -->
     <div class="campo text-center">
-      <button id="btnGuardarCambios" class="main-btn primary-btn btn-hover">Guardar Cambios</button>
+      <button id="btnGuardarCambios" class="main-btn primary-btn btn-hover">
+        Guardar Cambios
+      </button>
     </div>
   </div>
 
+  <!-- Scripts -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="./js/editEvents.js"></script>
 </body>
-
 </html>

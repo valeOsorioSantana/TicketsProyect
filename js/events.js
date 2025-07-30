@@ -4,7 +4,7 @@ $(document).ready(function () {
   cargarUsuarios()
 
   $('#usuarios').DataTable();
-  //checkAuthentication();
+  checkAuthentication();
   actualizarEmailDelUsuario();
 
 });
@@ -65,19 +65,22 @@ async function cargarUsuarios() {
       ? `$${parseFloat(evento.ticketPrice).toFixed(2)}`
       : `<span class="text-muted">No asignado</span>`;
 
+    let imagenEvento = evento.imagenes?.find(img => img.url && img.url.includes("/imagenes/") && !img.url.includes("Error"));
+    let imagenUrl = imagenEvento?.url || "https://via.placeholder.com/100x60?text=Sin+Imagen";
+
     const eventoHtml = `
-      <tr data-id="${evento.id}" data-lat="${evento.latitude}" data-lng="${evento.longitude}">
-        <td><img src="${evento.imagen.url}" alt="Portada" width="100" height="60" style="object-fit:cover; border-radius:4px;"></td>
-        <td>${evento.name}</td>
-        <td>${evento.description}</td>
-        <td>${evento.category}</td>
-        <td>${precio}</td>
-        <td>${evento.address}</td>
-        <td>${evento.startDate}</td>
-        <td>${evento.endDate}</td>
-        <td><span class="badge bg-success text-white">${evento.status}</span></td>
-        <td>${botonEditar} ${botonEliminar} ${botonEstadisticas}</td>
-      </tr>`;
+    <tr data-id="${evento.id}" data-lat="${evento.latitude}" data-lng="${evento.longitude}">
+      <td><img src="${imagenUrl}" alt="Portada" width="100" height="60" style="object-fit:cover; border-radius:4px;"></td>
+      <td>${evento.name}</td>
+      <td>${evento.description}</td>
+      <td>${evento.category}</td>
+      <td>${precio}</td>
+      <td>${evento.address}</td>
+      <td>${evento.startDate}</td>
+      <td>${evento.endDate}</td>
+      <td><span class="badge bg-success text-white">${evento.status}</span></td>
+      <td>${botonEditar} ${botonEliminar} ${botonEstadisticas}</td>
+    </tr>`;
 
     listadoHtml += eventoHtml;
   }

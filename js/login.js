@@ -26,7 +26,7 @@ async function iniciarSesion() {
       localStorage.setItem('token', respuesta.token);
       localStorage.setItem('email', tokenData.sub);
       localStorage.setItem('nombre', tokenData.name);
-      localStorage.setItem('rol', tokenData.Role || '');
+      localStorage.setItem('rol', tokenData.Rol || '');
       localStorage.setItem('userId', tokenData.id);
 
       window.location.href = 'events.html';
