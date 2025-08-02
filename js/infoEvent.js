@@ -20,8 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(evento => {
       titleElement.textContent = evento.name;
 
+      // Buscar la imagen principal del evento
+      let imagenEvento = evento.imagenes?.find(img => img.url && img.url.includes("/imagenes/") && !img.url.includes("Error"));
+      const imagenUrl = imagenEvento?.url || 'https://source.unsplash.com/800x400/?event'; // Imagen por defecto si no hay una imagen válida
+
       detailsContainer.innerHTML = `
-        <img src="${evento.imagen?.url || 'https://source.unsplash.com/800x400/?event'}" 
+        <img src="${imagenUrl}" 
              alt="Imagen del evento" class="event-banner" />
 
         <div class="info">
@@ -46,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>📍 Dirección:</strong> ${evento.address}</p>
           <p><strong>📌 Categoría:</strong> ${evento.category}</p>
           <p><strong>📄 Descripción:</strong> ${evento.description}</p>
-          <p><strong>🗺️ Ubicación Geografica :</strong></p>
+          <p><strong>🗺️ Ubicación Geográfica :</strong></p>
 
         </div>
 
@@ -84,5 +88,5 @@ function mostrarMapa(lat, lng) {
 }
 
 function comprarBoleta(eventId) {
-  window.location.href = `registroEvento.html?id=${eventId}`;
+  window.location.href = `comprar.html?id=${eventId}`;
 }

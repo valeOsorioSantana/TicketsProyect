@@ -28,10 +28,11 @@
       </div>
 
       <!-- Precio -->
-      <div>
-        <label for="price">Precio asignado:</label>
-        <input type="text" id="price" readonly placeholder="Se carga automáticamente" />
-      </div>
+      <label for="quantity">Cantidad de entradas:</label>
+      <input type="number" id="quantity" name="quantity" value="1" min="1" required />
+
+      <label for="price">Precio total:</label>
+      <input type="text" id="price" name="price" readonly />
 
       <!-- Estado oculto: pendiente inicialmente -->
       <input type="hidden" id="status" value="Pendiente" />

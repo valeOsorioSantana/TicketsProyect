@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,34 +17,62 @@
     <h1 id="eventTitle">Cargando evento...</h1>
 
     <!-- Detalles del evento -->
-    <section id="eventDetails">Cargando detalles...</section>
-
-    <!-- Imagen del mapa del estadio (opcional) -->
-    <section id="seatingMapContainer" style="display: none; margin-top: 20px;">
-      <h3>🗺️ Mapa del lugar</h3>
-      <img id="seatingMapImage" alt="Mapa del estadio o recinto" style="max-width: 100%; border-radius: 8px;" />
+    <section id="eventDetails">
+      <p>Cargando detalles...</p>
     </section>
 
-    <!-- Mapa interactivo (Leaflet) -->
-    <div id="map" style="height: 300px; margin-top: 20px;"></div>
+    <!-- Mapa del evento -->
+    <section id="seatingMapContainer" style="display: none; margin-top: 20px;">
+      <h3>🗺️ Mapa del lugar</h3>
+      <img id="seatingMapImage" alt="Mapa del estadio o recinto"
+        style="max-width: 100%; border-radius: 8px; margin-bottom: 15px;" />
+    </section>
 
-    <!-- Formulario de compra -->
-    <section id="compraForm" style="display: none;">
-      <h2>🎟️ Comprar Entradas</h2>
+    <!-- Sección de inscripción -->
+    <section id="compraForm" style="display: none; margin-top: 30px;">
+      <h2>🎟️ Registro e Inscripción</h2>
       <form id="formCompra">
+        <!-- Tipo de entrada -->
+        <label for="ticketType">Tipo de entrada:</label>
+        <select id="ticketType" name="ticketType" required>
+          <option value="">Seleccione una opción</option>
+          <option value="General">General</option>
+          <option value="VIP">VIP</option>
+          <option value="Platino">Platino</option>
+        </select>
+
+        <!-- Cantidad -->
         <label for="cantidad">Cantidad de entradas:</label>
         <input type="number" id="cantidad" name="cantidad" min="1" value="1" required />
 
-        <label for="nombre">Tu nombre:</label>
-        <input type="text" id="nombre" name="nombre" required />
-
-        <label for="correo">Tu correo:</label>
-        <input type="email" id="correo" name="correo" required />
-
-        <button type="submit" class="btn-comprar">Confirmar Compra</button>
+        <button type="submit" class="btn-compra">Registrar</button>
       </form>
 
-      <div id="mensajeCompra" class="mensaje"></div>
+      <div id="mensajeCompra" class="mensaje" style="margin-top: 10px;"></div>
+    </section>
+
+    <!-- Sección de pago -->
+    <section id="pagoForm" style="display: none; margin-top: 40px;">
+      <h2>💳 Realizar Pago</h2>
+      <form id="formPago">
+        <p id="resumenPago"></p>
+
+        <!-- Método de pago -->
+        <label for="method">Método de pago:</label>
+        <select id="method" name="method" required>
+          <option value="">Seleccione método</option>
+          <option value="PSE">PSE</option>
+          <option value="TARJETA">Tarjeta</option>
+          <option value="NEQUI">Nequi</option>
+        </select>
+
+        <!-- Input oculto para el monto -->
+        <input type="hidden" id="amount" name="amount" value="0" />
+
+        <button type="submit" class="btn-pago">Pagar</button>
+      </form>
+
+      <div id="mensajePago" class="mensaje" style="margin-top: 10px;"></div>
     </section>
   </main>
 
@@ -51,4 +80,5 @@
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="js/comprar.js"></script>
 </body>
+
 </html>

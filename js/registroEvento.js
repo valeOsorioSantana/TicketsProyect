@@ -8,7 +8,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const btnConfirmar = document.getElementById("btnConfirmar");
   const btnCancelar = document.getElementById("btnCancelar");
   const priceInput = document.getElementById("price");
+  const quantityInput = document.getElementById("quantity");
   let registrationId = null;
+  let precioUnitario = 0; // Nuevo: precio por entrada
 
   if (!userId || !eventId || !token) {
     alert("⚠️ Debes iniciar sesión y acceder desde un evento válido.");
@@ -30,8 +32,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const evento = await response.json();
 
     if (evento.ticketPrice != null) {
-      priceInput.value = `$${parseFloat(evento.ticketPrice).toFixed(2)}`;
-      priceInput.setAttribute("data-raw", parseFloat(evento.ticketPrice));
+      precioUnitario = parseFloat(evento.ticketPrice);
+      const cantidad = parseInt(quantityInput.value) || 1;
+      priceInput.value = `$${(precioUnitario * cantidad).toFixed(2)}`;
+      priceInput.setAttribute("data-raw", precioUnitario);
     } else {
       priceInput.value = "No asignado";
       priceInput.setAttribute("data-raw", "0");
@@ -40,6 +44,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Error cargando precio:", err);
     alert("⚠️ Error al cargar el precio del evento.");
   }
+
+  // Cambiar precio total al cambiar cantidad
+  quantityInput.addEventListener("input", () => {
+    const cantidad = parseInt(quantityInput.value) || 0;
+    const total = precioUnitario * cantidad;
+    priceInput.value = `$${total.toFixed(2)}`;
+  });
 
   // Buscar si ya existe un registro para este usuario y evento
   try {
@@ -69,10 +80,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   async function enviarRegistro(estado) {
     const ticketType = document.getElementById("ticketType").value;
-    const price = parseFloat(priceInput.getAttribute("data-raw"));
+    const cantidad = parseInt(quantityInput.value); // Obtener la cantidad
+    const priceTotal = precioUnitario * cantidad;
 
-    if (!ticketType) {
-      alert("Por favor selecciona un tipo de entrada.");
+    if (!ticketType || isNaN(cantidad) || cantidad < 1) {
+      alert("Por favor completa todos los campos correctamente.");
       return;
     }
 
@@ -80,7 +92,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       users: { id: parseInt(userId) },
       events: { id: parseInt(eventId) },
       ticketType,
-      price,
+      price: priceTotal,
+      quantity: cantidad,
       status: estado,
       reminderDeliveryStatus: "NoRecordado"
     };

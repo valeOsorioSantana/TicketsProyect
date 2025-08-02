@@ -30,8 +30,12 @@ function renderizarCard(evento, contenedor) {
     ? `$${parseFloat(evento.ticketPrice).toFixed(2)}`
     : `<span class="text-muted">No asignado</span>`;
 
+  // Buscar la imagen principal del evento
+  let imagenEvento = evento.imagenes?.find(img => img.url && img.url.includes("/imagenes/") && !img.url.includes("Error"));
+  const imagenUrl = imagenEvento?.url || 'https://source.unsplash.com/400x200/?event'; // Imagen por defecto si no hay una imagen válida
+
   card.innerHTML = `
-    <img src="${evento.imagen?.url || 'https://source.unsplash.com/400x200/?event'}" 
+    <img src="${imagenUrl}" 
          alt="${evento.name}" 
          class="event-image" loading="lazy" />
 

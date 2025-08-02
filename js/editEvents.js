@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
         imagenActual.style.display = "none";
         imagenMapaActual.style.display = "none";
       }
-      
+
       // Categoría: si no está en las opciones, activa "Otros"
       const opciones = Array.from(categoriaSelect.options).map(o => o.value);
       if (opciones.includes(event.category)) {
@@ -174,4 +174,8 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(error);
     }
   });
+});
+// Botón "Volver al inicio"
+document.getElementById("btnVolverInicio").addEventListener("click", () => {
+  window.location.href = "events.html"; // Cambia a la ruta correcta de tu página de inicio si es diferente
 });
