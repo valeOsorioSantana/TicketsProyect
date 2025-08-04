@@ -28,51 +28,116 @@
         style="max-width: 100%; border-radius: 8px; margin-bottom: 15px;" />
     </section>
 
-    <!-- Sección de inscripción -->
-    <section id="compraForm" style="display: none; margin-top: 30px;">
-      <h2>🎟️ Registro e Inscripción</h2>
-      <form id="formCompra">
+    <!-- Indicador de carga del formulario -->
+    <div id="cargandoPago" style="margin-top: 30px; font-weight: bold;">
+      🔄 Cargando inscripción y formulario de pago...
+    </div>
+
+    <!-- Sección de pago directa -->
+    <section id="pagoForm" style="margin-top: 40px; display: none;">
+      <h2>💳 Compra de Entradas</h2>
+      <form id="formPago">
         <!-- Tipo de entrada -->
         <label for="ticketType">Tipo de entrada:</label>
         <select id="ticketType" name="ticketType" required>
-          <option value="">Seleccione una opción</option>
-          <option value="General">General</option>
+          <option value="GENERAL">GENERAL</option>
           <option value="VIP">VIP</option>
-          <option value="Platino">Platino</option>
+          <option value="PLATINO">PLATINO</option>
         </select>
 
         <!-- Cantidad -->
         <label for="cantidad">Cantidad de entradas:</label>
         <input type="number" id="cantidad" name="cantidad" min="1" value="1" required />
 
-        <button type="submit" class="btn-compra">Registrar</button>
-      </form>
-
-      <div id="mensajeCompra" class="mensaje" style="margin-top: 10px;"></div>
-    </section>
-
-    <!-- Sección de pago -->
-    <section id="pagoForm" style="display: none; margin-top: 40px;">
-      <h2>💳 Realizar Pago</h2>
-      <form id="formPago">
-        <p id="resumenPago"></p>
-
         <!-- Método de pago -->
         <label for="method">Método de pago:</label>
         <select id="method" name="method" required>
           <option value="">Seleccione método</option>
           <option value="PSE">PSE</option>
-          <option value="TARJETA">Tarjeta</option>
-          <option value="NEQUI">Nequi</option>
+          <option value="Tarjeta de crédito">Tarjeta de crédito</option>
+          <option value="Tarjeta de débito">Tarjeta de débito</option>
+          <option value="PayPal">PayPal</option>
         </select>
 
-        <!-- Input oculto para el monto -->
+        <!-- Campos simulados para tarjeta -->
+        <div id="cardFields" style="display: none; margin-top: 10px;">
+          <label for="cardNumber">Número de tarjeta:</label>
+          <input type="text" id="cardNumber" name="cardNumber" maxlength="19" placeholder="1234 5678 9012 3456" />
+
+          <label for="cardName">Nombre del titular:</label>
+          <input type="text" id="cardName" name="cardName" placeholder="Nombre en la tarjeta" />
+
+          <label for="cardExpiry">Fecha de vencimiento:</label>
+          <input type="month" id="cardExpiry" name="cardExpiry" />
+
+          <label for="cardCVV">CVV:</label>
+          <input type="text" id="cardCVV" name="cardCVV" maxlength="4" placeholder="123" />
+        </div>
+
+        <!-- Campos adicionales para PSE -->
+        <div id="pseFields" style="margin-top: 15px; display: none;">
+          <label for="psePersonType">Tipo de persona:</label>
+          <select id="psePersonType" required>
+            <option value="">Seleccione tipo</option>
+            <option value="natural">Persona natural</option>
+            <option value="juridica">Persona jurídica</option>
+          </select>
+
+          <label for="pseDocumentType">Tipo de documento:</label>
+          <select id="pseDocumentType" required>
+            <option value="CC">Cédula de ciudadanía</option>
+            <option value="CE">Cédula de extranjería</option>
+            <option value="NIT">NIT</option>
+          </select>
+
+          <label for="pseDocumentNumber">Número de documento:</label>
+          <input type="text" id="pseDocumentNumber" required />
+
+          <label for="pseBank">Banco:</label>
+          <select id="pseBank" required>
+            <option value="">Seleccione banco</option>
+            <option value="banco-bogota">Banco de Bogotá</option>
+            <option value="bancolombia">Bancolombia</option>
+            <option value="davivienda">Davivienda</option>
+            <option value="nequi">Nequi</option>
+          </select>
+
+          <label for="pseName">Nombre del titular:</label>
+          <input type="text" id="pseName" required />
+
+          <label for="pseEmail">Correo electrónico:</label>
+          <input type="email" id="pseEmail" required />
+        </div>
+
+        <!-- Campos simulados para PayPal -->
+        <div id="paypalFields" style="display: none; margin-top: 15px;">
+          <label for="paypalEmail">Correo de PayPal:</label>
+          <input type="email" id="paypalEmail" name="paypalEmail" placeholder="usuario@paypal.com" required />
+
+          <label for="paypalPassword">Contraseña de PayPal:</label>
+          <input type="password" id="paypalPassword" name="paypalPassword" placeholder="********" required />
+        </div>
+
+        <!-- Monto calculado (se muestra en el resumen) -->
+        <p id="resumenPago" style="margin-top: 10px;"></p>
+
+        <!-- Monto oculto -->
         <input type="hidden" id="amount" name="amount" value="0" />
 
         <button type="submit" class="btn-pago">Pagar</button>
+        <button id="btnCancelarCompra" type="button" style="background-color: #dc3545; color: white; margin-top: 15px;">
+          ❌ Cancelar compra
+        </button>
       </form>
-
       <div id="mensajePago" class="mensaje" style="margin-top: 10px;"></div>
+
+      <div id="seccionTicket" style="margin-top: 30px; display: none;">
+        <h3>🎫 Solicitar ticket</h3>
+        <button id="btnSolicitarTicket" type="button" style="background-color: #007bff; color: white;">
+          📩 Enviar ticket por correo
+        </button>
+        <p id="mensajeTicket" style="margin-top: 10px;"></p>
+      </div>
     </section>
   </main>
 

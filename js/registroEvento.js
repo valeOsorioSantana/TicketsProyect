@@ -9,8 +9,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   const btnCancelar = document.getElementById("btnCancelar");
   const priceInput = document.getElementById("price");
   const quantityInput = document.getElementById("quantity");
+  const ticketTypeInput = document.getElementById("ticketType");
+
   let registrationId = null;
-  let precioUnitario = 0; // Nuevo: precio por entrada
+  let precioBase = 0; // Base price from event
+
+  const multiplicadores = {
+    General: 1,
+    VIP: 1.5,
+    Platino: 2
+  };
 
   if (!userId || !eventId || !token) {
     alert("⚠️ Debes iniciar sesión y acceder desde un evento válido.");
@@ -20,7 +28,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   document.getElementById("eventId").value = eventId;
 
-  // Cargar precio del evento
+  // Obtener precio del evento
   try {
     const response = await fetch(`http://localhost:8080/api/public/events/${eventId}`, {
       method: "GET",
@@ -32,10 +40,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const evento = await response.json();
 
     if (evento.ticketPrice != null) {
-      precioUnitario = parseFloat(evento.ticketPrice);
-      const cantidad = parseInt(quantityInput.value) || 1;
-      priceInput.value = `$${(precioUnitario * cantidad).toFixed(2)}`;
-      priceInput.setAttribute("data-raw", precioUnitario);
+      precioBase = parseFloat(evento.ticketPrice);
+      priceInput.setAttribute("data-raw", precioBase);
+      actualizarPrecioTotal(); // ⚠️ Llamar para precargar el precio si ya hay cantidad
     } else {
       priceInput.value = "No asignado";
       priceInput.setAttribute("data-raw", "0");
@@ -45,14 +52,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     alert("⚠️ Error al cargar el precio del evento.");
   }
 
-  // Cambiar precio total al cambiar cantidad
-  quantityInput.addEventListener("input", () => {
-    const cantidad = parseInt(quantityInput.value) || 0;
-    const total = precioUnitario * cantidad;
-    priceInput.value = `$${total.toFixed(2)}`;
-  });
+  // Escuchar cambios
+  quantityInput.addEventListener("input", actualizarPrecioTotal);
+  ticketTypeInput.addEventListener("change", actualizarPrecioTotal);
 
-  // Buscar si ya existe un registro para este usuario y evento
+  function actualizarPrecioTotal() {
+    const cantidad = parseInt(quantityInput.value) || 0;
+    const tipo = ticketTypeInput.value;
+    const multiplicador = multiplicadores[tipo] || 1;
+    const total = precioBase * cantidad * multiplicador;
+
+    priceInput.value = `$${total.toFixed(2)}`;
+  }
+
+  // Verificar si ya existe un registro
   try {
     const registrosResponse = await fetch(`http://localhost:8080/api/registrations/user/${userId}`);
     const registros = await registrosResponse.json();
@@ -79,9 +92,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   async function enviarRegistro(estado) {
-    const ticketType = document.getElementById("ticketType").value;
-    const cantidad = parseInt(quantityInput.value); // Obtener la cantidad
-    const priceTotal = precioUnitario * cantidad;
+    const ticketType = ticketTypeInput.value;
+    const cantidad = parseInt(quantityInput.value);
+    const multiplicador = multiplicadores[ticketType] || 1;
+    const priceTotal = precioBase * cantidad * multiplicador;
 
     if (!ticketType || isNaN(cantidad) || cantidad < 1) {
       alert("Por favor completa todos los campos correctamente.");
@@ -109,7 +123,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
 
       if (res.ok) {
-        const result = await res.text();
         alert(`✅ Registro ${estado.toLowerCase()} exitosamente.`);
         window.location.href = `comprar.html?id=${eventId}`;
       } else {
@@ -133,7 +146,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       if (res.ok) {
         alert("✅ Registro cancelado y eliminado.");
-        window.location.href = "userEvents.html";
+        window.location.href = "infoEvents.html";
       } else {
         const error = await res.text();
         alert("❌ Error al cancelar: " + error);

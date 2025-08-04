@@ -10,6 +10,10 @@
 
 <body>
   <main>
+    <div class="volver-container">
+      <a href="userEvents.html" class="btn-volver">🏠 Volver al inicio</a>
+    </div>
+
     <h2>Registro al Evento</h2>
 
     <form id="registroForm">
@@ -19,11 +23,11 @@
       <!-- Tipo de entrada -->
       <div>
         <label for="ticketType">Tipo de entrada:</label>
-        <select id="ticketType" required>
-          <option value="">Seleccione una opción</option>
-          <option value="GENERAL">General</option>
+        <select id="ticketType" name="ticketType" required>
+          <option value="">Seleccione tipo</option>
+          <option value="General">General</option>
           <option value="VIP">VIP</option>
-          <option value="PLATINO">Platino</option>
+          <option value="Platino">Platino</option>
         </select>
       </div>
 
@@ -41,6 +45,7 @@
       <div class="btn-group">
         <button type="button" id="btnConfirmar">✅ Confirmar Registro</button>
         <button type="button" id="btnCancelar">❌ Cancelar Registro</button>
+        <button onclick="history.back()" class="btn-volver">🔙 Página anterior</button>
       </div>
     </form>
 

@@ -52,3 +52,55 @@ body {
 .buy-btn:hover {
   background-color: #218838;
 }
+
+.volver-container {
+  margin-bottom: 20px; /* separa el botón del contenido que viene después */
+  text-align: left;    /* alinear el botón al inicio del contenedor */
+}
+
+.btn-volver {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+  border: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.btn-volver:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive: en pantallas pequeñas, haz el botón más ancho y más pequeño */
+@media (max-width: 600px) {
+  .volver-container {
+    top: 10px;
+    left: 10px;
+  }
+
+  .btn-volver {
+    font-size: 14px;
+    padding: 8px 12px;
+    width: 100%; /* o min-width si prefieres */
+  }
+}
+
+.event-image-container {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.event-banner {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+

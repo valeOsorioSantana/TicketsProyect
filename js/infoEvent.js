@@ -22,36 +22,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Buscar la imagen principal del evento
       let imagenEvento = evento.imagenes?.find(img => img.url && img.url.includes("/imagenes/") && !img.url.includes("Error"));
-      const imagenUrl = imagenEvento?.url || 'https://source.unsplash.com/800x400/?event'; // Imagen por defecto si no hay una imagen válida
+      const imagenUrl = imagenEvento?.url || 'https://source.unsplash.com/800x400/?event';
 
+      // Inyectar HTML en el contenedor, incluyendo el botón al inicio
       detailsContainer.innerHTML = `
-        <img src="${imagenUrl}" 
-             alt="Imagen del evento" class="event-banner" />
+        <div class="volver-container">
+          <a href="userEvents.html" class="btn-volver">
+            ⬅ Volver al inicio
+          </a>
+        </div>
+
+        <img src="${imagenUrl}" alt="Imagen del evento" class="event-banner" />
 
         <div class="info">
           <p><strong>📅 Fecha de inicio:</strong> 
-            ${new Date(evento.startDate).toLocaleString('es-CO', {
-              day: '2-digit',
-              month: 'long',
-              year: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit'
-            })}
+            ${new Date(evento.startDate).toLocaleString('es-CO', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
           </p>
           <p><strong>📅 Fecha de fin:</strong> 
-            ${new Date(evento.endDate).toLocaleString('es-CO', {
-              day: '2-digit',
-              month: 'long',
-              year: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit'
-            })}
+            ${new Date(evento.endDate).toLocaleString('es-CO', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
           </p>
           <p><strong>📍 Dirección:</strong> ${evento.address}</p>
           <p><strong>📌 Categoría:</strong> ${evento.category}</p>
           <p><strong>📄 Descripción:</strong> ${evento.description}</p>
           <p><strong>🗺️ Ubicación Geográfica :</strong></p>
-
         </div>
 
         <div id="map" style="height: 300px; margin-top: 20px;"></div>
@@ -63,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `;
 
-      // Mostrar el mapa con Leaflet
       if (evento.latitude && evento.longitude) {
         mostrarMapa(evento.latitude, evento.longitude);
       }
@@ -88,5 +80,5 @@ function mostrarMapa(lat, lng) {
 }
 
 function comprarBoleta(eventId) {
-  window.location.href = `comprar.html?id=${eventId}`;
+  window.location.href = `registroEvento.html?id=${eventId}`;
 }
