@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
+  let tipoSeleccionado = "General";
   const params = new URLSearchParams(window.location.search);
   const eventId = params.get("id");
   const rawUserId = localStorage.getItem("userId");
@@ -10,6 +11,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   const seatingMapImage = document.getElementById("seatingMapImage");
 
   const formPago = document.getElementById("formPago");
+  if (formPago) {
+    formPago.style.display = "none";  // o lo que sea
+  } else {
+    console.warn("formPago no encontrado en el DOM");
+  }
+
   const ticketTypeSelect = document.getElementById("ticketType");
   const cantidadInput = document.getElementById("cantidad");
   const methodInput = document.getElementById("method");
@@ -66,6 +73,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
+    const userRes = await fetch(`http://localhost:8080/api/users/${userId}`);
+    if (!userRes.ok) throw new Error("No se pudo obtener información del usuario");
+    const user = await userRes.json();
+
     const [eventoRes, registroRes] = await Promise.all([
       fetch(`http://localhost:8080/api/public/events/${eventId}`),
       fetch(`http://localhost:8080/api/registrations/user/${userId}`)
@@ -84,18 +95,63 @@ document.addEventListener("DOMContentLoaded", async () => {
     const tipoRaw = registro.ticketType?.toLowerCase() || "general";
     const tipoFinal = tipoRaw === "vip" ? "VIP" : tipoRaw === "platino" ? "Platino" : "General";
     ticketTypeSelect.value = tipoFinal;
+    tipoSeleccionado = tipoFinal;
     cantidadInput.value = registro.quantity || 1;
 
     ticketTypeSelect.disabled = true;
     cantidadInput.disabled = true;
 
     mensajePago.innerHTML = `
-      <p style="color: green;">
-        ✅ Se encontró una inscripción previa:<br>
-        Tipo: <strong>${registro.ticketType}</strong><br>
-        Cantidad: <strong>${registro.quantity}</strong>
-      </p>
-    `;
+  <p style="color: green;">
+    ✅ Se encontró una inscripción previa:<br>
+    Tipo: <strong>${tipoFinal}</strong><br>
+    Cantidad: <strong>${registro.quantity}</strong>
+  </p>
+`;
+
+    // Verificar si ya existe un pago para esta inscripción previa
+    const resPagoExistente = await fetch(`http://localhost:8080/api/payments/registration/${registro.id}`);
+    if (resPagoExistente.ok) {
+      const pagoExistente = await resPagoExistente.json();
+
+      // Ocultar formulario de pago
+      formPago.style.display = "none";
+
+      // Mostrar mensaje con pago encontrado
+      mensajePago.innerHTML = `
+    <p style="color: green;">
+      ✅ Se encontró una inscripción previa:<br>
+      Tipo: <strong>${tipoFinal}</strong><br>
+      Cantidad: <strong>${registro.quantity}</strong><br>
+      <strong>Pago confirmado:</strong> Método ${pagoExistente.method} - Monto $${pagoExistente.amount.toFixed(2)}
+    </p>
+  `;
+
+      // Mostrar el ticket simulado con la info necesaria
+      const ticketContainer = document.getElementById("ticketSimulado");
+      ticketContainer.style.display = "block";
+
+      document.getElementById("simEventoNombre").textContent = evento.name;
+      document.getElementById("simEventoLugar").textContent = evento.address;
+      document.getElementById("simEventoFecha").textContent = new Date(evento.startDate).toLocaleString("es-ES");
+      document.getElementById("simTipoEntrada").textContent = tipoFinal;
+      document.getElementById("simCantidad").textContent = registro.quantity;
+      document.getElementById("simPrecioTotal").textContent = pagoExistente.amount.toFixed(2);
+      document.getElementById("simUsuarioEmail").textContent = user.email || "Correo no disponible";
+
+      // Generar QR con datos del pago y ticket (si tienes la librería QRCode)
+      const qrCanvas = document.getElementById("qrPreview");
+      QRCode.toCanvas(qrCanvas, `Evento: ${evento.name}\nUsuario: ${user.email}\nTipo: ${tipoFinal}\nCantidad: ${registro.quantity}\nTotal: $${pagoExistente.amount.toFixed(2)}`, { width: 150 }, function (error) {
+        if (error) console.error(error);
+      });
+
+    } else {
+      // Si no hay pago, mostrar formulario de pago
+      formPago.style.display = "block";
+      if (cargandoPago) cargandoPago.style.display = "none";
+    }
+
+    actualizarResumenPago(tipoFinal, registro.quantity);
 
     document.getElementById("pagoForm").style.display = "block";
     document.getElementById("cargandoPago").style.display = "none";
@@ -134,6 +190,26 @@ document.addEventListener("DOMContentLoaded", async () => {
     formPago.style.display = "block";
     if (cargandoPago) cargandoPago.style.display = "none";
 
+    function mostrarTicketSimulado(ticket, evento, emailUsuario, cantidad, tipoEntrada, precioTotal, qrText) {
+      const ticketContainer = document.getElementById("ticketSimulado");
+      if (!ticketContainer) return;
+
+      ticketContainer.style.display = "block";
+
+      document.getElementById("simEventoNombre").textContent = evento.name;
+      document.getElementById("simEventoLugar").textContent = evento.address;
+      document.getElementById("simEventoFecha").textContent = new Date(evento.startDate).toLocaleString("es-ES");
+      document.getElementById("simTipoEntrada").textContent = tipoEntrada;
+      document.getElementById("simCantidad").textContent = cantidad;
+      document.getElementById("simPrecioTotal").textContent = precioTotal;
+      document.getElementById("simUsuarioEmail").textContent = emailUsuario || "Correo no disponible";
+
+      const qrCanvas = document.getElementById("qrPreview");
+      QRCode.toCanvas(qrCanvas, qrText, { width: 150 }, function (error) {
+        if (error) console.error(error);
+      });
+    }
+
     formPago.addEventListener("submit", async (e) => {
       e.preventDefault();
       mensajePago.textContent = "";
@@ -141,9 +217,25 @@ document.addEventListener("DOMContentLoaded", async () => {
       const method = methodInput.value;
       const amount = parseFloat(amountInput.value);
 
+      if (!method || isNaN(amount)) {
+        mensajePago.textContent = "❌ Por favor, complete todos los campos del formulario.";
+        mensajePago.style.color = "red";
+        return;
+      }
+
       if (method === "PayPal") {
-        const email = document.getElementById("paypalEmail").value;
-        const password = document.getElementById("paypalPassword").value;
+        const emailInput = document.getElementById("paypalEmail");
+        const passwordInput = document.getElementById("paypalPassword");
+
+        if (!emailInput || !passwordInput) {
+          mensajePago.textContent = "❌ Campos de PayPal no encontrados. Verifica el formulario.";
+          mensajePago.style.color = "red";
+          return;
+        }
+
+        const email = emailInput.value;
+        const password = passwordInput.value;
+
         if (!email || !password) {
           mensajePago.textContent = "❌ Por favor, complete los campos de PayPal.";
           mensajePago.style.color = "red";
@@ -151,13 +243,31 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       }
 
-      if (!method || isNaN(amount)) {
-        mensajePago.textContent = "❌ Por favor, complete todos los campos del formulario.";
-        mensajePago.style.color = "red";
-        return;
+      if (method === "PSE") {
+        const bank = document.getElementById("pseBank").value;
+        const pseName = document.getElementById("pseName").value;
+        if (!bank || !pseName) {
+          mensajePago.textContent = "❌ Por favor, complete los campos de PSE.";
+          mensajePago.style.color = "red";
+          return;
+        }
+      }
+
+      if (method === "Tarjeta de crédito" || method === "Tarjeta de débito") {
+        const cardNumber = document.getElementById("cardNumber").value;
+        const cardName = document.getElementById("cardName").value;
+        const cardExpiry = document.getElementById("cardExpiry").value;
+        const cardCVC = document.getElementById("cardCVC").value;
+
+        if (!cardNumber || !cardName || !cardExpiry || !cardCVC) {
+          mensajePago.textContent = "❌ Por favor, complete todos los campos de tarjeta.";
+          mensajePago.style.color = "red";
+          return;
+        }
       }
 
       try {
+
         const resPagoExistente = await fetch(`http://localhost:8080/api/payments/registration/${registro.id}`);
         if (resPagoExistente.ok) {
           const pagoExistente = await resPagoExistente.json();
@@ -187,7 +297,43 @@ document.addEventListener("DOMContentLoaded", async () => {
         mensajePago.textContent = "💰 ¡Pago registrado exitosamente!";
         mensajePago.style.color = "green";
         formPago.reset();
+        formPago.style.display = "none";
+
+        document.getElementById("ticketSimulado").style.display = "block";
+
+        document.getElementById("simUsuarioEmail").textContent = rawUserId || "usuario@ejemplo.com"; // o user.email si tienes objeto user
+        document.getElementById("simEventoNombre").textContent = evento.name;
+        document.getElementById("simEventoLugar").textContent = evento.address;
+        document.getElementById("simEventoFecha").textContent = new Date(evento.startDate).toLocaleString("es-ES");
+        document.getElementById("simTipoEntrada").textContent = tipoSeleccionado;
+        document.getElementById("simCantidad").textContent = cantidadInput.value;
+        document.getElementById("simPrecioTotal").textContent = amountInput.value;
+
+        // Generar texto QR para usar después en el envío de correo
+        const qrText = `Evento:${evento.name}\nUsuario:${rawUserId}\nTipo:${tipoSeleccionado}\nCantidad:${cantidadInput.value}\nTotal:$${amountInput.value}`;
+
+        // Generar QR en canvas
+        const qrPreviewCanvas = document.getElementById("qrPreview");
+        QRCode.toCanvas(qrPreviewCanvas, qrText, { width: 150 }, function (error) {
+          if (error) console.error(error);
+        });
+
+        // Guardar qrText global para usar en el botón de enviar correo
+        window.qrText = qrText;
+
         actualizarResumenPago();
+
+        const resTicket = await fetch(`http://localhost:8080/api/tickets/${registro.id}`, {
+          method: "POST"
+        });
+
+        if (!resTicket.ok) {
+          throw new Error("No se pudo generar el ticket.");
+        }
+
+        const ticket = await resTicket.json();
+
+        mostrarTicketSimulado(ticket, evento, localStorage.getItem("userEmail") || "usuario@ejemplo.com", registro.quantity, tipoSeleccionado, amount, qrText);
 
       } catch (err) {
         console.error("❌ Error al procesar:", err.message);
@@ -232,17 +378,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function actualizarResumenPago() {
     const cantidad = parseInt(cantidadInput.value || "1");
-    const tipo = ticketTypeSelect.value || "General";
+    let tipo = tipoSeleccionado;
+
     const multiplicador = multiplicadores[tipo] || 1;
     const precioUnitario = precioBase * multiplicador;
     const total = precioUnitario * cantidad;
 
     resumenPago.innerHTML = `
-      Entradas: <strong>${cantidad}</strong><br>
-      Tipo: <strong>${tipo}</strong><br>
-      Precio por entrada: <strong>$${precioUnitario.toFixed(2)}</strong><br>
-      <strong>Total a pagar: $${total.toFixed(2)}</strong>
-    `;
+    Entradas: <strong>${cantidad}</strong><br>
+    Tipo: <strong>${tipo}</strong><br>
+    Precio por entrada: <strong>$${precioUnitario.toFixed(2)}</strong><br>
+    <strong>Total a pagar: $${total.toFixed(2)}</strong>
+  `;
 
     amountInput.value = total.toFixed(2);
   }

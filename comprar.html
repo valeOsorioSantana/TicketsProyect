@@ -39,7 +39,7 @@
       <form id="formPago">
         <!-- Tipo de entrada -->
         <label for="ticketType">Tipo de entrada:</label>
-        <select id="ticketType" name="ticketType" required>
+        <select id="ticketType" name="ticketType" disabled required>
           <option value="GENERAL">GENERAL</option>
           <option value="VIP">VIP</option>
           <option value="PLATINO">PLATINO</option>
@@ -47,7 +47,7 @@
 
         <!-- Cantidad -->
         <label for="cantidad">Cantidad de entradas:</label>
-        <input type="number" id="cantidad" name="cantidad" min="1" value="1" required />
+        <input type="number" id="cantidad" name="cantidad" min="1" value="1" disabled required />
 
         <!-- Método de pago -->
         <label for="method">Método de pago:</label>
@@ -71,7 +71,7 @@
           <input type="month" id="cardExpiry" name="cardExpiry" />
 
           <label for="cardCVV">CVV:</label>
-          <input type="text" id="cardCVV" name="cardCVV" maxlength="4" placeholder="123" />
+          <input type="text" id="cardCVC" name="cardCVC" maxlength="4" placeholder="123" />
         </div>
 
         <!-- Campos adicionales para PSE -->
@@ -112,10 +112,10 @@
         <!-- Campos simulados para PayPal -->
         <div id="paypalFields" style="display: none; margin-top: 15px;">
           <label for="paypalEmail">Correo de PayPal:</label>
-          <input type="email" id="paypalEmail" name="paypalEmail" placeholder="usuario@paypal.com" required />
+          <input type="email" id="paypalEmail" name="paypalEmail" placeholder="usuario@paypal.com">
 
           <label for="paypalPassword">Contraseña de PayPal:</label>
-          <input type="password" id="paypalPassword" name="paypalPassword" placeholder="********" required />
+          <input type="password" id="paypalPassword" name="paypalPassword" placeholder="********">
         </div>
 
         <!-- Monto calculado (se muestra en el resumen) -->
@@ -131,17 +131,21 @@
       </form>
       <div id="mensajePago" class="mensaje" style="margin-top: 10px;"></div>
 
-      <div id="seccionTicket" style="margin-top: 30px; display: none;">
-        <h3>🎫 Solicitar ticket</h3>
-        <button id="btnSolicitarTicket" type="button" style="background-color: #007bff; color: white;">
-          📩 Enviar ticket por correo
-        </button>
-        <p id="mensajeTicket" style="margin-top: 10px;"></p>
+      <div id="ticketSimulado" class="ticket-simulado">
+        <h3>🎟️ Entrada para <span id="simEventoNombre"></span></h3>
+        <p><strong>📍 Lugar:</strong> <span id="simEventoLugar"></span></p>
+        <p><strong>📅 Fecha:</strong> <span id="simEventoFecha"></span></p>
+        <p><strong>👤 Usuario:</strong> <span id="simUsuarioEmail"></span></p>
+        <p><strong>🎟️ Tipo de Entrada:</strong> <span id="simTipoEntrada"></span></p>
+        <p><strong>🔢 Cantidad:</strong> <span id="simCantidad"></span></p>
+        <p><strong>💰 Precio Total:</strong> $<span id="simPrecioTotal"></span></p>
+        <canvas id="qrPreview"></canvas>
       </div>
     </section>
   </main>
 
   <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="js/comprar.js"></script>
 </body>
