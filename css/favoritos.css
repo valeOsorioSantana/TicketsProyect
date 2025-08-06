@@ -1,0 +1,270 @@
+/* ============================
+   CONTENEDOR PRINCIPAL
+============================ */
+.favoritos-page {
+  max-width: 1200px;
+  margin: 2.5rem auto;
+  padding: 0 1.5rem;
+  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(120deg, #f0faff, #ffffff);
+}
+
+/* ============================
+   GRID DE TARJETAS
+============================ */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+/* ============================
+   TARJETA INDIVIDUAL
+============================ */
+.evento-card {
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 20px;
+  box-shadow: 0 8px 28px rgba(13, 71, 161, 0.12);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #e0ecff;
+  backdrop-filter: blur(5px);
+}
+
+.evento-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 45px rgba(25, 103, 210, 0.15);
+}
+
+/* ============================
+   IMAGEN DE LA TARJETA
+============================ */
+.evento-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 20px 20px 0 0;
+  transition: transform 0.4s ease;
+}
+
+.evento-card:hover img {
+  transform: scale(1.04);
+}
+
+/* ============================
+   OVERLAY SOBRE IMAGEN
+============================ */
+.evento-card .img-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(180deg, rgba(0, 40, 80, 0.5), rgba(0, 40, 80, 0));
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.6rem;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 20px 20px 0 0;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.04em;
+  text-transform: capitalize;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ============================
+   CONTENIDO INTERNO
+============================ */
+.evento-card .content {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f8fbff;
+}
+
+.evento-card .content h3 {
+  margin: 1rem 0 0.6rem;
+  font-size: 1.5rem;
+  color: #0d2d5c;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  user-select: none;
+}
+
+.evento-card p {
+  margin: 0.4rem 0;
+  color: #546e7a;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  font-weight: 500;
+  font-family: 'Open Sans', sans-serif;
+  letter-spacing: 0.015em;
+}
+
+/* ============================
+   BOTÓN "VER DETALLES"
+============================ */
+.evento-card .actions {
+  margin-top: auto;
+  text-align: center;
+}
+
+.evento-card .main-btn {
+  background: linear-gradient(135deg, #4fc3f7, #1976d2);
+  color: #ffffff;
+  padding: 14px 34px;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  box-shadow: 0 6px 20px rgba(25, 118, 210, 0.35);
+  transition: all 0.3s ease;
+}
+
+.evento-card .main-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: skewX(-25deg);
+  transition: left 0.4s ease;
+}
+
+.evento-card .main-btn:hover::before {
+  left: 150%;
+}
+
+.evento-card .main-btn:hover {
+  background: linear-gradient(135deg, #42a5f5, #1565c0);
+  box-shadow: 0 12px 32px rgba(21, 101, 192, 0.45);
+  transform: translateY(-1.5px);
+}
+
+/* ============================
+   BOTÓN CORAZÓN FAVORITOS
+============================ */
+.evento-card .btn-favorito-card {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  border: none;
+  font-size: 1.6rem;
+  color: #e74c3c;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(3px);
+}
+
+.evento-card .btn-favorito-card:hover {
+  background: #e74c3c;
+  color: #fff;
+  transform: scale(1.2);
+  box-shadow: 0 8px 28px rgba(231, 76, 60, 0.6);
+}
+
+/* ============================
+   ENCABEZADO EVENTOS FAVORITOS
+============================ */
+.event-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.event-header .heart-icon {
+  margin: 0 auto 1rem;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #0055ff, #00f7ff);
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg fill=\'white\' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><path d=\'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z\'/></svg>') no-repeat center / contain;
+  filter: drop-shadow(0 3px 6px rgba(255, 95, 109, 0.4));
+  transition: transform 0.3s ease;
+}
+.event-header .heart-icon:hover {
+  transform: scale(1.15) rotate(-10deg);
+}
+
+.event-header h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  background: linear-gradient(178deg, #4096ea 10%, #3a5fe6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  letter-spacing: 0.06em;
+  font-family: 'Poppins', sans-serif;
+  text-shadow: 1px 1px 8px rgba(44, 62, 80, 0.15);
+  margin: 0;
+  font-style: normal;
+  line-height: 1.2;
+  text-transform: capitalize;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============================
+   TEXTO DE CARGANDO
+============================ */
+#favoritosContainer:empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 220px;
+}
+
+#favoritosContainer p {
+  font-size: 1.1rem;
+  color: #314152;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  text-shadow: 0 0 10px rgba(52, 73, 94, 0.2);
+  margin: 0;
+  font-style: italic;
+  letter-spacing: 0.03em;
+  animation: pulseText 3s infinite alternate;
+}
+
+/* ============================
+   ANIMACIÓN PULSE TEXT
+============================ */
+@keyframes pulseText {
+  0% {
+    color: #314152;
+    text-shadow: 0 0 10px rgba(52, 73, 94, 0.2);
+  }
+  100% {
+    color: #045c97;
+    text-shadow: 0 0 20px rgba(93, 173, 226, 0.6);
+  }
+}
+

@@ -1,30 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+
+/* =========================
+   Estilo base
+========================= */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  padding: 20px;
+  font-family: 'Quicksand', sans-serif;
+  margin: 1.5rem;
+  background: linear-gradient(135deg, #e4f0fc, #f8fbff);
+  color: #34495e;
 }
-.registro-container {
-  max-width: 600px;
+
+/* =========================
+   Contenedor del formulario
+========================= */
+main {
+  max-width: 720px;
   margin: auto;
-  background: white;
-  border-radius: 10px;
-  padding: 30px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 6px 24px rgba(0, 90, 160, 0.1);
+  animation: fadeIn 0.4s ease-in-out;
 }
-input, textarea {
+
+h2 {
+  text-align: center;
+  color: #21618c;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+/* =========================
+   Campo de formulario
+========================= */
+form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #2a4d69;
+}
+
+form input,
+form select {
   width: 100%;
-  margin-bottom: 15px;
-  padding: 10px;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid #cbddef;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #f4faff;
+  margin-bottom: 1.5rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
   box-sizing: border-box;
 }
-.btn-registrar {
-  background-color: #007bff;
-  color: white;
-  padding: 12px;
-  border: none;
-  width: 100%;
-  cursor: pointer;
+
+form input:focus,
+form select:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 6px rgba(74, 144, 226, 0.5);
+  outline: none;
 }
-.mensaje {
-  margin-top: 15px;
-  font-weight: bold;
+
+/* =========================
+   Botones de acción
+========================= */
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn-group i,
+.btn-volver i {
+  vertical-align: middle;
+  /* margin-right: 8px;  <- quitar para evitar doble espacio */
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+
+.btn-group button {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* <--- espacio entre icono y texto */
+  padding: 12px;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(40, 110, 190, 0.15);
+  transition: all 0.3s ease;
+}
+
+
+
+#btnConfirmar {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+#btnConfirmar:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+}
+
+#btnCancelar {
+  background: linear-gradient(135deg, #f87171, #dc2626);
+  color: white;
+}
+
+#btnCancelar:hover {
+  background: linear-gradient(135deg, #dc2626, #991b1b);
+}
+
+/* =========================
+   Botón volver reutilizado
+========================= */
+.btn-volver {
+  display: inline-flex;      /* Cambiar de inline-block a inline-flex */
+  align-items: center;       /* Alinear icono y texto verticalmente */
+  gap: 8px;                  /* Espacio entre icono y texto */
+  background: linear-gradient(135deg, #f0f4f8, #d0dce8);
+  color: #2c3e50;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  text-decoration: none;
+  border: 1px solid #aac6e3;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(170, 198, 227, 0.5);
+}
+
+.btn-volver:hover {
+  background: linear-gradient(135deg, #d0dce8, #aac6e3);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(90, 139, 214, 0.25);
+}
+
+.volver-container {
+  margin-bottom: 1.5rem;
+}
+
+/* =========================
+   Animación
+========================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.subtitulo {
+  text-align: center;
+  font-size: 1rem;
+  color: #5d738f;
+  margin-top: -1rem;
+  margin-bottom: 2rem;
 }

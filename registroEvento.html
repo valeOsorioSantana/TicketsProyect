@@ -4,17 +4,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Registro a Evento</title>
+  <title>Asistencia al Evento | TicketLite</title>
   <link rel="stylesheet" href="css/registroEvento.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="shortcut icon" href="./img/entradas.png" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 
 <body>
   <main>
     <div class="volver-container">
-      <a href="userEvents.html" class="btn-volver">🏠 Volver al inicio</a>
+      <a href="userEvents.html" class="btn-volver">
+        <i class="fa-solid fa-house"></i> Volver al inicio
+      </a>
     </div>
 
-    <h2>Registro al Evento</h2>
+
+    <h2>Confirmar Asistencia</h2>
+    <p class="subtitulo">Por favor ingresa los datos requeridos para guardar tu asistencia</p>
 
     <form id="registroForm">
       <!-- ID del evento -->
@@ -43,9 +51,17 @@
 
       <!-- Botones de acción -->
       <div class="btn-group">
-        <button type="button" id="btnConfirmar">✅ Confirmar Registro</button>
-        <button type="button" id="btnCancelar">❌ Cancelar Registro</button>
-        <button onclick="history.back()" class="btn-volver">🔙 Página anterior</button>
+        <button type="button" id="btnConfirmar">
+          <i data-feather="check-circle"></i> Confirmar
+        </button>
+
+        <button type="button" id="btnCancelar">
+          <i data-feather="x-circle"></i> Cancelar
+        </button>
+
+        <a onclick="history.back()" class="btn-volver">
+          <i data-feather="arrow-left"></i> Página anterior
+        </a>
       </div>
     </form>
 
@@ -54,7 +70,10 @@
   </main>
 
   <!-- JS -->
+  <script src="https://unpkg.com/feather-icons"></script>
   <script src="js/registroEvento.js"></script>
+  <script>feather.replace()</script>
+
 </body>
 
 </html>

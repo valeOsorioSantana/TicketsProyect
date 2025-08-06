@@ -32,6 +32,14 @@ function actualizarEmailDelUsuario() {
   document.getElementById('txt-name-usuario').outerHTML = localStorage.nombre;
 }
 
+document.getElementById('sidebarToggle').addEventListener('click', function () {
+  document.body.classList.toggle('sidebar-toggled');
+  const sidebar = document.querySelector('.sidebar');
+  if (sidebar) {
+    sidebar.classList.toggle('toggled');
+  }
+});
+
 async function cargarUsuarios() {
   const request = await fetch('http://localhost:8080/api/public/events/', {
     method: 'GET',

@@ -1,23 +1,37 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Detalle del Evento</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalle del Evento | TicketLite</title>
+
+  <!-- Estilos -->
   <link rel="stylesheet" href="css/infoEvent.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="shortcut icon" href="./img/entradas.png" type="image/x-icon" />
 </head>
+
 <body>
+  <!-- Encabezado -->
   <header class="event-header">
     <h1 id="eventTitle">Cargando evento...</h1>
   </header>
 
+  <!-- Contenido del evento -->
   <main class="event-details" id="eventDetails">
-    <!-- El contenido del evento + el botón serán generados dinámicamente -->
+    <!-- Este contenido se inyecta dinámicamente desde JS -->
     <p>Cargando detalles...</p>
+    <button id="btn-favorito" class="btn-favorito">
+      <span class="corazon">🤍</span>
+      <span class="texto">Agregar a favoritos</span>
+    </button>
+
   </main>
 
+  <!-- Scripts -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="js/infoEvent.js"></script>
 </body>
+
 </html>

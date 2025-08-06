@@ -4,7 +4,7 @@ $(document).ready(function () {
   cargarUsuarios()
 
   $('#usuarios').DataTable();
-  checkAuthentication();
+  //checkAuthentication();
   actualizarEmailDelUsuario();
 
 });
@@ -31,14 +31,6 @@ function logout() {
 function actualizarEmailDelUsuario() {
   document.getElementById('txt-name-usuario').outerHTML = localStorage.nombre;
 }
-
-document.getElementById('sidebarToggle').addEventListener('click', function () {
-  document.body.classList.toggle('sidebar-toggled');
-  const sidebar = document.querySelector('.sidebar');
-  if (sidebar) {
-    sidebar.classList.toggle('toggled');
-  }
-});
 
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("eventContainer");

@@ -1,100 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+
+/* =========================
+   Base general
+========================= */
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   margin: 0;
   padding: 0;
-  background: #f5f7fa;
-  color: #333;
+  background: linear-gradient(135deg, #e3f2fd, #f8fbff);
+  color: #34495e;
+  line-height: 1.6;
 }
 
+/* =========================
+   Encabezado del evento
+========================= */
 .event-header {
-  background: #007bff;
-  color: white;
-  padding: 20px;
+  padding: 0.6rem 1rem; /* menos padding vertical */
   text-align: center;
+  position: relative;
+  animation: fadeInDown 0.5s ease-in-out;
 }
 
+.event-header h1 {
+  margin: auto;
+  font-size: 3.5rem; /* igual que antes */
+  font-weight: 999;
+  letter-spacing: -0.5px;
+  background: linear-gradient(180deg, #4096ea 10%, #3a5fe6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.event-header .subtitle {
+  font-size: 1.1rem; /* igual que antes */
+  font-weight: 400;
+  opacity: 0.85;
+  margin-top: 0.4rem; /* un poco menos */
+}
+
+/* =========================
+   Contenedor principal del evento
+========================= */
 .event-details {
-  max-width: 800px;
-  margin: 20px auto;
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  max-width: 720px; /* antes 960px */
+  margin: 2rem auto; /* antes 3rem */
+  background: #ffffff;
+  padding: 1.8rem 1.5rem; /* antes 2.5rem 2rem */
+  border-radius: 16px; /* antes 20px */
+  box-shadow: 0 10px 28px rgba(0, 90, 160, 0.08); /* un poco más pequeño */
+  animation: fadeInUp 0.5s ease-in-out;
+  transition: box-shadow 0.3s ease;
 }
 
-.event-banner {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  margin-bottom: 20px;
+.event-details:hover {
+  box-shadow: 0 14px 36px rgba(0, 90, 160, 0.12);
 }
 
-.info p {
-  margin: 8px 0;
-  font-size: 16px;
-}
-
-.actions {
-  margin-top: 30px;
-  text-align: center;
-}
-
-.buy-btn {
-  background-color: #28a745;
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.buy-btn:hover {
-  background-color: #218838;
-}
-
-.volver-container {
-  margin-bottom: 20px; /* separa el botón del contenido que viene después */
-  text-align: left;    /* alinear el botón al inicio del contenedor */
-}
-
-.btn-volver {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  font-size: 16px;
-  border: none;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.btn-volver:hover {
-  background-color: #0056b3;
-}
-
-/* Responsive: en pantallas pequeñas, haz el botón más ancho y más pequeño */
-@media (max-width: 600px) {
-  .volver-container {
-    top: 10px;
-    left: 10px;
-  }
-
-  .btn-volver {
-    font-size: 14px;
-    padding: 8px 12px;
-    width: 100%; /* o min-width si prefieres */
-  }
-}
-
+/* =========================
+   Imagen destacada del evento
+========================= */
 .event-image-container {
   width: 100%;
   overflow: hidden;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  border-radius: 12px; /* antes 16px */
+  margin-bottom: 1.4rem; /* antes 2rem */
 }
 
 .event-banner {
@@ -102,5 +74,233 @@ body {
   height: auto;
   display: block;
   object-fit: cover;
+  border-radius: 12px; /* antes 16px */
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.07); /* más pequeño */
+  transition: transform 0.3s ease;
+  margin-top: 1rem; /* antes 1.5rem */
 }
 
+.event-banner:hover {
+  transform: scale(1.02);
+}
+
+/* =========================
+   Texto informativo del evento
+========================= */
+.info p {
+  margin: 0.8rem 0; /* antes 1rem */
+  font-size: 1.1rem; /* igual */
+  color: #3d566e;
+}
+
+.info strong {
+  color: #21618c;
+  font-weight: 600;
+}
+
+/* =========================
+   Botones generales
+========================= */
+.main-btn {
+  padding: 10px 26px; /* antes 14px 32px */
+  font-weight: 600;
+  border-radius: 10px; /* antes 12px */
+  border: none;
+  cursor: pointer;
+  font-size: 1rem; /* igual */
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(40, 110, 190, 0.15); /* un poco más pequeño */
+}
+
+/* Botón Comprar (Registrarse) */
+.buy-btn {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 10px 26px; /* antes 14px 32px */
+  font-weight: 600;
+  border-radius: 12px; /* antes 14px */
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem; /* igual */
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(5, 150, 105, 0.3);
+}
+
+.buy-btn:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(16, 185, 129, 0.35);
+}
+
+.buy-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+}
+
+/* Botón Volver */
+.volver-container {
+  margin-top: 1.6rem; /* antes 2.5rem */
+  text-align: left;
+}
+
+.btn-volver {
+  background: linear-gradient(135deg, #f0f4f8, #d0dce8);
+  color: #2c3e50;
+  padding: 9px 20px; /* antes 12px 24px */
+  font-size: 1rem; /* igual */
+  font-weight: 600;
+  border-radius: 8px; /* antes 10px */
+  text-decoration: none;
+  border: 1px solid #aac6e3;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 9px rgba(170, 198, 227, 0.5);
+}
+
+.btn-volver:hover {
+  background: linear-gradient(135deg, #d0dce8, #aac6e3);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(90, 139, 214, 0.25);
+}
+
+/* =========================
+   Acciones centradas
+========================= */
+.actions {
+  margin-top: 2rem; /* antes 3rem */
+  text-align: center;
+}
+
+/* =========================
+   Mapa (si se usa)
+========================= */
+#map {
+  height: 240px; /* antes 300px */
+  width: 100%;
+  border-radius: 12px; /* antes 14px */
+  margin-top: 1.5rem; /* antes 2rem */
+  border: 1px solid #aac6e3;
+  box-shadow: 0 5px 14px rgba(0, 90, 160, 0.1);
+}
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 768px) {
+  .event-header h1 {
+    font-size: 1.7rem; /* igual */
+  }
+
+  .event-details {
+    margin: 1.5rem 1rem; /* antes 2rem 1rem */
+    padding: 1.5rem 1rem; /* antes 2rem 1.5rem */
+  }
+
+  .main-btn,
+  .btn-volver {
+    width: 100%;
+    text-align: center;
+  }
+
+  .buy-btn {
+    margin-top: 1rem;
+  }
+}
+
+/* =========================
+   Animaciones
+========================= */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   Botón "Registrarse al evento"
+========================= */
+.register-btn {
+  padding: 12px 26px;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(40, 110, 190, 0.15);
+  transition: background 0.3s ease;
+  background: linear-gradient(135deg, #7baaf7, #5a8bd6);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  user-select: none;
+}
+
+.register-btn:hover {
+  background: linear-gradient(135deg, #5a8bd6, #3d6bb3);
+  transform: none; /* quitamos transform para igualar estilo */
+  box-shadow: 0 6px 18px rgba(40, 110, 190, 0.2);
+}
+
+.register-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 3px 10px rgba(40, 110, 190, 0.1);
+}
+
+.register-btn i {
+  font-size: 9rem;
+  line-height: 1;
+}
+
+.btn-favorito {
+  background-color: #fff5f5;
+  border: 2px solid #ff4d4f;
+  color: #ff4d4f;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 8px 16px;
+  border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 6px 16px rgba(255, 77, 79, 0.2);
+  font-weight: 600;
+}
+
+.btn-favorito:hover {
+  background-color: #ffecec;
+  transform: translateY(-1px);
+}
+
+.btn-favorito .corazon {
+  font-size: 1.4rem;
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.btn-favorito.active {
+  background-color: #ff4d4f;
+  color: #fff;
+  border-color: #ff4d4f;
+}
+
+.btn-favorito.active .corazon {
+  color: #fff;
+  transform: scale(1.2);
+}
