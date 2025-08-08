@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       try {
-        const response = await fetch("http://localhost:8080/api/public/events/", {
+        const response = await fetch("https://ticket-backend-bkkf.onrender.com/api/public/events/", {
           method: "POST",
           body: formData,
           headers: { Accept: "application/json" }

@@ -33,69 +33,89 @@ function actualizarEmailDelUsuario() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const userId = localStorage.getItem('userId');
-    const favoritos = JSON.parse(localStorage.getItem("eventosFavoritos")) || [];
-    const container = document.getElementById("favoritosContainer");
+  const userId = localStorage.getItem('userId') || 2;
+  const container = document.getElementById("favoritosContainer");
 
-    if (!favoritos.length) {
+  if (!userId) {
+    container.innerHTML = "<p>⚠️ No se encontró el usuario.</p>";
+    return;
+  }
+
+  fetch(`https://ticket-backend-bkkf.onrender.com/api/usuarios/${userId}/favoritos`, {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' }
+  })
+    .then(res => {
+      if (!res.ok) throw new Error("Error al obtener eventos favoritos");
+      return res.json();
+    })
+    .then(favoritos => {
+      if (!favoritos.length) {
         container.innerHTML = "<p style='text-align:center;'>🤷‍♀️ Aún no has guardado ningún evento como favorito.</p>";
-        return;
-    }
+        return [];
+      }
 
-    // Obtener los eventos
-    Promise.all(
-        favoritos.map(id =>
-            fetch(`http://localhost:8080/api/public/events/${id}`)
-                .then(res => {
-                    if (!res.ok) throw new Error("Error al obtener evento con ID " + id);
-                    return res.json();
-                })
-        )
-    )
-        .then(eventos => {
-            container.innerHTML = ""; // Limpiar loader
+      // Si hay favoritos, traer sus datos completos (incluyendo imagenes)
+      return Promise.all(favoritos.map(ev =>
+        fetch(`https://ticket-backend-bkkf.onrender.com/api/public/events/${ev.id}`)
+          .then(r => {
+            if (!r.ok) throw new Error(`Error cargando evento con ID ${ev.id}`);
+            return r.json();
+          })
+      ));
+    })
+    .then(eventosConImagen => {
+      // Si retornamos [] porque no había favoritos, evitamos hacer nada más
+      if (!eventosConImagen.length) return;
 
-            eventos.forEach(evento => {
-                const card = document.createElement("div");
-                card.classList.add("evento-card");
+      container.innerHTML = "";
 
-                const imagenEvento = evento.imagenes?.find(img =>
-                    img.url && img.url.includes("/imagenes/") && !img.url.includes("Error")
-                );
-                const imagenUrl = imagenEvento?.url || "https://source.unsplash.com/800x400/?concert";
+      eventosConImagen.forEach(evento => {
+        const card = document.createElement("div");
+        card.classList.add("evento-card");
 
-                card.innerHTML = `
-  <img src="${imagenUrl}" alt="Imagen del evento" />
-  <div class="content">
-    <h3>${evento.name}</h3>
-    <p><strong>📍 Dirección:</strong> ${evento.address}</p>
-    <p><strong>📅 Fecha:</strong> ${new Date(evento.startDate).toLocaleDateString('es-CO')}</p>
-    <div class="actions">
-      <a class="main-btn" href="detallesEvento.html?id=${evento.id}">Ver detalles</a>
-    </div>
-  </div>
-  <button class="btn-favorito-card" title="Quitar de favoritos" aria-label="Quitar de favoritos">♥</button>
-`;
+        const imagenEvento = evento.imagenes?.find(img =>
+          img.url && img.url.includes("/imagenes/") && !img.url.includes("Error")
+        );
+        const imagenUrl = imagenEvento?.url || "https://source.unsplash.com/800x400/?concert";
 
+        card.innerHTML = `
+          <img src="${imagenUrl}" alt="Imagen del evento" />
+          <div class="content">
+            <h3>${evento.name}</h3>
+            <p><strong>📍 Dirección:</strong> ${evento.address}</p>
+            <p><strong>📅 Fecha:</strong> ${new Date(evento.startDate).toLocaleDateString('es-CO')}</p>
+            <div class="actions">
+              <a class="main-btn" href="infoEvent.html?id=${evento.id}">Ver detalles</a>
+            </div>
+          </div>
+          <button class="btn-favorito-card" title="Quitar de favoritos" aria-label="Quitar de favoritos">♥</button>
+        `;
 
-                // Botón quitar favorito
-                const btnQuitar = card.querySelector(".btn-favorito-card");
-                btnQuitar.addEventListener("click", () => {
-                    let favoritos = JSON.parse(localStorage.getItem("eventosFavoritos")) || [];
-                    favoritos = favoritos.filter(id => id !== evento.id);
-                    localStorage.setItem("eventosFavoritos", JSON.stringify(favoritos));
-                    card.remove();
+        const btnQuitar = card.querySelector(".btn-favorito-card");
+        btnQuitar.addEventListener("click", () => {
+          fetch(`https://ticket-backend-bkkf.onrender.com/api/usuarios/${userId}/favoritos/${evento.id}`, {
+            method: 'DELETE'
+          })
+            .then(res => {
+              if (!res.ok) throw new Error("Error al eliminar favorito");
+              card.remove();
 
-                    if (favoritos.length === 0) {
-                        container.innerHTML = "<p style='text-align:center;'>🤷‍♀️ No tienes más eventos favoritos.</p>";
-                    }
-                });
-
-                container.appendChild(card);
+              if (container.children.length === 0) {
+                container.innerHTML = "<p style='text-align:center;'>🤷‍♀️ No tienes más eventos favoritos.</p>";
+              }
+            })
+            .catch(err => {
+              alert("No se pudo eliminar el favorito");
+              console.error(err);
             });
-        })
-        .catch(err => {
-            container.innerHTML = `<p>⚠️ Ocurrió un error al cargar tus eventos favoritos.</p>`;
-            console.error(err);
         });
+
+        container.appendChild(card);
+      });
+    })
+    .catch(err => {
+      console.error("Error cargando eventos favoritos:", err);
+      container.innerHTML = `<p>⚠️ Ocurrió un error al cargar tus eventos favoritos.</p>`;
+    });
 });

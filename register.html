@@ -9,91 +9,90 @@
     <!-- Fonts & Styles -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+    <link rel="shortcut icon" href="./img/entradas.png" type="image/x-icon" />
     <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="css/register.css" rel="stylesheet" />
 </head>
 
-<body class="bg-gradient-primary">
-    <div class="container">
-        <div class="card o-hidden border-0 shadow-lg my-5">
-            <div class="card-body p-0">
-                <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-                    <div class="col-lg-7">
-                        <div class="p-5">
-                            <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">¡Crea tu cuenta!</h1>
-                            </div>
+<body>
+    <div class="container min-vh-100 d-flex justify-content-center align-items-center">
+        <div class="card login-card shadow-lg w-100" style="max-width: 960px;">
+            <div class="row no-gutters">
+                
+                <!-- Panel izquierdo con imagen -->
+                <div class="col-lg-6 left-panel d-none d-lg-flex">
+                    <img src="img/login-illustration.jpeg" alt="Ilustración gato" />
+                </div>
 
-                            <!-- FORMULARIO -->
-                            <form onsubmit="event.preventDefault(); registrarUsuario();" class="user">
-
-                                <!-- Nombre y Apellido -->
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="txtName"
-                                            placeholder="Nombre" required />
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="txtLastName"
-                                            placeholder="Apellido" required />
-                                    </div>
-                                </div>
-
-                                <!-- Teléfono -->
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="txtPhone"
-                                        placeholder="Teléfono" required />
-                                </div>
-
-                                <!-- Ciudad -->
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="txtCity"
-                                        placeholder="Ciudad" required />
-                                </div>
-
-                                <!-- Biografía -->
-                                <div class="form-group">
-                                    <textarea class="form-control" id="txtBio" rows="2"
-                                        placeholder="Biografía (opcional)"></textarea>
-                                </div>
-
-                                <!-- Correo electrónico -->
-                                <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="txtEmail"
-                                        placeholder="Correo electrónico" required />
-                                </div>
-
-                                <!-- Contraseñas -->
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user" id="txtPassword"
-                                            placeholder="Contraseña" required />
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="txtRepetirPassword" placeholder="Repite la contraseña" required />
-                                    </div>
-                                </div>
-
-                                <!-- Selector de rol -->
-                                <div class="form-group">
-                                    <label for="selectRole">Tipo de usuario:</label>
-                                    <select class="form-control" id="selectRole" required>
-                                        <option value="true">Usuario</option>
-                                        <option value="false">Administrador</option>
-                                    </select>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Registrarse
-                                </button>
-                            </form>
-
-                            <hr />
-                            <div class="text-center">
-                                <a class="small" href="login.html">¿Ya tienes una cuenta? Inicia sesión</a>
-                            </div>
+                <!-- Panel derecho con formulario -->
+                <div class="col-lg-6 d-flex align-items-center">
+                    <div class="card-body w-100 px-5">
+                        <div class="text-center mb-4">
+                            <h1 class="h4 text-primary font-weight-bold">¡Crea tu cuenta!</h1>
                         </div>
+
+                        <form onsubmit="event.preventDefault(); registrarUsuario();" class="user">
+
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" id="txtName"
+                                        placeholder="Nombre" required />
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control form-control-user" id="txtLastName"
+                                        placeholder="Apellido" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-user" id="txtPhone"
+                                    placeholder="Teléfono" required />
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-user" id="txtCity"
+                                    placeholder="Ciudad" required />
+                            </div>
+
+                            <div class="form-group">
+                                <textarea class="form-control" id="txtBio" rows="2"
+                                    placeholder="Biografía (opcional)"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email" class="form-control form-control-user" id="txtEmail"
+                                    placeholder="Correo electrónico" required />
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="password" class="form-control form-control-user" id="txtPassword"
+                                        placeholder="Contraseña" required />
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="password" class="form-control form-control-user"
+                                        id="txtRepetirPassword" placeholder="Repite la contraseña" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="selectRole">Tipo de usuario:</label>
+                                <select class="form-control" id="selectRole" required>
+                                    <option value="true">Usuario</option>
+                                    <option value="false">Administrador</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-user btn-block">
+                                Registrarse
+                            </button>
+                        </form>
+
+                        <hr />
+                        <div class="text-center">
+                            <a class="small" href="login.html">¿Ya tienes una cuenta? Inicia sesión</a>
+                        </div>
+                        <p class="text-center mt-4 text-muted small">© 2025 TicketLite. Todos los derechos reservados.</p>
                     </div>
                 </div>
             </div>

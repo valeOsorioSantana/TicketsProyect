@@ -49,7 +49,7 @@ document.getElementById('sessionForm').addEventListener('submit', async function
   }
 
   try {
-    const getRes = await fetch(`http://localhost:8080/api/sessions/name/${encodeURIComponent(eventName)}`);
+    const getRes = await fetch(`https://ticket-backend-bkkf.onrender.com/api/sessions/name/${encodeURIComponent(eventName)}`);
 
     if (!getRes.ok) {
       const error = await getRes.json();
@@ -59,7 +59,7 @@ document.getElementById('sessionForm').addEventListener('submit', async function
 
     const sessionData = { title, description, startTime, endTime, speakerName, speakerBio };
 
-    const postRes = await fetch(`http://localhost:8080/api/sessions/${encodeURIComponent(eventName)}`, {
+    const postRes = await fetch(`https://ticket-backend-bkkf.onrender.com/api/sessions/${encodeURIComponent(eventName)}`, {
       method: 'POST',
       headers: {
         'accept': 'application/json',

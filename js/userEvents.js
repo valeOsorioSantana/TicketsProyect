@@ -35,7 +35,7 @@ function actualizarEmailDelUsuario() {
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("eventContainer");
 
-  fetch('http://localhost:8080/api/public/events/', {
+  fetch('https://ticket-backend-bkkf.onrender.com/api/public/events/', {
     method: 'GET',
     headers: { "Accept": "application/json" }
   })

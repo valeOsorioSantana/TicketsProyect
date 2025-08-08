@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL = 'https://ticket-backend-bkkf.onrender.com';
 let graficaActual = null;
 let vistasActualizadas = false; // Control de si las vistas ya fueron actualizadas para este evento
 

@@ -73,13 +73,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const userRes = await fetch(`http://localhost:8080/api/users/${userId}`);
+    const userRes = await fetch(`https://ticket-backend-bkkf.onrender.com/api/users/${userId}`);
     if (!userRes.ok) throw new Error("No se pudo obtener información del usuario");
     const user = await userRes.json();
 
     const [eventoRes, registroRes] = await Promise.all([
-      fetch(`http://localhost:8080/api/public/events/${eventId}`),
-      fetch(`http://localhost:8080/api/registrations/user/${userId}`)
+      fetch(`https://ticket-backend-bkkf.onrender.com/api/public/events/${eventId}`),
+      fetch(`https://ticket-backend-bkkf.onrender.com/api/registrations/user/${userId}`)
     ]);
 
     if (!eventoRes.ok) throw new Error("No se encontró el evento");
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 `;
 
     // Verificar si ya existe un pago para esta inscripción previa
-    const resPagoExistente = await fetch(`http://localhost:8080/api/payments/registration/${registro.id}`);
+    const resPagoExistente = await fetch(`https://ticket-backend-bkkf.onrender.com/api/payments/registration/${registro.id}`);
     if (resPagoExistente.ok) {
       const pagoExistente = await resPagoExistente.json();
 
@@ -268,7 +268,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       try {
 
-        const resPagoExistente = await fetch(`http://localhost:8080/api/payments/registration/${registro.id}`);
+        const resPagoExistente = await fetch(`https://ticket-backend-bkkf.onrender.com/api/payments/registration/${registro.id}`);
         if (resPagoExistente.ok) {
           const pagoExistente = await resPagoExistente.json();
           mensajePago.textContent = `ℹ️ Ya existe un pago con método ${pagoExistente.method} por $${pagoExistente.amount.toFixed(2)}.`;
@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           amount
         };
 
-        const resPago = await fetch("http://localhost:8080/api/payments/", {
+        const resPago = await fetch("https://ticket-backend-bkkf.onrender.com/api/payments/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(pagoDTO)
@@ -323,7 +323,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         actualizarResumenPago();
 
-        const resTicket = await fetch(`http://localhost:8080/api/tickets/${registro.id}`, {
+        const resTicket = await fetch(`https://ticket-backend-bkkf.onrender.com/api/tickets/${registro.id}`, {
           method: "POST"
         });
 
@@ -355,7 +355,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (!confirmar) return;
 
       try {
-        const res = await fetch(`http://localhost:8080/api/registrations/${registro.id}`, {
+        const res = await fetch(`https://ticket-backend-bkkf.onrender.com/api/registrations/${registro.id}`, {
           method: "DELETE"
         });
 

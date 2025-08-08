@@ -28,7 +28,7 @@ recoverForm.addEventListener('submit', async (e) => {
   if (!email) return showMessage('Por favor ingresa un correo válido.');
 
   try {
-    const url = `http://localhost:8080/api/recuperacion/solicitar?email=${encodeURIComponent(email)}`;
+    const url = `https://ticket-backend-bkkf.onrender.com/api/recuperacion/solicitar?email=${encodeURIComponent(email)}`;
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -60,7 +60,7 @@ validateForm.addEventListener('submit', async (e) => {
   if (!token) return showMessage('Por favor ingresa el token recibido.');
 
   try {
-    const url = `http://localhost:8080/api/recuperacion/validar?email=${encodeURIComponent(storedEmail)}&token=${encodeURIComponent(token)}`;
+    const url = `https://ticket-backend-bkkf.onrender.com/api/recuperacion/validar?email=${encodeURIComponent(storedEmail)}&token=${encodeURIComponent(token)}`;
     const response = await fetch(url, {
       method: 'GET',
       headers: {
@@ -100,7 +100,7 @@ resetForm.addEventListener('submit', async (e) => {
     return showMessage('Faltan datos para completar la recuperación. Intenta de nuevo desde el inicio.');
 
   try {
-    const url = `http://localhost:8080/api/recuperacion/cambiar?token=${encodeURIComponent(storedToken)}&nuevaPassword=${encodeURIComponent(newPassword)}`;
+    const url = `https://ticket-backend-bkkf.onrender.com/api/recuperacion/cambiar?token=${encodeURIComponent(storedToken)}&nuevaPassword=${encodeURIComponent(newPassword)}`;
     const response = await fetch(url, {
       method: 'POST',
       headers: {

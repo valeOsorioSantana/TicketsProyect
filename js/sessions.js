@@ -49,7 +49,7 @@ async function cargarSesiones() {
 
   try {
     // Buscar el evento por nombre
-    const eventRes = await fetch(`http://localhost:8080/api/sessions/name/${encodeURIComponent(eventName)}`);
+    const eventRes = await fetch(`https://ticket-backend-bkkf.onrender.com/api/sessions/name/${encodeURIComponent(eventName)}`);
     if (!eventRes.ok) {
       mostrarMensaje("⚠️ Evento no encontrado.");
       return;
@@ -59,7 +59,7 @@ async function cargarSesiones() {
     const eventId = event.id;
 
     // Obtener las sesiones del evento
-    const sessionsRes = await fetch(`http://localhost:8080/api/sessions/event/${eventId}`);
+    const sessionsRes = await fetch(`https://ticket-backend-bkkf.onrender.com/api/sessions/event/${eventId}`);
     if (!sessionsRes.ok) throw new Error("Error al obtener las sesiones.");
 
     const sessions = await sessionsRes.json();
@@ -99,7 +99,7 @@ async function eliminarSesion(id) {
   if (!confirmacion) return;
 
   try {
-    const res = await fetch(`http://localhost:8080/api/sessions/${id}`, { method: "DELETE" });
+    const res = await fetch(`https://ticket-backend-bkkf.onrender.com/api/sessions/${id}`, { method: "DELETE" });
     if (!res.ok) throw new Error("No se pudo eliminar la sesión.");
 
     alert("✅ Sesión eliminada con éxito.");

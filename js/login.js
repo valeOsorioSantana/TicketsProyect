@@ -9,7 +9,7 @@ async function iniciarSesion() {
   };
 
   try {
-    const request = await fetch('http://localhost:8080/auth/login', {
+    const request = await fetch('https://ticket-backend-bkkf.onrender.com/auth/login', {
       method: 'POST',
       headers: {
         'accept': '*/*',
@@ -29,7 +29,7 @@ async function iniciarSesion() {
       localStorage.setItem('rol', tokenData.Rol || '');
       localStorage.setItem('userId', tokenData.id);
 
-      window.location.href = 'events.html';
+      window.location.href = 'userEvents.html';
     } else {
       alert(respuesta.error || "Error de autenticación.");
     }

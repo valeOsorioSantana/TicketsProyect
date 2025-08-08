@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
-  const eventId = params.get("id");
+  const eventId = Number(params.get("id"));
   const usersId = localStorage.getItem('userId');
 
   const detailsContainer = document.getElementById("eventDetails");
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  fetch(`http://localhost:8080/api/public/events/${eventId}`, {
+  fetch(`https://ticket-backend-bkkf.onrender.com/api/public/events/${eventId}`, {
     method: 'GET',
     headers: { "Accept": "application/json" }
   })
@@ -39,38 +39,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // === HTML renderizado dinámicamente ===
       detailsContainer.innerHTML = `
-        <div class="volver-container">
-          <a href="userEvents.html" class="btn-volver">⬅ Volver al inicio</a>
-        </div>
+  <div class="volver-container">
+    <a href="userEvents.html" class="btn-volver">⬅ Volver al inicio</a>
+  </div>
 
-        <img src="${imagenUrl}" alt="Imagen del evento" class="event-banner" />
+  <img src="${imagenUrl}" alt="Imagen del evento" class="event-banner" />
 
-        <div class="info">
-          <p><strong>📅 Fecha de inicio:</strong> ${fechaInicio}</p>
-          <p><strong>📅 Fecha de fin:</strong> ${fechaFin}</p>
-          <p><strong>📍 Dirección:</strong> ${evento.address}</p>
-          <p><strong>📌 Categoría:</strong> ${evento.category}</p>
-          <p><strong>📄 Descripción:</strong> ${evento.description}</p>
-          <p><strong>🗺️ Ubicación Geográfica :</strong></p>
-        </div>
+  <div class="info">
+    <p><strong>📅 Fecha de inicio:</strong> ${fechaInicio}</p>
+    <p><strong>📅 Fecha de fin:</strong> ${fechaFin}</p>
+    <p><strong>📍 Dirección:</strong> ${evento.address}</p>
+    <p><strong>📌 Categoría:</strong> ${evento.category}</p>
+    <p><strong>📄 Descripción:</strong> ${evento.description}</p>
+    <p><strong>🗺️ Ubicación Geográfica :</strong></p>
+  </div>
 
-        <div id="map" style="height: 300px; margin-top: 20px;"></div>
+  <div id="map" style="height: 300px; margin-top: 20px;"></div>
 
-        <div class="favorito-container" style="text-align: right; margin-top: 1rem;">
-          <button id="btn-favorito" class="btn-favorito" aria-label="Guardar como favorito">
-            <span class="corazon">♡</span>
-            <span class="texto">Agregar a favoritos</span>
-          </button>
-        </div>
+  <div class="favorito-container" style="text-align: right; margin-top: 1rem;">
+    <button id="btn-favorito" class="btn-favorito" aria-label="Guardar como favorito">
+      <span class="corazon">♡</span>
+      <span class="texto">Agregar a favoritos</span>
+    </button>
+  </div>
 
-        <div class="actions">
-          <button onclick="comprarBoleta(${evento.id})" class="register-btn">Registrar asistencia</button>
-        </div>
-      `;
+  <div class="actions">
+    <button onclick="comprarBoleta(${evento.id})" class="register-btn">Registrar asistencia</button>
+    <button onclick="calificarEvento(${evento.id})" class="btn btn-success ml-2">Calificar evento</button>
+  </div>
+`;
+
 
       // === Favoritos: lógica de backend ===
       function agregarFavoritoBackend(eventId) {
-        return fetch(`http://localhost:8080/api/usuarios/${usersId}/favoritos`, {
+        return fetch(`https://ticket-backend-bkkf.onrender.com/api/usuarios/${usersId}/favoritos`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ eventId: eventId })
@@ -82,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       function eliminarFavoritoBackend(eventId) {
-        return fetch(`http://localhost:8080/api/usuarios/${usersId}/favoritos/${eventId}`, {
+        return fetch(`https://ticket-backend-bkkf.onrender.com/api/usuarios/${usersId}/favoritos/${eventId}`, {
           method: 'DELETE'
         })
           .then(res => {
@@ -153,4 +155,8 @@ function mostrarMapa(lat, lng) {
 
 function comprarBoleta(eventId) {
   window.location.href = `registroEvento.html?id=${eventId}`;
+}
+
+function calificarEvento(eventId) {
+  window.location.href = `encuesta.html?eventId=${eventId}`;
 }

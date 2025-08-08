@@ -41,7 +41,7 @@ document.getElementById('sidebarToggle').addEventListener('click', function () {
 });
 
 async function cargarUsuarios() {
-  const request = await fetch('http://localhost:8080/api/public/events/', {
+  const request = await fetch('https://ticket-backend-bkkf.onrender.com/api/public/events/', {
     method: 'GET',
     headers: {
       "Accept": "application/json"
@@ -118,7 +118,7 @@ async function eliminarEvento(id) {
   }
 
   try {
-    const response = await fetch(`http://localhost:8080/api/public/events/${id}`, {
+    const response = await fetch(`https://ticket-backend-bkkf.onrender.com/api/public/events/${id}`, {
       method: 'DELETE',
       headers: getHeaders()
     });

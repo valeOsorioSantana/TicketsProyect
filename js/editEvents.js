@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  const apiUrl = `http://localhost:8080/api/public/events/${eventId}`;
+  const apiUrl = `https://ticket-backend-bkkf.onrender.com/api/public/events/${eventId}`;
   const latInput = document.getElementById("latitudEvento");
   const lonInput = document.getElementById("longitudEvento");
   const categoriaSelect = document.getElementById("categoriaEvento");

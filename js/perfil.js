@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            const response = await fetch(`http://localhost:8080/api/users/${idUser}`, {
+            const response = await fetch(`https://ticket-backend-bkkf.onrender.com/api/users/${idUser}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
             };
 
             try {
-                const response = await fetch(`http://localhost:8080/api/users/${userId}`, {
+                const response = await fetch(`https://ticket-backend-bkkf.onrender.com/api/users/${userId}`, {
                     method: 'PUT',
                     headers: {
                         'Authorization': `Bearer ${token}`,

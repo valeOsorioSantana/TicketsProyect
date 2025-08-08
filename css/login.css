@@ -57,3 +57,12 @@ body {
   }
 }
 
+.logo-container {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.logo {
+  max-width: 220px;
+  height: auto;
+}

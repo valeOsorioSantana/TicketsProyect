@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Obtener precio del evento
   try {
-    const response = await fetch(`http://localhost:8080/api/public/events/${eventId}`, {
+    const response = await fetch(`https://ticket-backend-bkkf.onrender.com/api/public/events/${eventId}`, {
       method: "GET",
       headers: { "Accept": "application/json" }
     });
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Verificar si ya existe un registro
   try {
-    const registrosResponse = await fetch(`http://localhost:8080/api/registrations/user/${userId}`);
+    const registrosResponse = await fetch(`https://ticket-backend-bkkf.onrender.com/api/registrations/user/${userId}`);
     const registros = await registrosResponse.json();
 
     const existente = registros.find(r => r.events.id == eventId);
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
     try {
-      const res = await fetch("http://localhost:8080/api/registrations/", {
+      const res = await fetch("https://ticket-backend-bkkf.onrender.com/api/registrations/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   async function eliminarRegistro(regId) {
     try {
-      const res = await fetch(`http://localhost:8080/api/registrations/${regId}`, {
+      const res = await fetch(`https://ticket-backend-bkkf.onrender.com/api/registrations/${regId}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`

@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
             loadingMessage.style.display = 'block';  // Mostrar mensaje antes de cargar
 
             // Petición con filtro por rango de fechas visible
-            fetch(`http://localhost:8080/api/public/events/?start=${info.startStr}&end=${info.endStr}`, {
+            fetch(`https://ticket-backend-bkkf.onrender.com/api/public/events/?start=${info.startStr}&end=${info.endStr}`, {
                 method: 'GET',
                 headers: { "Accept": "application/json" }
             })
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     calendar.render();
 
-    document.getElementById('saveEvent').addEventListener('click', function () {
+    /* document.getElementById('saveEvent').addEventListener('click', function () {
         const name = document.getElementById('eventName').value;
         const startDate = document.getElementById('eventStart').value;
         const endDate = document.getElementById('eventEnd').value;
@@ -167,5 +167,5 @@ document.addEventListener('DOMContentLoaded', function () {
                 cacheTimestamp = 0;
             })
             .catch(err => console.error('Error al guardar evento:', err));
-    });
+    }); */
 });

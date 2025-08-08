@@ -16,7 +16,7 @@ async function registrarUsuario() {
   }
 
   const rolSeleccionado = document.getElementById('selectRole').value; // "true" o "false"
-  const url = `http://localhost:8080/api/users/${rolSeleccionado}`;
+  const url = `https://ticket-backend-bkkf.onrender.com/api/users/${rolSeleccionado}`;
 
   try {
     const request = await fetch(url, {
