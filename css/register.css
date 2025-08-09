@@ -44,3 +44,9 @@ body {
   background: linear-gradient(135deg, #3461c1, #2b51a1);
   transform: translateY(-1px);
 }
+
+.logo-app {
+  width: 190px; /* tamaño del logo */
+  display: block;
+  margin: 0 auto 15px auto; /* centrado */
+}

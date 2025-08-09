@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <title>Encuesta de Satisfacción</title>
@@ -7,14 +8,15 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="/css/encuesta.css" />
 </head>
+
 <body>
 
   <div class="encuesta-container">
     <h2 class="form-title">Encuesta de Satisfacción del Evento</h2>
-    
+
     <form id="encuestaForm">
-      <!-- Se elimina campo nombreEvento porque no es necesario en backend -->
-      
+      <!-- Campo nombreEvento eliminado porque no es necesario en backend -->
+
       <div class="form-group">
         <label>¿Cómo calificarías tu experiencia general?</label>
         <div class="rating text-center">
@@ -26,12 +28,15 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="comentarios">¿Qué te gustó o qué podemos mejorar?</label>
-        <textarea class="form-control" id="comentarios" rows="4" placeholder="Escribe tus comentarios aquí..."></textarea>
+      <div class="success-message" id="success-message">
+        ¡Gracias por tu respuesta! 🎉
       </div>
 
-      <!-- Se elimina campo recomendacion porque no lo manejamos -->
+      <div class="form-group">
+        <label for="comentarios">¿Qué te gustó o qué podemos mejorar?</label>
+        <textarea class="form-control" id="comentarios" rows="4" placeholder="Escribe tus comentarios aquí..." maxlength="500"></textarea>
+        <div class="char-counter text-right" id="char-counter">0/500</div>
+      </div>
 
       <button type="submit" class="btn btn-primary btn-block">Enviar Encuesta</button>
     </form>
@@ -39,4 +44,5 @@
 
   <script src="/js/encuesta.js"></script>
 </body>
+
 </html>
