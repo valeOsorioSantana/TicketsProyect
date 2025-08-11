@@ -396,7 +396,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!res.ok) throw new Error(await res.text());
 
         // Redirigir a la página de información del evento
-        window.location.href = `./infoEvent.html?id=${eventId}`;
+        window.location.href = `/TicketLite/infoEvent.html?id=${eventId}`;
       } catch (err) {
         console.error("❌ Error al cancelar compra:", err.message);
         mensajePago.textContent = "❌ Error al cancelar compra: " + err.message;
