@@ -1,37 +1,3 @@
-// Call the dataTables jQuery plugin
-$(document).ready(function () {
-
-  cargarUsuarios()
-
-  $('#usuarios').DataTable();
-  checkAuthentication();
-  actualizarEmailDelUsuario();
-
-});
-
-function checkAuthentication() {
-  const token = localStorage.token;
-  if (!token) {
-    // Si no hay token, redirigir al inicio de sesión
-    alert("No se ha iniciado sesión!");
-    window.location.href = 'index.html'
-  }
-}
-
-function logout() {
-  // Eliminar el token del localStorage
-  localStorage.removeItem('token'); // Asegúrate de usar la clave que usaste para guardar el token
-  localStorage.removeItem('email');
-  localStorage.removeItem('nombre');
-  // Redirigir al usuario a la página de inicio de sesión o a otra página
-
-  window.location.href = 'index.html'
-}
-
-function actualizarEmailDelUsuario() {
-  document.getElementById('txt-name-usuario').outerHTML = localStorage.nombre;
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
   const eventId = Number(params.get("id"));
