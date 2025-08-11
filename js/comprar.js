@@ -394,3 +394,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     amountInput.value = total.toFixed(2);
   }
 });
+
+document.getElementById("verMisTicketsBtn").addEventListener("click", () => {
+  window.location.href = "tickets.html";
+});
+
+const btnVerEventos = document.querySelector('.btn-ver-eventos');
+
+btnVerEventos.addEventListener('click', () => {
+  window.location.href = '/userEvents.html';
+});

@@ -7,6 +7,9 @@ $(document).ready(function () {
   //checkAuthentication();
   actualizarEmailDelUsuario();
 
+    document.getElementById('verMisTicketsBtn').addEventListener('click', verMisTickets);
+
+
 });
 
 function checkAuthentication() {
@@ -30,6 +33,17 @@ function logout() {
 
 function actualizarEmailDelUsuario() {
   document.getElementById('txt-name-usuario').outerHTML = localStorage.nombre;
+}
+
+function verMisTickets() {
+  const token = localStorage.token;
+  if (!token) {
+    alert("Por favor, inicie sesión para ver sus tickets.");
+    window.location.href = 'login.html';
+    return;
+  }
+
+  window.location.href = 'tickets.html';
 }
 
 document.addEventListener("DOMContentLoaded", () => {

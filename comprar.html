@@ -9,12 +9,16 @@
   <!-- Estilos externos -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="css/compra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 
 <body>
   <main class="compra-container">
-    <!-- Título del evento -->
-    <h1 id="eventTitle">Cargando evento...</h1>
+    <!-- Contenedor para título + botón -->
+    <div class="header-with-button">
+      <h1 id="eventTitle">Cargando evento...</h1>
+      <button class="btn-ver-eventos"><i class="fas fa-calendar-alt icon"></i> Ver Eventos</button>
+    </div>
 
     <!-- Detalles del evento -->
     <section id="eventDetails">
@@ -146,6 +150,9 @@
         <canvas id="qrPreview"></canvas>
       </div>
     </section>
+    <div class="ticket-btn-wrapper">
+      <button id="verMisTicketsBtn" class="btn-ver-tickets">🎟️ Ver mis tickets</button>
+    </div>
   </main>
 
   <!-- Scripts -->

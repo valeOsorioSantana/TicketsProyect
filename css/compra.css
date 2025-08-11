@@ -49,7 +49,7 @@ body {
 }
 
 .event-img:hover {
-  transform: scale(1.04);
+  transform: scale(1.02);
 }
 
 /* Imagen del mapa */
@@ -240,8 +240,102 @@ select:focus {
     opacity: 0;
     transform: translateY(12px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.ticket-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+/* Base común para todos los botones */
+.btn-ver-tickets,
+.btn-ver-eventos {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 14px 26px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.02em;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease-in-out;
+  text-align: center;
+  background-color: #f2f6fc;
+  color: #1c2a39;
+}
+
+/* Estilo para Ver Tickets */
+.btn-ver-tickets {
+  background: linear-gradient(135deg, #eae7ff, #b2cdff);
+  color: #2d2d65;
+  border: 1px solid #b0b8f1;
+}
+
+.btn-ver-tickets:hover {
+  background: linear-gradient(135deg, #c6d5f7, #b3c2f0);
+  box-shadow: 0 8px 24px rgba(115, 104, 218, 0.3);
+  transform: translateY(-3px);
+}
+
+/* Estilo para Ver Eventos */
+.btn-ver-eventos {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ffe6cc, #ffd1a3);
+  color: #7a3e00;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease-in-out;
+}
+
+.btn-ver-eventos:hover {
+  background: linear-gradient(135deg, #ffd1a3, #ffc07a);
+  box-shadow: 0 8px 24px rgba(255, 153, 51, 0.2);
+  transform: translateY(-3px);
+}
+
+.btn-ver-eventos .icon {
+  margin-right: 8px; 
+}
+
+.header-with-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.header-with-button h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .header-with-button {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-ver-eventos {
+    margin-top: 0.5rem;
+    width: 100%;
   }
 }

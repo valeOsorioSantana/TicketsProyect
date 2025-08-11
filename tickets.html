@@ -3,13 +3,31 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mis Tickets</title>
   <link rel="stylesheet" href="/css/tickets.css" />
 </head>
 <body>
-  <h1>🎟️ Mis Tickets</h1>
-  <div id="ticketsContainer"></div>
+  <header>
+    <h1>🎟️ Mis Tickets</h1>
+    <!-- Botón Volver al Inicio -->
+    <a href="userEvents.html" id="backToHomeBtn" class="btn btn-back-home">
+      <i class="fas fa-home"></i> Volver al Inicio
+    </a>
+  </header>
 
+  <main>
+    <section id="ticketsContainer" class="tickets-container">
+      <!-- Aquí se generarán las tarjetas de tickets -->
+    </section>
+  </main>
+
+  <!-- Footer opcional para mostrar algún mensaje -->
+  <footer>
+    <p>¡Gracias por usar nuestro sistema de tickets! 🎉</p>
+  </footer>
+
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <script src="/js/tickets.js"></script>
 </body>

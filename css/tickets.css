@@ -1,7 +1,185 @@
+/* tickets.css */
+
+/* Estilos generales */
+body {
+  font-family: 'Quicksand', sans-serif;
+  background-color: #f7faff;
+  color: #1c2a39;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header, footer {
+  text-align: center;
+  background-color: #e9f0ff;
+  padding: 1.5rem;
+}
+
+h1 {
+  color: #10315c;
+  margin: 0;
+}
+
+/* Contenedor de los tickets */
+.tickets-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); /* Aumentamos el tamaño mínimo de las cards */
+  gap: 2rem; /* Aumentamos el espacio entre las cards */
+  padding: 1.5rem; /* Aumentamos el padding alrededor del contenedor */
+}
+
+/* Card de cada ticket */
 .ticketCard {
-  background: #fff;
-  padding: 1rem;
-  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #eaf2ff, #f7faff);
+  padding: 2rem; /* Aumentamos el padding dentro de la card */
+  display: block;
+  margin-bottom: 14.5rem; /* Reducimos el margen inferior para que las cards estén más cerca */
+  border-radius: 14px; /* Redondeamos más las esquinas */
+  border-left: 6px solid #1d4cc8;
+  box-shadow: 0 8px 24px rgba(33, 97, 172, 0.2);
+  color: #1c2a39;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.ticketCard:hover {
+  transform: translateY(-4px); /* Menos transformación al hacer hover */
+  box-shadow: 0 12px 36px rgba(33, 97, 172, 0.3);
+}
+
+.ticketCard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem; /* Reducir margen inferior */
+}
+
+.ticketCard-header h3 {
+  font-size: 1.5rem; /* Aumentamos el tamaño del título */
+  font-weight: 700;
+  color: #10315c;
+  margin: 0;
+}
+
+.ticketCard-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem; /* Aumentamos el espacio entre los párrafos */
+  font-size: 1rem; /* Aumentamos ligeramente el tamaño de la fuente */
+}
+
+.ticketCard p {
+    position: relative; /* para asegurar control sobre el botón */
+
+  margin: 0;
+  color: #4a5568; /* Color más suave para los párrafos */
+}
+
+.ticketCard-footer {
+  margin-top: 1.5rem;
+  display: flex;
+    flex-direction: column;         /* Coloca QR y botón en columna */
+  justify-content: space-between;
+  align-items: center; /* Alineamos el QR y el botón */
+    gap: 1rem;                      /* Espacio entre QR y botón */
+
+}
+
+.qr-container {
+  width: 120px; /* Aumentamos el tamaño del QR */
+  height: 120px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(33, 97, 172, 0.15);
+}
+
+/* Estilo para el botón "Volver al Inicio" */
+#backToHomeBtn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px 20px; /* Tamaño del botón */
+  font-size: 16px;
+  background-color: #3498db; /* Color de fondo */
+  color: white;
+  border: none;
+  border-radius: 25px; /* Bordes redondeados */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  transition: all 0.3s ease-in-out; /* Transición suave */
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Icono dentro del botón */
+#backToHomeBtn i {
+  margin-right: 8px; /* Espacio entre el ícono y el texto */
+  font-size: 18px; /* Tamaño del ícono */
+}
+
+/* Efecto hover - Cambio de color y sombra */
+#backToHomeBtn:hover {
+  background-color: #2980b9; /* Color de fondo en hover */
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+  transform: translateY(-2px); /* Efecto "flotante" */
+}
+
+/* Efecto de presionar el botón */
+#backToHomeBtn:active {
+  transform: translateY(2px); /* Efecto al hacer clic */
+  box-shadow: none; /* Elimina la sombra cuando se hace clic */
+}
+
+/* Estilo para el botón de cancelar */
+.cancel-btn {
+  align-self: center; /* ✅ CENTRA horizontalmente dentro del contenedor */
+  margin-top: 1rem;
+  width: fit-content;
+  padding: 0.8rem 1.6rem;
+  background-color: #e74c3c;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cancel-btn i {
+  margin-right: 8px; /* Espacio entre el ícono y el texto */
+  font-size: 18px;
+}
+
+.cancel-btn:hover {
+  background-color: #c0392b; /* Color de fondo en hover */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px); /* Efecto "flotante" */
+}
+
+.cancel-btn:active {
+  transform: translateY(2px); /* Efecto al hacer clic */
+  box-shadow: none;
+}
+
+/* Responsive: Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .ticketCard {
+    margin-bottom: 1rem;
+    padding: 1.5rem;
+  }
+
+  .ticketCard-header h3 {
+    font-size: 1.3rem;
+  }
+
+  .ticketCard-body {
+    font-size: 1rem;
+  }
 }

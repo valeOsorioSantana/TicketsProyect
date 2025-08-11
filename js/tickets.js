@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const res = await fetch(`https://ticket-backend-bkkf.onrender.com/api/tickets/user/${userId}`);
+    const res = await fetch(`https://ticket-backend-bkkf.onrender.com/api/tickets/users/${userId}`);
     if (!res.ok) throw new Error("No se pudieron cargar los tickets.");
 
     const tickets = await res.json();
@@ -18,33 +18,89 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     for (const ticket of tickets) {
+      if (ticket.cancelada) continue;
+
       const evento = ticket.event;
       const registro = ticket.registration;
       const fechaEvento = new Date(evento.startDate).toLocaleString("es-ES");
 
       const ticketHTML = `
-        <div class="ticketCard">
-          <h2>${evento.name}</h2>
-          <p><strong>📅 Fecha:</strong> ${fechaEvento}</p>
-          <p><strong>📍 Lugar:</strong> ${evento.address}</p>
-          <p><strong>Tipo:</strong> ${registro.ticketType}</p>
-          <p><strong>Cantidad:</strong> ${registro.quantity}</p>
-          <p><strong>Precio total:</strong> $${registro.price}</p>
-          <p><strong>Estado:</strong> ${ticket.cancelada ? "❌ Cancelado" : "✅ Activo"}</p>
-          <canvas id="qr-${ticket.id}"></canvas>
-        </div>
-        <hr/>
-      `;
+  <div class="ticketCard">
+    <div class="ticketCard-header">
+      <h3>${evento.name}</h3>
+      <span>${fechaEvento}</span>
+    </div>
+    <div class="ticketCard-body">
+      <p><strong>📍 Lugar:</strong> ${evento.address}</p>
+      <p><strong>Tipo:</strong> ${registro.ticketType}</p>
+      <p><strong>Cantidad:</strong> ${registro.quantity}</p>
+      <p><strong>Precio total:</strong> $${registro.price}</p>
+    </div>
+    <div class="ticketCard-footer">
+  <canvas id="qr-${ticket.id}" class="qr-container"></canvas>
+  <button class="cancel-btn" data-ticket-id="${ticket.id}">
+    <i class="fas fa-times"></i> Cancelar Ticket
+  </button>
+</div>
+  </div>
+`;
 
       const div = document.createElement("div");
       div.innerHTML = ticketHTML;
+      const ticketCard = div.firstElementChild;
       container.appendChild(div);
 
-      // Generar QR real del backend o reconstruido
-      const qrCanvas = document.getElementById(`qr-${ticket.id}`);
-      const qrText = `Ticket ID: ${ticket.id}\nEvento: ${evento.name}\nUsuario: ${registro.users?.email || "Desconocido"}\nTipo: ${registro.ticketType}\nCantidad: ${registro.quantity}\nPrecio: $${registro.price}`;
+      const qrCanvas = ticketCard.querySelector(`#qr-${ticket.id}`);
+      const qrText = `
+        Ticket ID: ${ticket.id}
+        Evento: ${evento.name}
+        Usuario: ${registro.users?.email || "Desconocido"}
+        Tipo: ${registro.ticketType}
+        Cantidad: ${registro.quantity}
+        Precio: $${registro.price}
+      `;
+
       QRCode.toCanvas(qrCanvas, qrText, { width: 150 }, err => {
         if (err) console.error("Error al generar QR", err);
+      });
+
+      const cancelButton = ticketCard.querySelector(".cancel-btn");
+      cancelButton.addEventListener("click", async () => {
+        const ticketId = cancelButton.getAttribute("data-ticket-id");
+
+        const confirmCancel = confirm("¿Estás seguro de que quieres cancelar este ticket?");
+        if (!confirmCancel) return;
+
+        try {
+          const cancelRes = await fetch(`https://ticket-backend-bkkf.onrender.com/cancelacion/${ticketId}/cancelar`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem("authToken")}`,
+            },
+            body: JSON.stringify({ ticketsId: ticketId })
+          });
+
+          const cancelData = await cancelRes.json();
+
+          if (!cancelRes.ok) {
+            throw new Error(cancelData.mensaje || "No se pudo cancelar el ticket.");
+          }
+
+          alert(`✅ ${cancelData.mensaje}\nMonto reembolsado es de: $${cancelData.montoReembolsado}\n📩 Recibirás tu reembolso en el transcurso de 3 días.`);
+
+          // ✅ Removemos solo la tarjeta del ticket
+          ticketCard.remove();
+
+        } catch (error) {
+          console.error("Error al cancelar ticket:", error);
+
+          if (error.message.includes("tan cerca del evento")) {
+            alert("❌ No puedes cancelar este ticket porque el evento está muy próximo.");
+          } else {
+            alert("❌ No se pudo cancelar el ticket. Intenta más tarde.");
+          }
+        }
       });
     }
 

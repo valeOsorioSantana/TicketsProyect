@@ -249,3 +249,40 @@ body {
     padding: 0.65rem 1.4rem;
   }
 }
+
+/* Estilo para el botón "Ver Mis Tickets" */
+#verMisTicketsBtn {
+  top: 80px; /* Distancia del borde superior para que no esté pegado al top */
+  right: 80px; /* Asegura que el botón se quede en la esquina derecha */
+  z-index: 1050; /* Asegura que el botón esté encima de las notificaciones y usuario */
+  display: inline-flex; /* Usa flexbox para alinear el ícono y el texto */
+  align-items: center; /* Centra el ícono y el texto verticalmente */
+  padding: 12px 20px; /* Ajustamos el padding para que el botón sea más grande */
+  background-color: #007bff; /* Color de fondo del botón */
+  color: white; /* Color de texto */
+  border: none;
+  border-radius: 8px; /* Bordes redondeados */
+  font-size: 16px; /* Tamaño de fuente */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  transition: all 0.3s ease-in-out; /* Transición suave al pasar el ratón */
+}
+
+#verMisTicketsBtn i {
+  margin-right: 8px; /* Agrega un margen entre el ícono y el texto */
+  font-size: 18px; /* Tamaño del ícono */
+}
+
+#verMisTicketsBtn:hover {
+  background-color: #0056b3; /* Color más oscuro en hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al pasar el ratón */
+}
+
+#verMisTicketsBtn:active {
+  transform: translateY(2px); /* Efecto de "presionar" al hacer clic */
+}
+
+/* Asegura que la barra superior no tape el botón */
+.navbar-nav {
+  z-index: 1000; /* Para que el menú de usuario y las notificaciones no tapen el botón */
+}
