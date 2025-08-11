@@ -15,7 +15,7 @@ function checkAuthentication() {
   if (!token) {
     // Si no hay token, redirigir al inicio de sesión
     alert("No se ha iniciado sesión!");
-    window.location.href = 'index.html'
+    window.location.href = 'login.html'
   }
 }
 
@@ -26,7 +26,7 @@ function logout() {
   localStorage.removeItem('nombre');
   // Redirigir al usuario a la página de inicio de sesión o a otra página
 
-  window.location.href = 'index.html'
+  window.location.href = 'login.html'
 }
 
 function actualizarEmailDelUsuario() {
