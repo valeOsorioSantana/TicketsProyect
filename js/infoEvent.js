@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // === HTML renderizado dinámicamente ===
       detailsContainer.innerHTML = `
   <div class="volver-container">
-    <a href="userEvents.html" class="btn-volver">⬅ Volver al inicio</a>
+    <a href="index.html" class="btn-volver">⬅ Volver al inicio</a>
   </div>
 
   <img src="${imagenUrl}" alt="Imagen del evento" class="event-banner" />

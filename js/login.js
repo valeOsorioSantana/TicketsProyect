@@ -29,7 +29,7 @@ async function iniciarSesion() {
       localStorage.setItem('rol', tokenData.Rol || '');
       localStorage.setItem('userId', tokenData.id);
 
-      window.location.href = 'userEvents.html';
+      window.location.href = 'index.html';
     } else {
       alert(respuesta.error || "Error de autenticación.");
     }

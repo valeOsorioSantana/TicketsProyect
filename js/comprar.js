@@ -436,5 +436,5 @@ document.getElementById("verMisTicketsBtn").addEventListener("click", () => {
 const btnVerEventos = document.querySelector('.btn-ver-eventos');
 
 btnVerEventos.addEventListener('click', () => {
-  window.location.href = '/userEvents.html';
+  window.location.href = '/index.html';
 });
