@@ -29,7 +29,12 @@ async function iniciarSesion() {
       localStorage.setItem('rol', tokenData.Rol || '');
       localStorage.setItem('userId', tokenData.id);
 
-      window.location.href = 'index.html';
+      if (!tokenData.Rol === 'ADMIN') {
+        window.location.href = 'index.html';
+      } else {
+        window.location.href = 'events.html';
+      }
+
     } else {
       if (respuesta.error && respuesta.error.toLowerCase().includes("no encontrado")) {
         if (confirm("El usuario no está registrado. ¿Desea registrarse ahora?")) {
