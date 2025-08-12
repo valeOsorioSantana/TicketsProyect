@@ -31,7 +31,13 @@ async function iniciarSesion() {
 
       window.location.href = 'index.html';
     } else {
-      alert(respuesta.error || "Error de autenticación.");
+      if (respuesta.error && respuesta.error.toLowerCase().includes("no encontrado")) {
+        if (confirm("El usuario no está registrado. ¿Desea registrarse ahora?")) {
+          window.location.href = "registro.html";
+        }
+      } else {
+        alert(respuesta.error || "Error de autenticación.");
+      }
     }
 
   } catch (error) {
@@ -39,4 +45,3 @@ async function iniciarSesion() {
     alert("No se pudo conectar con el servidor.");
   }
 }
-
