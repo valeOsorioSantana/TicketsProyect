@@ -23,6 +23,8 @@ function logout() {
   localStorage.removeItem('token'); // Asegúrate de usar la clave que usaste para guardar el token
   localStorage.removeItem('email');
   localStorage.removeItem('nombre');
+  localStorage.removeItem('rol');
+  localStorage.removeItem('userId');
   // Redirigir al usuario a la página de inicio de sesión o a otra página
 
   window.location.href = 'login.html'

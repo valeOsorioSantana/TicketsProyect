@@ -29,9 +29,9 @@ async function iniciarSesion() {
       localStorage.setItem('rol', tokenData.Rol || '');
       localStorage.setItem('userId', tokenData.id);
 
-      if (!tokenData.Rol === 'ADMIN') {
+      if (tokenData.Rol === 'USER') {
         window.location.href = 'index.html';
-      } else {
+      } else if (tokenData.Rol === 'ADMIN') {
         window.location.href = 'events.html';
       }
 
