@@ -59,6 +59,12 @@ validateForm.addEventListener('submit', async (e) => {
 
   if (!token) return showMessage('Por favor ingresa el token recibido.');
 
+  // Validar que tenga guion intermedio (formato "123-456" por ejemplo)
+  const tokenRegex = /^\d{3}-\d{3}$/;
+  if (!tokenRegex.test(token)) {
+    return showMessage('El token debe tener el formato correcto, incluyendo el guion intermedio (ej: 123-456).');
+  }
+
   try {
     const url = `https://ticket-backend-bkkf.onrender.com/api/recuperacion/validar?email=${encodeURIComponent(storedEmail)}&token=${encodeURIComponent(token)}`;
     const response = await fetch(url, {
