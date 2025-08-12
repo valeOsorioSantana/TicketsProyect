@@ -16,9 +16,26 @@
   cursor: pointer;
 }
 
+.notificacion {
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
 .notificacion.leida {
   background-color: #e6ffe6;
   opacity: 0.95;
+}
+
+
+.notificacion.leida .noti-btn.leido {
+  cursor: default;
+  color: green;
+  pointer-events: none;
+}
+
+.notificacion.leida .noti-btn.responder,
+.notificacion.leida .noti-btn.eliminar {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .icon-circle {
@@ -29,4 +46,3 @@
   border-radius: 50%;
   font-size: 18px;
 }
-

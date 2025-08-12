@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let tokenData;
   try {
-    tokenData = jwt_decode(token); // Asegúrate de que el script jwt-decode esté incluido en tu HTML
+    tokenData = jwt_decode(token);
   } catch (err) {
     console.error("❌ Token inválido:", err);
     contenedor.innerHTML = `<div class="alert alert-danger">Token inválido o dañado.</div>`;
@@ -23,10 +23,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // Obtener notificaciones desde el backend
+  // ✅ Cargar solo las notificaciones correspondientes al tipo de rol
   async function cargarNotificaciones() {
     try {
-      const res = await fetch(`http://localhost:8080/api/notifications/user/${userId}`, {
+      const res = await fetch(`https://ticket-backend-bkkf.onrender.com/api/notifications/user/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -37,7 +37,19 @@ document.addEventListener("DOMContentLoaded", async () => {
       const notificaciones = await res.json();
       contenedor.innerHTML = "";
 
-      notificaciones.forEach(noti => {
+      // ✅ Filtrar notificaciones según el rol
+      const notificacionesFiltradas = notificaciones.filter(noti => {
+        if (rol === "USER") return noti.receiverType === "USER";
+        if (rol === "ADMIN") return noti.receiverType === "ADMIN";
+        return false;
+      });
+
+      if (notificacionesFiltradas.length === 0) {
+        contenedor.innerHTML = `<div class="alert alert-info">No hay notificaciones disponibles.</div>`;
+        return;
+      }
+
+      notificacionesFiltradas.forEach(noti => {
         const elemento = document.createElement("div");
         elemento.className = `list-group-item notificacion ${noti.read ? 'leida' : ''}`;
         elemento.dataset.id = noti.id;
@@ -59,7 +71,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
 
       activarAcciones();
-
     } catch (err) {
       console.error("Error:", err);
       contenedor.innerHTML = `<div class="alert alert-danger">No se pudieron cargar las notificaciones.</div>`;
@@ -74,9 +85,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!id) return;
 
         try {
-          await fetch(`http://localhost:8080/api/notifications/${id}/mark-as-read`, {
+          await fetch(`https://ticket-backend-bkkf.onrender.com/api/notifications/${id}/mark-as-read`, {
             method: 'PUT',
-            headers: { Authorization: `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
           });
           noti.classList.add("leida");
         } catch (err) {
@@ -92,7 +105,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!id) return;
 
         try {
-          await fetch(`http://localhost:8080/api/notifications/${id}`, {
+          await fetch(`https://ticket-backend-bkkf.onrender.com/api/notifications/${id}`, {
             method: 'DELETE',
             headers: { Authorization: `Bearer ${token}` }
           });
@@ -104,52 +117,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     document.querySelectorAll(".noti-btn.responder").forEach(btn => {
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", async () => {
         const noti = btn.closest(".notificacion");
         const id = noti?.dataset?.id;
-        if (!id || noti.querySelector(".respuesta-form")) return;
+        if (!id) return;
 
-        const form = document.createElement("div");
-        form.className = "respuesta-form mt-2";
-        form.innerHTML = `
-          <input type="text" class="form-control form-control-sm mb-1" placeholder="Responder...">
-          <button class="btn btn-sm btn-primary btn-block">Enviar</button>
-        `;
-        noti.appendChild(form);
+        try {
+          const res = await fetch(`https://ticket-backend-bkkf.onrender.com/api/notifications/${id}/mark-as-read`, {
+            method: 'PUT',
+            headers: { Authorization: `Bearer ${token}` }
+          });
 
-        const input = form.querySelector("input");
-        const btnEnviar = form.querySelector("button");
-
-        btnEnviar.addEventListener("click", async () => {
-          const mensaje = input.value.trim();
-          if (!mensaje) return alert("Escribe algo.");
-
-          try {
-            await fetch(`http://localhost:8080/api/notifications/responder`, {
-              method: 'POST',
-              headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ notificacionId: id, mensaje })
-            });
-
-            const p = document.createElement("p");
-            p.className = "text-muted small mt-2 font-italic";
-            p.textContent = `Tú: ${mensaje}`;
-            noti.appendChild(p);
-            form.remove();
-          } catch (err) {
-            console.error("Error al responder:", err);
+          if (res.ok) {
+            noti.classList.add("leida");
+          } else {
+            console.error("No se pudo marcar la notificación como leída");
           }
-        });
+        } catch (err) {
+          console.error("Error al marcar como leída:", err);
+        }
       });
     });
   }
 
   document.querySelector(".btn-marcar-todo")?.addEventListener("click", async () => {
     try {
-      await fetch(`http://localhost:8080/api/notifications/${userId}/mark-all-as-read`, {
+      await fetch(`https://ticket-backend-bkkf.onrender.com/api/notifications/${userId}/mark-all-as-read`, {
         method: 'PUT',
         headers: { Authorization: `Bearer ${token}` }
       });

@@ -286,3 +286,7 @@ body {
 .navbar-nav {
   z-index: 1000; /* Para que el menú de usuario y las notificaciones no tapen el botón */
 }
+
+.mt-noti {
+  margin-top: 22px; /* Podés probar con 5px, 10px, 15px, etc. */
+}
