@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // ✅ Cargar solo las notificaciones correspondientes al tipo de rol
+  // ✅ Cargar notificaciones
   async function cargarNotificaciones() {
     try {
       const res = await fetch(`https://ticket-backend-bkkf.onrender.com/api/notifications/user/${userId}`, {
@@ -37,7 +37,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       const notificaciones = await res.json();
       contenedor.innerHTML = "";
 
-      // ✅ Filtrar notificaciones según el rol
       const notificacionesFiltradas = notificaciones.filter(noti => {
         if (rol === "USER") return noti.receiverType === "USER";
         if (rol === "ADMIN") return noti.receiverType === "ADMIN";
@@ -71,12 +70,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
 
       activarAcciones();
+
+      // ✅ Aquí se programan los recordatorios automáticos
+      programarRecordatorios(notificacionesFiltradas);
+
     } catch (err) {
       console.error("Error:", err);
       contenedor.innerHTML = `<div class="alert alert-danger">No se pudieron cargar las notificaciones.</div>`;
     }
   }
 
+  // Resto de funciones (activarAcciones, programarRecordatorios, etc.) NO cambian
   function activarAcciones() {
     document.querySelectorAll(".noti-btn.leido").forEach(btn => {
       btn.addEventListener("click", async () => {
@@ -147,17 +151,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     notificaciones.forEach(noti => {
-      // Supongamos que las notificaciones con tipo "REMINDER" o un campo específico
-      // deben disparar una notificación automática.
       const esRecordatorio = noti?.type === "REMINDER" || noti?.isReminder;
-      const eventoTime = new Date(noti?.scheduledAt || noti?.createdAt); // Usa fecha programada si existe
+      const eventoTime = new Date(noti?.scheduledAt || noti?.createdAt);
 
       if (!esRecordatorio || !eventoTime) return;
 
       const ahora = new Date();
       const msRestantes = eventoTime - ahora;
 
-      if (msRestantes > 0 && msRestantes < 86400000) { // solo si es dentro de las próximas 24h
+      if (msRestantes > 0 && msRestantes < 86400000) {
         setTimeout(() => {
           if (Notification.permission === "granted") {
             new Notification("📌 Recordatorio de Evento", {
@@ -170,7 +172,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
   }
-
 
   document.querySelector(".btn-marcar-todo")?.addEventListener("click", async () => {
     try {
@@ -185,5 +186,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  cargarNotificaciones(programarRecordatorios(notificacionesFiltradas));
+  // ✅ Llama a la función sin parámetros
+  cargarNotificaciones();
 });
