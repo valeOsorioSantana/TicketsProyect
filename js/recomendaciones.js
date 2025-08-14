@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("recommendedEvents");
 
-  const userId = localStorage.getItem("userId"); // Asegúrate de que esté guardado como string
+  const userId = localStorage.userId; // Asegúrate de que esté guardado
 
   if (!userId) {
     container.innerHTML = `<p>⚠️ Debes iniciar sesión para ver recomendaciones.</p>`;
@@ -28,9 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      data
-        .filter(ev => ev.status === "PUBLICADO") // Opcional: filtrar eventos activos
-        .forEach(evento => renderizarCard(evento, container));
+      data.forEach(evento => renderizarCard(evento, container));
     })
     .catch(error => {
       container.innerHTML = `<p class="error">⚠️ Error cargando recomendaciones: ${error.message}</p>`;
