@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // ✅ Cargar notificaciones
   async function cargarNotificaciones() {
     try {
       const res = await fetch(`https://ticket-backend-bkkf.onrender.com/api/notifications/user/${userId}`, {
@@ -70,8 +69,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
 
       activarAcciones();
-
-      // ✅ Aquí se programan los recordatorios automáticos
       programarRecordatorios(notificacionesFiltradas);
 
     } catch (err) {
@@ -185,6 +182,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // Llamamos a la función sin parámetros
+  // Llamada principal
   cargarNotificaciones();
 });
