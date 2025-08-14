@@ -14,12 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
     .then(response => {
-      if (!response.ok) {
-        throw new Error("Error al obtener recomendaciones");
-      }
+      if (!response.ok) throw new Error("Error al obtener recomendaciones");
       return response.json();
     })
-    .then(async data => {
+    .then(data => {
       container.innerHTML = "";
 
       if (data.length === 0) {
@@ -27,8 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Aquí usamos Promise.all para esperar a todas las cards renderizadas
-      await Promise.all(data.map(evento => renderizarCard(evento, container)));
+      data.forEach(evento => renderizarCard(evento, container));
     })
     .catch(error => {
       container.innerHTML = `<p class="error">⚠️ Error cargando recomendaciones: ${error.message}</p>`;
@@ -36,21 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Función para obtener URL presignada de imagen
-async function obtenerUrlPresignada(imagenId) {
-  try {
-    const res = await fetch(`https://ticket-backend-bkkf.onrender.com/api/images/${imagenId}/presigned-url`);
-    if (!res.ok) throw new Error('No se pudo obtener URL presignada');
-    const data = await res.json();
-    return data.url; // Ajusta esto según la estructura que devuelva el backend
-  } catch (error) {
-    console.warn('Error obteniendo URL presignada:', error);
-    return null;
-  }
-}
-
-// Ahora renderizarCard es async para esperar URL presignada
-async function renderizarCard(evento, contenedor) {
+function renderizarCard(evento, contenedor) {
   const card = document.createElement("div");
   card.className = "event-card";
 
@@ -66,20 +49,15 @@ async function renderizarCard(evento, contenedor) {
     ? `$${parseFloat(evento.ticketPrice).toFixed(2)}`
     : `<span class="text-muted">No asignado</span>`;
 
-  let imagenUrl = 'https://source.unsplash.com/400x200/?event';
-
-  // Si tiene imágenes, pedimos la URL presignada de la primera
-  if (evento.imagenes && evento.imagenes.length > 0) {
-    const primeraImagen = evento.imagenes[0];
-    const urlPresignada = await obtenerUrlPresignada(primeraImagen.id);
-    if (urlPresignada) {
-      imagenUrl = urlPresignada;
-    }
-  }
+  // === ✅ Imagen como en cargarEventos() ===
+  let imagenEvento = evento.imagenes?.find(img =>
+    img.url && img.url.includes("/imagenes/") && !img.url.includes("Error")
+  );
+  const imagenUrl = imagenEvento?.url || 'https://source.unsplash.com/400x200/?event';
 
   card.innerHTML = `
     <img src="${imagenUrl}" 
-         alt="Imagen de ${evento.name}" 
+         alt="${evento.name}" 
          class="event-image" loading="lazy" />
 
     <div class="event-content">
