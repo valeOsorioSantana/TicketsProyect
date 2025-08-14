@@ -51,13 +51,20 @@ function renderizarCard(evento, contenedor) {
     ? `$${parseFloat(evento.ticketPrice).toFixed(2)}`
     : `<span class="text-muted">No asignado</span>`;
 
-  // Buscar imagen similar a tu ejemplo:
+  // Debug: Ver imágenes en consola
+  console.log(`Evento ${evento.id} - imágenes:`, evento.imagenes);
+
+  const baseURL = "https://ticket-backend-bkkf.onrender.com";
+
   const imagenEvento = evento.imagenes?.find(img =>
-    img.url && img.url.includes("/imagenes/") && !img.url.includes("Error")
+    img.url && !img.url.includes("Error")
   );
-  
-  // Si no hay imagen válida, usar imagen por defecto:
-  const imagenUrl = imagenEvento?.url || 'https://source.unsplash.com/400x200/?event';
+
+  const imagenUrl = imagenEvento?.url
+    ? (imagenEvento.url.startsWith('http')
+        ? imagenEvento.url
+        : baseURL + imagenEvento.url)
+    : 'https://source.unsplash.com/400x200/?event';
 
   card.innerHTML = `
     <img src="${imagenUrl}" 
