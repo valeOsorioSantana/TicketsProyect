@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     navigator.geolocation.getCurrentPosition(async (position) => {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
-      const radius = 10000; // en metros
+      const radius = 5000; // en metros
 
       try {
         const res = await fetch(`https://ticket-backend-bkkf.onrender.com/api/public/events/nearby?lat=${lat}&lon=${lon}&radius=${radius}`);
