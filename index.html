@@ -146,6 +146,13 @@
           <p>Explora los eventos disponibles y encuentra el que más te guste.</p>
         </header>
 
+        <form id="locationFilterForm" class="form-inline mb-3">
+          <input type="text" id="locationInput" class="form-control mr-2" placeholder="Ciudad, Estado o País"
+            aria-label="Filtrar por ubicación" required />
+          <button type="submit" class="btn btn-primary">Filtrar</button>
+          <button type="button" id="clearFilterBtn" class="btn btn-secondary ml-2">Limpiar</button>
+        </form>
+
         <!-- Contenedor de eventos -->
         <main class="event-container" id="eventContainer">
           <!-- Skeletons de carga -->
