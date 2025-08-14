@@ -64,8 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
 
   <div class="actions">
-    <button class="register-btn">Registrar asistencia</button>
-    <button class="btn-calificar">Calificar evento</button>
+    <button onclick="comprarBoleta(${evento.id})" class="register-btn">Registrar asistencia</button>
+    <button onclick="calificarEvento(${evento.id})" class="btn-calificar">Calificar evento</button>
   </div>
 
   <div class="share-container">
@@ -87,6 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
 
 `;
+
 
       // === Favoritos: lógica de backend ===
       function agregarFavoritoBackend(eventId) {
