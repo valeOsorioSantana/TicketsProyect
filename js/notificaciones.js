@@ -87,7 +87,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         try {
           await fetch(`https://ticket-backend-bkkf.onrender.com/api/notifications/${id}/mark-as-read`, {
             method: 'PUT',
-            headers: { Authorization: `Bearer ${token}`,
+            headers: {
+              Authorization: `Bearer ${token}`,
               'Content-Type': 'application/json'
             }
           });
@@ -140,6 +141,37 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
+  function programarRecordatorios(notificaciones) {
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission();
+    }
+
+    notificaciones.forEach(noti => {
+      // Supongamos que las notificaciones con tipo "REMINDER" o un campo específico
+      // deben disparar una notificación automática.
+      const esRecordatorio = noti?.type === "REMINDER" || noti?.isReminder;
+      const eventoTime = new Date(noti?.scheduledAt || noti?.createdAt); // Usa fecha programada si existe
+
+      if (!esRecordatorio || !eventoTime) return;
+
+      const ahora = new Date();
+      const msRestantes = eventoTime - ahora;
+
+      if (msRestantes > 0 && msRestantes < 86400000) { // solo si es dentro de las próximas 24h
+        setTimeout(() => {
+          if (Notification.permission === "granted") {
+            new Notification("📌 Recordatorio de Evento", {
+              body: noti.messageContent || "Tienes un evento programado.",
+            });
+          } else {
+            alert("Recordatorio: " + (noti.messageContent || "Tienes un evento."));
+          }
+        }, msRestantes);
+      }
+    });
+  }
+
+
   document.querySelector(".btn-marcar-todo")?.addEventListener("click", async () => {
     try {
       await fetch(`https://ticket-backend-bkkf.onrender.com/api/notifications/${userId}/mark-all-as-read`, {
@@ -153,5 +185,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  cargarNotificaciones();
+  cargarNotificaciones(programarRecordatorios(notificacionesFiltradas));
 });
