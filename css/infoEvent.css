@@ -364,9 +364,12 @@ body {
 }
 
 .actions {
+  width: 100%;
   display: flex;
-  justify-content: center; /* <-- Cambiado de flex-start a center */
+  justify-content: center;
+  align-items: center;
   gap: 12px;
   margin-top: 1rem;
-  flex-wrap: wrap; /* Opcional: por si se enciman en pantallas pequeñas */
+  flex-wrap: wrap;
+  text-align: center;
 }
