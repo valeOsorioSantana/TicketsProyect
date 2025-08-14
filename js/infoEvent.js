@@ -64,8 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
 
   <div class="actions">
-    <button onclick="comprarBoleta(${evento.id})" class="register-btn">Registrar asistencia</button>
-    <button onclick="calificarEvento(${evento.id})" class="btn-calificar">Calificar evento</button>
+    <button class="register-btn">Registrar asistencia</button>
+    <button class="btn-calificar">Calificar evento</button>
   </div>
 
   <div class="share-container">
@@ -88,6 +88,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 `;
 
+      // Agregar eventos después de renderizar el HTML
+      document.querySelector(".register-btn")?.addEventListener("click", () => {
+        window.location.href = `registroEvento.html?id=${evento.id}`;
+      });
+
+      document.querySelector(".btn-calificar")?.addEventListener("click", () => {
+        window.location.href = `encuesta.html?eventId=${evento.id}`;
+      });
 
       // === Favoritos: lógica de backend ===
       function agregarFavoritoBackend(eventId) {
