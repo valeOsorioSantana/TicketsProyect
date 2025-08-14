@@ -354,14 +354,13 @@ body {
   border-radius: 8px;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(40, 167, 69, 0.4);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
   margin-left: 12px;
-  user-select: none;
+  transition: background 0.3s ease;
 }
 
 .btn-calificar:hover {
   background: linear-gradient(45deg, #218838, #1e7e34);
-  box-shadow: 0 6px 14px rgba(33, 136, 52, 0.6);
+  box-shadow: 0 6px 15px rgba(33, 136, 56, 0.6);
 }
 
 .actions {

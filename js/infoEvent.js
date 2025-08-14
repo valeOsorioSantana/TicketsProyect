@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   <div class="actions">
   <button onclick="comprarBoleta(${evento.id})" class="register-btn">Registrar asistencia</button>
-  <button onclick="calificarEvento(${evento.id})" class="btn-calificar">Calificar evento</button>
+<button onclick="calificarEvento(${evento.id})" class="btn-calificar">Calificar evento</button>
 </div>
 
   <div class="share-container">
