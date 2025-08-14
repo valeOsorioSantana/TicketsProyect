@@ -34,7 +34,6 @@ function logout() {
 function actualizarEmailDelUsuario() {
   document.getElementById('txt-name-usuario').outerHTML = localStorage.nombre;
 }
-
 function verMisTickets() {
   const token = localStorage.token;
   if (!token) {
@@ -48,39 +47,90 @@ function verMisTickets() {
 
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("eventContainer");
+  const categorySelect = document.getElementById("categorySelect");
+  let allEvents = [];
 
-  fetch('https://ticket-backend-bkkf.onrender.com/api/public/events/', {
-    method: 'GET',
-    headers: { "Accept": "application/json" }
-  })
-    .then(res => res.json())
-    .then(data => {
-      // Limpia skeletons
-      container.innerHTML = "";
+  async function cargarEventos() {
+    container.innerHTML = "<p>Cargando eventos...</p>";
+    try {
+      const res = await fetch('https://ticket-backend-bkkf.onrender.com/api/public/events/', {
+        method: 'GET',
+        headers: { "Accept": "application/json" }
+      });
 
-      // Filtra y renderiza solo eventos "PUBLICADO"
-      data
-        .filter(ev => ev.status === "PUBLICADO")
-        .forEach(evento => renderizarCard(evento, container));
-    })
-    .catch(error => {
+      if (!res.ok) throw new Error("Error al cargar eventos");
+
+      const data = await res.json();
+
+      allEvents = data.filter(ev => ev.status === "PUBLICADO");
+
+      llenarCategorias(allEvents);
+      renderizarEventos(allEvents);
+    } catch (error) {
       container.innerHTML = `<p class="error">⚠️ Error cargando eventos</p>`;
       console.error("Error cargando eventos:", error);
+    }
+  }
+
+  function llenarCategorias(eventos) {
+    const categorias = [
+      ...new Set(
+        eventos
+          .map(ev => ev.category || ev.categoria)
+          .filter(Boolean)
+      )
+    ];
+
+    categorySelect.innerHTML = '<option value="">Todas</option>';
+    categorias.forEach(cat => {
+      const option = document.createElement("option");
+      option.value = cat;
+      option.textContent = cat;
+      categorySelect.appendChild(option);
     });
+  }
+
+  function renderizarEventos(eventos) {
+    container.innerHTML = "";
+
+    if (eventos.length === 0) {
+      container.innerHTML = "<p>No se encontraron eventos para esta categoría.</p>";
+      return;
+    }
+
+    eventos.forEach(evento => renderizarCard(evento, container));
+  }
+
+  categorySelect.addEventListener("change", () => {
+    const categoriaSeleccionada = categorySelect.value;
+    if (!categoriaSeleccionada) {
+      renderizarEventos(allEvents);
+    } else {
+      const filtrados = allEvents.filter(ev =>
+        (ev.category || ev.categoria) === categoriaSeleccionada
+      );
+      renderizarEventos(filtrados);
+    }
+  });
+
+  cargarEventos();
 });
 
 function renderizarCard(evento, contenedor) {
   const card = document.createElement("div");
   card.className = "event-card";
 
-  const fecha = evento.startDate ? new Date(evento.startDate).toLocaleDateString() : "Sin fecha";
+  const fecha = evento.startDate
+    ? new Date(evento.startDate).toLocaleDateString()
+    : "Sin fecha";
   const precio = evento.ticketPrice != null
     ? `$${parseFloat(evento.ticketPrice).toFixed(2)}`
     : `<span class="text-muted">No asignado</span>`;
 
-  // Buscar la imagen principal del evento
-  let imagenEvento = evento.imagenes?.find(img => img.url && img.url.includes("/imagenes/") && !img.url.includes("Error"));
-  const imagenUrl = imagenEvento?.url || 'https://source.unsplash.com/400x200/?event'; // Imagen por defecto si no hay una imagen válida
+  let imagenEvento = evento.imagenes?.find(img =>
+    img.url && img.url.includes("/imagenes/") && !img.url.includes("Error")
+  );
+  const imagenUrl = imagenEvento?.url || 'https://source.unsplash.com/400x200/?event';
 
   card.innerHTML = `
     <img src="${imagenUrl}" 
