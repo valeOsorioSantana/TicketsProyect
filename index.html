@@ -141,15 +141,15 @@
             </ul>
         </nav>
 
-        <header class="header">
-          <h1>🎉 Eventos Disponibles</h1>
-          <p>Explora los eventos disponibles y encuentra el que más te guste.</p>
+        <header class="header" style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <h1>🎉 Eventos Disponibles</h1>
+            <p>Explora los eventos disponibles y encuentra el que más te guste.</p>
+          </div>
 
-          <!-- Filtro por categoría -->
-          <div class="filter-category" style="padding: 1rem;">
+          <div class="filter-category" style="max-width: 300px;">
             <label for="categorySelect"><strong>Filtrar por categoría:</strong></label>
-            <select id="categorySelect" class="form-control"
-              style="max-width: 300px; display: inline-block; margin-left: 10px;">
+            <select id="categorySelect" class="form-control" style="margin-left: 10px;">
               <option value="">Todas</option>
               <option value="Música">🎵 Música</option>
               <option value="Tecnología">💻 Tecnología</option>
