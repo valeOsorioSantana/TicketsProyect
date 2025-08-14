@@ -80,7 +80,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Resto de funciones (activarAcciones, programarRecordatorios, etc.) NO cambian
   function activarAcciones() {
     document.querySelectorAll(".noti-btn.leido").forEach(btn => {
       btn.addEventListener("click", async () => {
@@ -186,6 +185,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // ✅ Llama a la función sin parámetros
+  // Llamamos a la función sin parámetros
   cargarNotificaciones();
 });
