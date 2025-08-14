@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("recommendedEvents");
-
-  const userId = localStorage.userId; // Asegúrate de que esté guardado
+  const userId = localStorage.userId;
 
   if (!userId) {
     container.innerHTML = `<p>⚠️ Debes iniciar sesión para ver recomendaciones.</p>`;
@@ -48,13 +47,17 @@ function renderizarCard(evento, contenedor) {
     ? `$${parseFloat(evento.ticketPrice).toFixed(2)}`
     : `<span class="text-muted">No asignado</span>`;
 
+  // Buscar imagen válida como en el otro código
   const imagenEvento = evento.imagenes?.find(
     img => img.url && img.url.includes("/imagenes/") && !img.url.includes("Error")
   );
   const imagenUrl = imagenEvento?.url || "https://source.unsplash.com/400x200/?event";
 
   card.innerHTML = `
-    <img src="${imagenUrl}" alt="${evento.name}" class="event-image" loading="lazy" />
+    <img src="${imagenUrl}" 
+         alt="${evento.name}" 
+         class="event-image" loading="lazy" />
+
     <div class="event-content">
       <h3 class="event-title">${evento.name}</h3>
       <p class="event-date"><i class="lni lni-calendar"></i> ${fecha}</p>
