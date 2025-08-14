@@ -61,33 +61,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!res.ok) throw new Error("Error al cargar eventos");
 
       const data = await res.json();
-
       allEvents = data.filter(ev => ev.status === "PUBLICADO");
 
-      llenarCategorias(allEvents);
       renderizarEventos(allEvents);
     } catch (error) {
       container.innerHTML = `<p class="error">⚠️ Error cargando eventos</p>`;
       console.error("Error cargando eventos:", error);
     }
-  }
-
-  function llenarCategorias(eventos) {
-    const categorias = [
-      ...new Set(
-        eventos
-          .map(ev => ev.category || ev.categoria)
-          .filter(Boolean)
-      )
-    ];
-
-    categorySelect.innerHTML = '<option value="">Todas</option>';
-    categorias.forEach(cat => {
-      const option = document.createElement("option");
-      option.value = cat;
-      option.textContent = cat;
-      categorySelect.appendChild(option);
-    });
   }
 
   function renderizarEventos(eventos) {
@@ -107,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
       renderizarEventos(allEvents);
     } else {
       const filtrados = allEvents.filter(ev =>
-        (ev.category || ev.categoria) === categoriaSeleccionada
+        (ev.category || ev.categoria || "").toLowerCase() === categoriaSeleccionada.toLowerCase()
       );
       renderizarEventos(filtrados);
     }
