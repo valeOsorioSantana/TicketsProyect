@@ -345,7 +345,7 @@ body {
 
 /* Botón calificar evento estilo "bonito" similar a otros */
 .btn-calificar {
-  background: linear-gradient(45deg, #28a745, #218838); /* verde degradado */
+  background: linear-gradient(45deg, #28a745, #218838);
   color: white;
   border: none;
   padding: 0.6rem 1.4rem;
