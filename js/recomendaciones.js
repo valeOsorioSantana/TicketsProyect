@@ -40,22 +40,28 @@ function renderizarCard(evento, contenedor) {
   card.className = "event-card";
 
   const fecha = evento.startDate
-    ? new Date(evento.startDate).toLocaleDateString()
+    ? new Date(evento.startDate).toLocaleDateString('es-CO', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+      })
     : "Sin fecha";
 
   const precio = evento.ticketPrice != null
     ? `$${parseFloat(evento.ticketPrice).toFixed(2)}`
     : `<span class="text-muted">No asignado</span>`;
 
-  // Buscar imagen válida como en el otro código
-  const imagenEvento = evento.imagenes?.find(
-    img => img.url && img.url.includes("/imagenes/") && !img.url.includes("Error")
+  // Buscar imagen similar a tu ejemplo:
+  const imagenEvento = evento.imagenes?.find(img =>
+    img.url && img.url.includes("/imagenes/") && !img.url.includes("Error")
   );
-  const imagenUrl = imagenEvento?.url || "https://source.unsplash.com/400x200/?event";
+  
+  // Si no hay imagen válida, usar imagen por defecto:
+  const imagenUrl = imagenEvento?.url || 'https://source.unsplash.com/400x200/?event';
 
   card.innerHTML = `
     <img src="${imagenUrl}" 
-         alt="${evento.name}" 
+         alt="Imagen de ${evento.name}" 
          class="event-image" loading="lazy" />
 
     <div class="event-content">
