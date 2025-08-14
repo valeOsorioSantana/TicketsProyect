@@ -365,7 +365,8 @@ body {
 
 .actions {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center; /* <-- Cambiado de flex-start a center */
   gap: 12px;
   margin-top: 1rem;
+  flex-wrap: wrap; /* Opcional: por si se enciman en pantallas pequeñas */
 }
