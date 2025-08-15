@@ -1,11 +1,3 @@
-// Call the dataTables jQuery plugin
-$(document).ready(function () {
-
-  $('#usuarios').DataTable();
-  checkAuthentication();
-  actualizarEmailDelUsuario();
-
-});
 
 function checkAuthentication() {
   const token = localStorage.token;
@@ -31,6 +23,8 @@ function actualizarEmailDelUsuario() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  checkAuthentication();
+  
   const params = new URLSearchParams(window.location.search);
   const eventId = params.get("id");
 
